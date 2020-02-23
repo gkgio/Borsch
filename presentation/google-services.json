@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "141933821186",
+    "firebase_url": "https://borsch-d33ba.firebaseio.com",
+    "project_id": "borsch-d33ba",
+    "storage_bucket": "borsch-d33ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141933821186:android:6badbd90eb4511ff5c161b",
+        "android_client_info": {
+          "package_name": "com.gkgio.borsch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141933821186-981d4hegvqhear2fsd9j8ff3paemetlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt50QyKFOht7QUIXCR8W6W18zDWIas-DM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141933821186-981d4hegvqhear2fsd9j8ff3paemetlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

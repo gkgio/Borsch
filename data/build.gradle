@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.androidCompileSdk
+    buildToolsVersion versions.androidBuildTools
+
+    defaultConfig {
+        minSdkVersion versions.androidMinSdk
+        targetSdkVersion versions.androidTargetSdk
+        versionCode versions.androidVersionCode
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    //jdk
+    implementation deps.stdlib.jdk
+
+    //ktx
+    implementation deps.ktx
+
+    //rx
+    api deps.rxAndroid
+
+    //preferences
+    api deps.preferences
+
+    //firebase analytics
+    api deps.firebaseAnalitics
+
+    //room
+    kapt deps.room.compiler
+    api deps.room.runtime
+    api deps.room.rxJava2
+
+    //retrofit
+    api deps.retrofit.retrofit
+    api deps.retrofit.converterMoshi
+    api deps.retrofit.adapterRxJava
+
+    //dagger
+    kapt deps.dagger.compiler
+    kapt deps.dagger.androidProcessor
+    api deps.dagger.dagger
+    api deps.dagger.android
+    api deps.dagger.androidSupport
+
+    //okhttp
+    api deps.okhttp
+
+    //timber
+    implementation deps.timber
+
+    //moshi
+    api deps.moshi.moshi
+    api deps.moshi.moshiKotlin
+    kapt deps.moshi.moshiCodegen
+
+    //test
+    testImplementation deps.junit
+    testImplementation deps.assertj
+    testImplementation deps.mockito
+}

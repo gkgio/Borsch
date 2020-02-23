@@ -1,0 +1,18 @@
+apply plugin: 'kotlin'
+
+dependencies {
+
+    //ktx
+    implementation deps.ktx
+
+    //dagger
+    implementation deps.dagger.dagger
+
+    //rx
+    implementation deps.rxJava
+
+    //test
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.runner
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+
+    <issue id="UnusedAttribute" severity="informational" />
+    <issue id="Overdraw" severity="informational" />
+    <issue id="RtlEnabled" severity="informational" />
+    <issue id="IconMissingDensityFolder" severity="informational" />
+    <issue id="ObsoleteLintCustomCheck" severity="informational" />
+    <issue id="UseCompoundDrawables" severity="informational" />
+    <issue id="VectorPath" severity="informational" />
+    <issue id="InvalidVectorPath" severity="informational" />
+    <issue id="SmallSp" severity="informational" />
+    <issue id="IconDensities" severity="informational" />
+    <issue id="UnusedResources" severity="informational" />
+
+</lint>

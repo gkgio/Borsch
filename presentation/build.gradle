@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions {
+    experimental = true
+}
+
+android {
+    lintOptions {
+        lintConfig file("$projectDir/lint.xml")
+        warningsAsErrors true
+    }
+
+    compileSdkVersion versions.androidCompileSdk
+    buildToolsVersion versions.androidBuildTools
+
+    defaultConfig {
+        minSdkVersion versions.androidMinSdk
+        targetSdkVersion versions.androidTargetSdk
+
+        applicationId versions.androidApplicationId
+        versionCode versions.androidVersionCode
+        versionName versions.androidVersionName
+        testInstrumentationRunner versions.testInstrumentationRunner
+        testApplicationId versions.testApplicationId
+
+        multiDexEnabled = true
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+   /* signingConfigs {
+        release {
+            storeFile file("borsch.jks")
+            storePassword '21091995gio'
+            keyAlias 'borsch-app'
+            keyPassword '21091995gio'
+        }
+    }*/
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            //signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':data')
+
+    //jdk
+    implementation deps.stdlib.jdk
+
+    // Support Libraries
+    implementation deps.appcompat
+    implementation deps.cardview
+    implementation deps.material
+    implementation deps.lifecycle
+
+    //multidex
+    implementation deps.multidex
+
+    //dagger
+    kapt deps.dagger.compiler
+    kapt deps.dagger.androidProcessor
+
+    //rx
+    implementation deps.rxAndroid
+
+    //ktx
+    implementation deps.ktx
+    implementation deps.ktxActivity
+
+    //glide
+    implementation deps.glide
+
+    //jodaTime
+    implementation deps.jodaTime
+
+    //timber
+    implementation deps.timber
+
+    //moshi
+    kapt deps.moshi.moshiCodegen
+
+    //drawableToolbox
+    implementation deps.drawableToolbox
+
+    //room
+    kapt deps.room.compiler
+
+    //circleLayoutManager
+    implementation deps.circleLayoutManager
+
+    //cloud messaging
+    implementation deps.cloudMessaging
+
+    //crashlytics
+    implementation deps.crashlytics
+
+    //test
+    androidTestImplementation deps.mockito
+    androidTestImplementation deps.espresso
+    androidTestImplementation deps.testingSupportLib
+}
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

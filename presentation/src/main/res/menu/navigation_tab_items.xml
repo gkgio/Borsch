@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_empty1"
+        android:icon="@drawable/ic_tab_dream_book"
+        android:title="@string/tab_name_empty1" />
+
+    <item
+        android:id="@+id/tab_empty2"
+        android:icon="@drawable/ic_tab_horoscope"
+        android:title="@string/tab_name_emty2" />
+
+    <item
+        android:id="@+id/tab_settings"
+        android:icon="@drawable/ic_tab_settings"
+        android:title="@string/tab_name_settings" />
+</menu>

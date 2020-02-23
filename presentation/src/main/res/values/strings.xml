@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Гороскопиус</string>
+
+    <string name="settings_fragment_title">Настройки</string>
+
+    <string name="tab_name_empty1">Empty1</string>
+    <string name="tab_name_emty2">Empty1</string>
+    <string name="tab_name_settings">Настройки</string>
+
+    <string name="theme_dark">Тёмная тема</string>
+    <string name="theme_light">Светаля тема</string>
+    <string name="theme_system">Системная тема</string>
+
+    <string name="default_search_hint">Введите текст для поиска</string>
+
+    <string name="settings_about_us_title">О нас</string>
+
+    <string name="about_us_text">Привет! Мы - команда приложения гороскопиус. В этом приложении ты каждый день можешь найти гороскопы для всех знаков зодиака, а также узнать, что значит сон и узнать, ждет ли тебя успех в финансах и любви!</string>
+
+    <string-array name="months_s">
+        <item>января</item>
+        <item>февраля</item>
+        <item>марта</item>
+        <item>апреля</item>
+        <item>мая</item>
+        <item>июня</item>
+        <item>июля</item>
+        <item>августа</item>
+        <item>сентября</item>
+        <item>октября</item>
+        <item>ноября</item>
+        <item>декабря</item>
+    </string-array>
+</resources>
