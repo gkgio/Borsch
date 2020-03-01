@@ -1,5 +1,7 @@
 package com.gkgio.borsch.di
 
+import com.gkgio.borsch.base.BaseScreensNavigator
+import com.gkgio.borsch.navigation.BaseScreensNavigatorImpl
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -9,6 +11,12 @@ import javax.inject.Singleton
 
 @Module
 class NavigationModule {
+
+    @Provides
+    @Singleton
+    fun provideNavigationScreens(router: Router): BaseScreensNavigator {
+        return BaseScreensNavigatorImpl(router)
+    }
 
     @Provides
     @Singleton

@@ -42,4 +42,11 @@ object Screens {
     class ValidatePhoneFragmentScreen(private val phone: String) : SupportAppScreen() {
         override fun getFragment() = ValidatePhoneFragment.newInstance(phone)
     }
+
+    class MarketScreen(
+        private val packageName: String
+    ) : SupportAppScreen() {
+        override fun getActivityIntent(context: Context?) =
+            IntentUtils.createMarketIntent(packageName)
+    }
 }

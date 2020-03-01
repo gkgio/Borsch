@@ -1,5 +1,6 @@
 package com.gkgio.borsch.main
 
+import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.domain.theme.ThemeRepository
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.navigation.Screens
@@ -11,8 +12,9 @@ import javax.inject.Inject
 class LaunchViewModel @Inject constructor(
     private val router: Router,
     private val themeRepository: ThemeRepository,
-    private val onboardingVersionControllerUseCase: OnboardingVersionControllerUseCase
-) : BaseViewModel() {
+    private val onboardingVersionControllerUseCase: OnboardingVersionControllerUseCase,
+    baseScreensNavigator: BaseScreensNavigator
+) : BaseViewModel(baseScreensNavigator) {
 
     fun onNewStart() {
         if (onboardingVersionControllerUseCase.isSavedVersionActual()) {

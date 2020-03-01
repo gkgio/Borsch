@@ -1,5 +1,6 @@
 package com.gkgio.borsch.onboarding
 
+import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.navigation.Screens
@@ -10,8 +11,9 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(
     private val router: Router,
     private val analyticsRepository: AnalyticsRepository,
-    private val onboardingUseCase: OnboardingVersionControllerUseCase
-) : BaseViewModel() {
+    private val onboardingUseCase: OnboardingVersionControllerUseCase,
+    baseScreensNavigator: BaseScreensNavigator
+) : BaseViewModel(baseScreensNavigator) {
 
     fun onGoToSecondPageClicked() {
         onboardingUseCase.saveActualVersion()

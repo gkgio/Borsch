@@ -113,9 +113,6 @@ dependencies {
     //phoneMask
     implementation deps.phoneMask
 
-    //crashlytics
-    implementation deps.crashlytics
-
     //test
     androidTestImplementation deps.mockito
     androidTestImplementation deps.espresso

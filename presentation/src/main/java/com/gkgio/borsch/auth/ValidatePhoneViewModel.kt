@@ -3,6 +3,7 @@ package com.gkgio.borsch.auth
 import android.os.CountDownTimer
 import android.os.SystemClock
 import androidx.lifecycle.MutableLiveData
+import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
@@ -16,8 +17,9 @@ import javax.inject.Inject
 
 class ValidatePhoneViewModel @Inject constructor(
     private val router: Router,
-    private val authUseCase: AuthUseCase
-) : BaseViewModel() {
+    private val authUseCase: AuthUseCase,
+    baseScreensNavigator: BaseScreensNavigator
+) : BaseViewModel(baseScreensNavigator) {
 
     val state = MutableLiveData<State>()
     val countDownSmsTimer = MutableLiveData<Long>()
@@ -53,11 +55,13 @@ class ValidatePhoneViewModel @Inject constructor(
                 .validateSmsCode(it, smsCode)
                 .applySchedulers()
                 .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
-                .subscribe({
+                .subscribe({ response ->
                     state.value = state.nonNullValue.copy(isProgress = false)
+                    authUseCase.saveAuthToken(response.token)
                     router.backTo(Screens.MainFragmentScreen)
-                }, {
+                }, { throwable ->
                     state.value = state.nonNullValue.copy(isProgress = false)
+                    processThrowable(throwable)
                 }).addDisposable()
 
         }

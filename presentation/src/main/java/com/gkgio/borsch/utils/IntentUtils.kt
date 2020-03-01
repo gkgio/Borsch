@@ -16,4 +16,7 @@ object IntentUtils {
         data = Uri.parse("mailto:$email")
         putExtra(Intent.EXTRA_EMAIL, email)
     }
+
+    fun createMarketIntent(appPackageName: String) =
+        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
 }

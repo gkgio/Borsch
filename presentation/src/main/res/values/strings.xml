@@ -52,4 +52,15 @@
         <item>ноября</item>
         <item>декабря</item>
     </string-array>
+
+    <string name="title_redirect">Перейти в\nмагазин приложений</string>
+    <string name="no_internet">Нет интернет-соединения</string>
+    <string name="old_api_error">API устарело</string>
+    <string name="server_error">Проблемы на сервере. Скоро все исправим</string>
+    <string name="default_error">Что-то пошло не так. Попробуй еще раз</string>
+    <string name="api_not_connect_error">Google Play устарели</string>
+
+    <string name="error_empty_state">У нас что-то поломалось, кина не будет</string>
+    <string name="error_empty_update_page">Перезагрузить страницу</string>
+    <string name="error_state_search">По запросу «%1$s» ничего не нашлось</string>
 </resources>

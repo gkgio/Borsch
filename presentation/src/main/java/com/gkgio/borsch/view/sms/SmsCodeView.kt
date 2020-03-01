@@ -9,8 +9,6 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.gkgio.borsch.R
 import kotlinx.android.synthetic.main.view_sms_code.view.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.channels.ticker
 import kotlin.properties.Delegates
 
 
@@ -34,9 +32,6 @@ class SmsCodeView @JvmOverloads constructor(
             codeCompleteWatcher?.codeCompleteChanged(newValue)
         }
     )
-
-    @ObsoleteCoroutinesApi
-    private var tickerChannel = ticker(delayMillis = 1_000, initialDelayMillis = 0)
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_sms_code, this, true)

@@ -19,6 +19,7 @@ import com.gkgio.borsch.main.MainViewModel
 import com.gkgio.borsch.onboarding.OnboardingViewModel
 import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.profile.about.AboutUsViewModel
+import com.gkgio.domain.errorreporter.ErrorReporter
 import com.squareup.moshi.Moshi
 import dagger.Component
 import retrofit2.Retrofit
@@ -64,6 +65,8 @@ interface AppComponent {
     val analyticsRepository: AnalyticsRepository
     val authRepository: AuthRepository
     val themeRepository: ThemeRepository
+
+    val errorReporter: ErrorReporter
 
     //event
 

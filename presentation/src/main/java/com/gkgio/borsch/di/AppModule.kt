@@ -6,8 +6,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.gkgio.data.DeviceInterceptor
+import com.gkgio.data.errorreporter.ErrorReporterImpl
+import com.gkgio.domain.errorreporter.ErrorReporter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.Binds
 import dagger.Module
 import retrofit2.converter.moshi.MoshiConverterFactory
 import dagger.Provides
@@ -22,7 +25,7 @@ import javax.inject.Singleton
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509TrustManager
 
-@Module
+@Module(includes = [AppModule.BindsModule::class])
 class AppModule(private val app: Application) {
     private companion object {
         private const val HTTP_TIMEOUT = 30L
@@ -101,5 +104,11 @@ class AppModule(private val app: Application) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+    }
+
+    @Module
+    abstract inner class BindsModule {
+        @Binds
+        abstract fun bindErrorReporter(arg: ErrorReporterImpl): ErrorReporter
     }
 }

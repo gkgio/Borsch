@@ -33,7 +33,10 @@ class App : MultiDexApplication() {
     private fun initRxErrorHandler() {
         RxJavaPlugins.setErrorHandler {
             Timber.e(it, "Rx error")
-            // TODO логировать в релизе ошибки в ремоут
+            AppInjector.appComponent.errorReporter.log(it)
+            if (BuildConfig.DEBUG) {
+                throw it
+            }
         }
     }
 }

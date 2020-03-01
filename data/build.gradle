@@ -59,6 +59,9 @@ dependencies {
     api deps.moshi.moshiKotlin
     kapt deps.moshi.moshiCodegen
 
+    //crashlytics
+    implementation deps.crashlytics
+
     //test
     testImplementation deps.junit
     testImplementation deps.assertj
