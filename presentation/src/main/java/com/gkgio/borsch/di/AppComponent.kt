@@ -3,20 +3,22 @@ package com.gkgio.borsch.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.gkgio.borsch.auth.InputPhoneViewModel
+import com.gkgio.borsch.auth.ValidatePhoneViewModel
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.theme.ThemeRepository
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.base.bottomsheet.BaseBottomSheetDialog
-import com.gkgio.borsch.empty2.Empty2ViewModel
-import com.gkgio.borsch.emty1.Empty1ViewModel
+import com.gkgio.borsch.favorites.FavoritesViewModel
+import com.gkgio.borsch.cookers.CookersViewModel
 import com.gkgio.borsch.main.LaunchActivity
 import com.gkgio.borsch.main.LaunchViewModel
 import com.gkgio.borsch.main.MainViewModel
 import com.gkgio.borsch.onboarding.OnboardingViewModel
-import com.gkgio.borsch.settings.SettingsViewModel
-import com.gkgio.borsch.settings.about.AboutUsViewModel
+import com.gkgio.borsch.profile.SettingsViewModel
+import com.gkgio.borsch.profile.about.AboutUsViewModel
 import com.squareup.moshi.Moshi
 import dagger.Component
 import retrofit2.Retrofit
@@ -32,8 +34,8 @@ import javax.inject.Singleton
         AppModule::class,
         AuthModule::class,
         AnalyticsModule::class,
-        ThemeModule::class
-
+        ThemeModule::class,
+        OnboardingModule::class
     ]
 )
 interface AppComponent {
@@ -45,11 +47,13 @@ interface AppComponent {
 
     val launchViewModel: LaunchViewModel
     val mainViewModel: MainViewModel
-    val empty2ViewModel: Empty2ViewModel
-    val empty1ViewModel: Empty1ViewModel
+    val empty2ViewModel: FavoritesViewModel
+    val empty1ViewModel: CookersViewModel
     val settingsViewModel: SettingsViewModel
     val onboardingViewModel: OnboardingViewModel
     val aboutUsViewModel: AboutUsViewModel
+    val inputPhoneViewModel: InputPhoneViewModel
+    val validatePhoneViewModel: ValidatePhoneViewModel
 
     val context: Context
     val moshi: Moshi

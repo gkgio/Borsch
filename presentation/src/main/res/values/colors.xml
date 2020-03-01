@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#1b1b1d</color>
-    <color name="accent">#0CBABA</color>
+    <color name="accent">#ff5a5f</color>
     <color name="primary_dark">#000000</color>
 
-    <color name="toolbar">#19000000</color>
+    <color name="toolbar">#FFFFFF</color>
     <color name="search_hint_color">#a0a0a7</color>
     <color name="snack_bar">#4c000000</color>
     <color name="search_view_background">#14767680</color>
+
+    <color name="btn_color">#ff5a5f</color>
+    <color name="btn_color_40">#66ff5a5f</color>
+
+    <color name="grey_text">#a3aaae</color>
+    <color name="grey_btn">#DCDCDC</color>
 
     <color name="white">#FFFFFF</color>
     <color name="white_60">#99FFFFFF</color>
     <color name="white_100">#00FFFFFF</color>
 
+    <color name="black">#000000</color>
+    <color name="black_25">#40000000</color>
+    <color name="black_100">#FF000000</color>
 </resources>

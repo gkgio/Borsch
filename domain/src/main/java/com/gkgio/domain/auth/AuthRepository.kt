@@ -1,5 +1,6 @@
 package com.gkgio.domain.auth
 
 interface AuthRepository {
-    fun getAuthToken(timestamp: String): String?
+    fun getAuthToken(): String?
+    fun saveAuthToken(token: String)
 }

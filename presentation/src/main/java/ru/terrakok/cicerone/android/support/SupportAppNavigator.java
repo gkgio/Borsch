@@ -86,12 +86,14 @@ public class SupportAppNavigator implements Navigator {
 
     private void fragmentForwardTo(SwitchTo command) {
         BottomBarTabsSwitcher fragment = (BottomBarTabsSwitcher) fragmentManager.getFragments().get(0);
-        if (command.getId() == R.id.tab_empty1) {
-            fragment.switchToDreamBookTab();
-        } else if (command.getId() == R.id.tab_empty2) {
-            fragment.switchToHoroscopeTab();
-        } else if (command.getId() == R.id.tab_settings) {
-            fragment.switchToSettingsTab();
+        if (command.getId() == R.id.tab_cookers) {
+            fragment.switchToCookersTab();
+        } else if (command.getId() == R.id.tab_basket) {
+            fragment.switchToBasketTab();
+        } else if (command.getId() == R.id.tab_favorites) {
+            fragment.switchToFavoritesTab();
+        } else if (command.getId() == R.id.tab_profile) {
+            fragment.switchToProfileTab();
         } else {
             throw new RuntimeException("Can't navigate to this tab");
         }

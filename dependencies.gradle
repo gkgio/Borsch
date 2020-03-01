@@ -42,6 +42,7 @@ ext.versions = [
         drawableToolbox          : "1.0.7",
         cloudMessaging           : "20.1.0",
         crashlytics              : "17.0.0-beta01",
+        phoneMask                : "5.0.0",
 
         //Testing
         jUnit                    : '4.12',
@@ -53,7 +54,7 @@ ext.versions = [
 
         //plugins
         kotlin                   : '1.3.61',
-        android                  : '3.5.3',
+        android                  : '3.6.0',
         gms                      : '4.3.3',
         crashlyticsPlugin        : '2.0.0-beta02'
 ]
@@ -139,6 +140,8 @@ ext.deps = [
         cloudMessaging     : "com.google.firebase:firebase-messaging:${versions.cloudMessaging}",
 
         crashlytics        : "com.google.firebase:firebase-crashlytics:${versions.crashlytics}",
+
+        phoneMask          : "com.redmadrobot:input-mask-android:${versions.phoneMask}",
 
         junit              : "junit:junit:${versions.jUnit}",
         mockito            : "org.mockito:mockito-core:${versions.mockito}",

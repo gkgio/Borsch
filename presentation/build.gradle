@@ -110,6 +110,9 @@ dependencies {
     //cloud messaging
     implementation deps.cloudMessaging
 
+    //phoneMask
+    implementation deps.phoneMask
+
     //crashlytics
     implementation deps.crashlytics
 

@@ -97,7 +97,7 @@ class AppModule(private val app: Application) {
     ): Retrofit {
         return Retrofit.Builder()
             .client(client)
-            .baseUrl("https://horoscopes.rambler.ru/api/front/")
+            .baseUrl("https://cs-go.monster/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

@@ -12,9 +12,10 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
 
     private companion object {
         private const val PAGE_CACHE_SIZE = 4
-        private const val PAGE_DREAM_BOOK = 0
-        private const val PAGE_HOROSCOPE = 1
-        private const val PAGE_SETTINGS = 2
+        private const val PAGE_COOKERS = 0
+        private const val PAGE_BASKET = 1
+        private const val PAGE_FAVORITES = 2
+        private const val PAGE_PROFILE = 3
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main
@@ -32,15 +33,19 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
 
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.tab_empty1 -> {
+                R.id.tab_cookers -> {
                     mainViewPager.setCurrentItem(0, false)
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.tab_empty2 -> {
+                R.id.tab_basket -> {
+                    mainViewPager.setCurrentItem(0, false)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.tab_favorites -> {
                     mainViewPager.setCurrentItem(1, false)
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.tab_settings -> {
+                R.id.tab_profile -> {
                     mainViewPager.setCurrentItem(2, false)
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -50,24 +55,30 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
 
     }
 
-    override fun switchToDreamBookTab() {
-        bottomNavigation.selectedItemId = R.id.tab_empty1
-        mainViewPager.setCurrentItem(PAGE_DREAM_BOOK, false)
+    override fun switchToCookersTab() {
+        bottomNavigation.selectedItemId = R.id.tab_cookers
+        mainViewPager.setCurrentItem(PAGE_COOKERS, false)
     }
 
-    override fun switchToHoroscopeTab() {
-        bottomNavigation.selectedItemId = R.id.tab_empty2
-        mainViewPager.setCurrentItem(PAGE_HOROSCOPE, false)
+    override fun switchToBasketTab() {
+        bottomNavigation.selectedItemId = R.id.tab_basket
+        mainViewPager.setCurrentItem(PAGE_BASKET, false)
     }
 
-    override fun switchToSettingsTab() {
-        bottomNavigation.selectedItemId = R.id.tab_settings
-        mainViewPager.setCurrentItem(PAGE_SETTINGS, false)
+    override fun switchToFavoritesTab() {
+        bottomNavigation.selectedItemId = R.id.tab_favorites
+        mainViewPager.setCurrentItem(PAGE_FAVORITES, false)
+    }
+
+    override fun switchToProfileTab() {
+        bottomNavigation.selectedItemId = R.id.tab_profile
+        mainViewPager.setCurrentItem(PAGE_PROFILE, false)
     }
 }
 
 interface BottomBarTabsSwitcher {
-    fun switchToDreamBookTab()
-    fun switchToHoroscopeTab()
-    fun switchToSettingsTab()
+    fun switchToCookersTab()
+    fun switchToBasketTab()
+    fun switchToFavoritesTab()
+    fun switchToProfileTab()
 }

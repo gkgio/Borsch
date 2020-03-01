@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">Гороскопиус</string>
+    <string name="app_name">Borsch</string>
 
     <string name="settings_fragment_title">Настройки</string>
 
-    <string name="tab_name_empty1">Empty1</string>
-    <string name="tab_name_emty2">Empty1</string>
-    <string name="tab_name_settings">Настройки</string>
+    <string name="tab_name_cookers">Повара</string>
+    <string name="tab_name_basket">Корзина</string>
+    <string name="tab_name_favorites">Избранные</string>
+    <string name="tab_name_profile">Профиль</string>
 
     <string name="theme_dark">Тёмная тема</string>
     <string name="theme_light">Светаля тема</string>
@@ -15,7 +16,27 @@
 
     <string name="settings_about_us_title">О нас</string>
 
-    <string name="about_us_text">Привет! Мы - команда приложения гороскопиус. В этом приложении ты каждый день можешь найти гороскопы для всех знаков зодиака, а также узнать, что значит сон и узнать, ждет ли тебя успех в финансах и любви!</string>
+    <string name="about_us_text">Hi</string>
+
+    <string name="onboarding_title_1">Только проверенные повара</string>
+    <string name="onboarding_title_2">Блюда «по-домашнему»</string>
+    <string name="onboarding_title_3">Без переплат</string>
+
+    <string name="onboarding_label_1">Все повары верифицированы\nи готовят с соблюдением гигиены</string>
+    <string name="onboarding_label_2">Любимые блюда от поваров в вашем доме</string>
+    <string name="onboarding_label_3">Большая экономия на\nвремени готовки и цене\nконечного блюда</string>
+
+    <string name="dots_separator">%d / %d</string>
+
+    <string name="auth_btn_send_code">Выслать код</string>
+    <string name="auth_input_phone_title">Введите номер</string>
+    <string name="auth_input_phone_sub_title">Чтобы создать аккаунт</string>
+    <string name="auth_input_phone_hint">Номер телефона</string>
+    <string name="auth_validate_phone_title">Подтверждение номера</string>
+    <string name="auth_send_again_sms_title">Повторная отправка через</string>
+    <string name="auth_sms_code_hint">СМС код</string>
+    <string name="auth_sms_code_validate_description">Введите код, который\nмы отправили вам на телефон</string>
+    <string name="auth_send_sms_again_btn">Отправить еще раз</string>
 
     <string-array name="months_s">
         <item>января</item>

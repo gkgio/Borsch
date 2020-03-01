@@ -2,17 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/tab_empty1"
-        android:icon="@drawable/ic_tab_dream_book"
-        android:title="@string/tab_name_empty1" />
+        android:id="@+id/tab_cookers"
+        android:icon="@drawable/ic_tab_cookers"
+        android:title="@string/tab_name_cookers" />
 
     <item
-        android:id="@+id/tab_empty2"
-        android:icon="@drawable/ic_tab_horoscope"
-        android:title="@string/tab_name_emty2" />
+        android:id="@+id/tab_basket"
+        android:icon="@drawable/ic_tab_basket"
+        android:title="@string/tab_name_basket" />
 
     <item
-        android:id="@+id/tab_settings"
-        android:icon="@drawable/ic_tab_settings"
-        android:title="@string/tab_name_settings" />
+        android:id="@+id/tab_favorites"
+        android:icon="@drawable/ic_tab_favorites"
+        android:title="@string/tab_name_favorites" />
+
+    <item
+        android:id="@+id/tab_profile"
+        android:icon="@drawable/ic_tab_profile"
+        android:title="@string/tab_name_profile" />
 </menu>
