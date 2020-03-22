@@ -10,7 +10,7 @@ import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 
 
-class BasketFragment : BaseFragment<CookersViewModel>() {
+class BasketFragment : BaseFragment<BasketViewModel>() {
 
     companion object {
         val TAG = CookersFragment::class.java.simpleName
@@ -19,7 +19,7 @@ class BasketFragment : BaseFragment<CookersViewModel>() {
     override fun getLayoutId(): Int = R.layout.fragment_basket
 
     override fun provideViewModel() = createViewModel {
-        AppInjector.appComponent.empty1ViewModel
+        AppInjector.appComponent.basketViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

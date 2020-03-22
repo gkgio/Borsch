@@ -3,4 +3,5 @@
     <dimen name="toolbar_height">56dp</dimen>
 
     <dimen name="dots_indicator_dot_margin">4dp</dimen>
+
 </resources>

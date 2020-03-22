@@ -52,7 +52,7 @@ dependencies {
     api deps.okhttp
 
     //timber
-    implementation deps.timber
+    api deps.timber
 
     //moshi
     api deps.moshi.moshi
@@ -61,6 +61,9 @@ dependencies {
 
     //crashlytics
     implementation deps.crashlytics
+
+    //locations
+    api deps.playServices.location
 
     //test
     testImplementation deps.junit

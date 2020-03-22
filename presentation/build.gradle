@@ -36,14 +36,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-   /* signingConfigs {
-        release {
-            storeFile file("borsch.jks")
-            storePassword '21091995gio'
-            keyAlias 'borsch-app'
-            keyPassword '21091995gio'
-        }
-    }*/
+    /* signingConfigs {
+         release {
+             storeFile file("borsch.jks")
+             storePassword '21091995gio'
+             keyAlias 'borsch-app'
+             keyPassword '21091995gio'
+         }
+     }*/
 
     buildTypes {
         release {
@@ -92,9 +92,6 @@ dependencies {
     //jodaTime
     implementation deps.jodaTime
 
-    //timber
-    implementation deps.timber
-
     //moshi
     kapt deps.moshi.moshiCodegen
 
@@ -112,6 +109,13 @@ dependencies {
 
     //phoneMask
     implementation deps.phoneMask
+
+    //maps and location
+    implementation deps.playServices.maps
+    implementation deps.playServices.mapUtils
+
+    //permissions
+    implementation deps.rxPermissions
 
     //test
     androidTestImplementation deps.mockito

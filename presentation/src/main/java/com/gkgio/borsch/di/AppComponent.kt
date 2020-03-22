@@ -11,8 +11,10 @@ import com.gkgio.domain.theme.ThemeRepository
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.base.bottomsheet.BaseBottomSheetDialog
+import com.gkgio.borsch.basket.BasketViewModel
 import com.gkgio.borsch.favorites.FavoritesViewModel
 import com.gkgio.borsch.cookers.CookersViewModel
+import com.gkgio.borsch.location.LocationViewModel
 import com.gkgio.borsch.main.LaunchActivity
 import com.gkgio.borsch.main.LaunchViewModel
 import com.gkgio.borsch.main.MainViewModel
@@ -36,7 +38,9 @@ import javax.inject.Singleton
         AuthModule::class,
         AnalyticsModule::class,
         ThemeModule::class,
-        OnboardingModule::class
+        OnboardingModule::class,
+        CookersModule::class,
+        LocationModule::class
     ]
 )
 interface AppComponent {
@@ -49,12 +53,14 @@ interface AppComponent {
     val launchViewModel: LaunchViewModel
     val mainViewModel: MainViewModel
     val empty2ViewModel: FavoritesViewModel
-    val empty1ViewModel: CookersViewModel
+    val cookersViewModel: CookersViewModel
     val settingsViewModel: SettingsViewModel
     val onboardingViewModel: OnboardingViewModel
     val aboutUsViewModel: AboutUsViewModel
     val inputPhoneViewModel: InputPhoneViewModel
     val validatePhoneViewModel: ValidatePhoneViewModel
+    val basketViewModel: BasketViewModel
+    val locationViewModel: LocationViewModel
 
     val context: Context
     val moshi: Moshi

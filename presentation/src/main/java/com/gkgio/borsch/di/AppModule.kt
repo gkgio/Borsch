@@ -100,7 +100,7 @@ class AppModule(private val app: Application) {
     ): Retrofit {
         return Retrofit.Builder()
             .client(client)
-            .baseUrl("https://cs-go.monster/")
+            .baseUrl("https://cs-go.monster/api/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

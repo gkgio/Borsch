@@ -14,10 +14,10 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         val TAG = CookersFragment::class.java.simpleName
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_favorites
+    override fun getLayoutId(): Int = R.layout.fragment_cookers
 
     override fun provideViewModel() = createViewModel {
-        AppInjector.appComponent.empty1ViewModel
+        AppInjector.appComponent.cookersViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

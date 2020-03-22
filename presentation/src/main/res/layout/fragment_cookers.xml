@@ -9,5 +9,51 @@
     android:fitsSystemWindows="true"
     android:focusable="true">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_round_gradient">
+
+            <TextView
+                android:id="@+id/addressClientTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingStart="20dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="Address 32" />
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.gkgio.borsch.view.ScrollOverrideRecyclerView
+            android:id="@+id/cookersRv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/filtersRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

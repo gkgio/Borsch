@@ -32,10 +32,10 @@ class AuthServiceImpl @Inject constructor(
 
 
     interface AuthServiceApi {
-        @POST("api/auth/client")
+        @POST("auth/client")
         fun getSmsCodeByPhone(@Body getSmsCodeRequest: GetSmsCodeRequest): Single<GetSmsCodeResponse>
 
-        @POST("api/auth/client/code")
+        @POST("auth/client/code")
         fun validateSmsCode(
             @Header("authorization") token: String,
             @Body validateSmsCodeRequest: ValidateSmsCodeRequest

@@ -38,15 +38,15 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.tab_basket -> {
-                    mainViewPager.setCurrentItem(0, false)
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.tab_favorites -> {
                     mainViewPager.setCurrentItem(1, false)
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.tab_profile -> {
+                R.id.tab_favorites -> {
                     mainViewPager.setCurrentItem(2, false)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.tab_profile -> {
+                    mainViewPager.setCurrentItem(3, false)
                     return@setOnNavigationItemSelectedListener true
                 }
             }

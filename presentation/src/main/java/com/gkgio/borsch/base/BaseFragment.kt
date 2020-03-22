@@ -12,11 +12,12 @@ import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.utils.DialogUtils
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     protected lateinit var viewModel: VM
-    protected var compositeDisposable = CompositeDisposable()
+    protected val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        compositeDisposable.dispose()
+        disposables.clear()
     }
 
     private fun subscribeErrorEvents() {
@@ -97,6 +98,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
                 }
             }
         )
+    }
+
+    protected fun Disposable.addDisposable() {
+        disposables.add(this)
     }
 
     open fun onBackClick() {
