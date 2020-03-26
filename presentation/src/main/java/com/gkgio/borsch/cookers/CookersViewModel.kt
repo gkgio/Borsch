@@ -6,6 +6,7 @@ import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.navigation.Screens
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.cookers.Cooker
 import com.gkgio.domain.cookers.CookersRequest
@@ -37,6 +38,10 @@ class CookersViewModel @Inject constructor(
                 }).addDisposable()
 
         }
+    }
+
+    fun onCurrentAddressContainerClick() {
+        router.navigateTo(Screens.LocationFragmentScreen)
     }
 
     data class State(

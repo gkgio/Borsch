@@ -1,14 +1,28 @@
 package com.gkgio.data.address
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class GeoSuggestionDataResponse(
-    val city: String,
-    val city_area: String,
-    val city_district: String,
-    val city_type_full: String,
-    val country: String,
-    val flat: String,
-    val geo_lat: String,
-    val geo_lon: String,
-    val house: String,
-    val region: String
+    @Json(name = "city")
+    val city: String?,
+    @Json(name = "city_area")
+    val cityArea: String?,
+    @Json(name = "city_district")
+    val cityDistrict: String?,
+    @Json(name = "city_type_full")
+    val cityTypeFull: String?,
+    @Json(name = "country")
+    val country: String?,
+    @Json(name = "flat")
+    val flat: String?,
+    @Json(name = "geo_lat")
+    val geoLat: String,
+    @Json(name = "geo_lon")
+    val geoLon: String,
+    @Json(name = "house")
+    val house: String?,
+    @Json(name = "region")
+    val region: String?
 )

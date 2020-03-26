@@ -6,6 +6,7 @@ import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
+import kotlinx.android.synthetic.main.fragment_cookers.*
 
 
 class CookersFragment : BaseFragment<CookersViewModel>() {
@@ -23,5 +24,8 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        addressContainer.setDebounceOnClickListener {
+            viewModel.onCurrentAddressContainerClick()
+        }
     }
 }

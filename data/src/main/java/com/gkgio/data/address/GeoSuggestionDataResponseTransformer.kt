@@ -10,13 +10,13 @@ class GeoSuggestionDataResponseTransformer @Inject constructor() :
     override fun transform(data: GeoSuggestionDataResponse) = with(data) {
         GeoSuggestionData(
             city,
-            city_area,
-            city_district,
-            city_type_full,
+            cityArea,
+            cityDistrict,
+            cityTypeFull,
             country,
             flat,
-            geo_lat,
-            geo_lon,
+            geoLat,
+            geoLon,
             house,
             region
         )

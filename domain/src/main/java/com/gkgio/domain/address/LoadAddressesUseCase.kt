@@ -4,17 +4,17 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 interface LoadAddressesUseCase {
-    fun loadGetSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList>
+    fun loadGeoSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList>
     fun addNewClientAddress(addressesAddingRequest: AddressAddingRequest): Single<Address>
-    fun getLastKnownAddress(): Single<Address>
+    fun getSavedAddresses(): Single<List<Address>>
 }
 
 class LoadAddressesUseCaseImpl @Inject constructor(
     private val addressesService: AddressesService,
     private val addressesRepository: AddressesRepository
 ) : LoadAddressesUseCase {
-    override fun loadGetSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList> =
-        addressesService.loadGetSuggestions(geoSuggestionsRequest)
+    override fun loadGeoSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList> =
+        addressesService.loadGeoSuggestions(geoSuggestionsRequest)
 
     override fun addNewClientAddress(addressesAddingRequest: AddressAddingRequest): Single<Address> =
         addressesService.addSelectedAddress(addressesAddingRequest)
@@ -23,6 +23,6 @@ class LoadAddressesUseCaseImpl @Inject constructor(
                 Single.fromCallable { it }
             }
 
-    override fun getLastKnownAddress(): Single<Address> =
-        addressesRepository.getLastKnownAddress()
+    override fun getSavedAddresses(): Single<List<Address>> =
+        addressesRepository.getSavedAddresses()
 }

@@ -18,7 +18,7 @@ class AddressesServiceImpl @Inject constructor(
     private val addressResponseTransformer: AddressResponseTransformer
 ) : AddressesService {
 
-    override fun loadGetSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList> =
+    override fun loadGeoSuggestions(geoSuggestionsRequest: GeoSuggestionsRequest): Single<GeoSuggestionsList> =
         addressServiceApi.getGeoSuggestions(
             geoSuggestionsDataRequestTransformer.transform(
                 geoSuggestionsRequest

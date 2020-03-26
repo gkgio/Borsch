@@ -1,8 +1,10 @@
 package com.gkgio.borsch.navigation
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.gkgio.borsch.auth.InputPhoneFragment
 import com.gkgio.borsch.auth.ValidatePhoneFragment
+import com.gkgio.borsch.location.LocationFragment
 import com.gkgio.borsch.main.MainFragment
 import com.gkgio.borsch.onboarding.OnboardingFragment
 import com.gkgio.borsch.profile.SettingsFragment
@@ -41,6 +43,10 @@ object Screens {
 
     class ValidatePhoneFragmentScreen(private val phone: String) : SupportAppScreen() {
         override fun getFragment() = ValidatePhoneFragment.newInstance(phone)
+    }
+
+    object LocationFragmentScreen : SupportAppScreen() {
+        override fun getFragment() = LocationFragment()
     }
 
     class MarketScreen(

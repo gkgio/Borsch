@@ -16,12 +16,104 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ProgressBar
-        android:id="@+id/progress"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/leftIconContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/leftIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/currentAddressTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <FrameLayout
+            android:id="@+id/locationChangeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_white_80"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map_change_address_btn"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="64dp"
-        android:visibility="gone" />
+        app:srcCompat="@drawable/ic_map_pin"
+        tools:ignore="ContentDescription" />
+
+
+    <FrameLayout
+        android:id="@+id/gpsBtnContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/bg_white_80"
+        android:padding="4dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_gps"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp"
+        android:text="@string/map_confirm_btn"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/accent"
+        app:cornerRadius="8dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

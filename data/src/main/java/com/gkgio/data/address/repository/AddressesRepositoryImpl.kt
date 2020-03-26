@@ -7,6 +7,7 @@ import com.gkgio.domain.address.Address
 import com.gkgio.domain.address.AddressAddingRequest
 import com.gkgio.domain.address.AddressesRepository
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -22,23 +23,39 @@ class AddressesRepositoryImpl @Inject constructor(
         const val KEY_LAST_KNOWN_ADDRESS = "lastKnownAddress"
     }
 
-    override fun getLastKnownAddress(): Single<Address> =
+    override fun getSavedAddresses(): Single<List<Address>> =
         Single.fromCallable {
-            val addressJsonString = prefs.getString(KEY_LAST_KNOWN_ADDRESS, null)
-            val addressObject =
-                moshi.adapter(AddressAddingDataRequest::class.java).fromJson(addressJsonString!!)
-            addressRepositoryDataResponseTransformer.transform(addressObject!!)
+            getListAddresses()?.map { addressRepositoryDataResponseTransformer.transform(it) }
         }
 
     override fun saveLastKnownAddress(addressAddingRequest: AddressAddingRequest): Completable =
         Completable.fromCallable {
+            var addressesList = getListAddresses()
+            if (addressesList != null) {
+                addressesList.toMutableList()
+                    .add(addressAddingDataRequestTransformer.transform(addressAddingRequest))
+            } else {
+                addressesList = mutableListOf()
+                addressesList.add(addressAddingDataRequestTransformer.transform(addressAddingRequest))
+            }
+            val type =
+                Types.newParameterizedType(List::class.java, AddressAddingDataRequest::class.java)
             prefs.edit()
                 .putString(
                     KEY_LAST_KNOWN_ADDRESS,
-                    moshi.adapter(AddressAddingDataRequest::class.java)
-                        .toJson(addressAddingDataRequestTransformer.transform(addressAddingRequest))
+                    moshi.adapter<List<AddressAddingDataRequest>>(type)
+                        .toJson(addressesList)
                 ).apply()
         }
 
+    private fun getListAddresses(): List<AddressAddingDataRequest>? {
+        val addressJsonString = prefs.getString(KEY_LAST_KNOWN_ADDRESS, null)
+        val type =
+            Types.newParameterizedType(List::class.java, AddressAddingDataRequest::class.java)
+        addressJsonString?.let {
+            moshi.adapter<List<AddressAddingDataRequest>>(type).fromJson(addressJsonString)
+        }
+        return null
+    }
 
 }

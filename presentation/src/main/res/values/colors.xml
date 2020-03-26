@@ -18,10 +18,18 @@
     <color name="grey_btn">#DCDCDC</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="white_2">#05ffffff</color>
+    <color name="white_4">#0affffff</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
     <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
     <color name="white_100">#00FFFFFF</color>
 
     <color name="black">#000000</color>
+    <color name="black_4">#0a000000</color>
     <color name="black_25">#40000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_90">#E6000000</color>
     <color name="black_100">#FF000000</color>
 </resources>

@@ -126,7 +126,7 @@ public class SupportAppNavigator implements Navigator {
         );
 
         fragmentTransaction
-                .add(containerId, fragment)
+                .replace(containerId, fragment)
                 .addToBackStack(screen.getScreenKey())
                 .commit();
         localStackCopy.add(screen.getScreenKey());

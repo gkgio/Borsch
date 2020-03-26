@@ -38,6 +38,10 @@
     <string name="auth_sms_code_validate_description">Введите код, который\nмы отправили вам на телефон</string>
     <string name="auth_send_sms_again_btn">Отправить еще раз</string>
 
+    <string name="map_change_address_btn">Изменить адрес доставки</string>
+    <string name="map_confirm_btn">Я здесь</string>
+    <string name="map_confirm_not_found_btn">Указать адрес</string>
+
     <string-array name="months_s">
         <item>января</item>
         <item>февраля</item>

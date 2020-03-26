@@ -11,7 +11,8 @@ class GeoSuggestionsDataRequestTransformer @Inject constructor() :
         GeoSuggestionsDataRequest(
             lat,
             lon,
-            query
+            query,
+            count
         )
     }
 }

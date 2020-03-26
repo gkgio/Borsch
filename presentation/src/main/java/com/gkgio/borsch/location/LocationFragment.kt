@@ -5,46 +5,68 @@ import android.view.View
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
-import com.gkgio.borsch.ext.createViewModel
-import com.gkgio.borsch.ext.requestLocationPermission
-import com.gkgio.borsch.profile.about.AboutUsViewModel
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapsInitializer
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import kotlinx.android.synthetic.main.fragment_about_us.*
+import com.gkgio.borsch.ext.*
+import com.google.android.gms.maps.*
+import kotlinx.android.synthetic.main.fragment_location.*
 
 class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
 
     companion object {
-        const val DEFAULT_MAP_ZOOM = 13.0f
+        const val DEFAULT_MAP_ZOOM = 18.0f
     }
 
     private var googleMap: GoogleMap? = null
 
-    override fun getLayoutId(): Int = R.layout.fragment_about_us
+    override fun getLayoutId(): Int = R.layout.fragment_location
 
     override fun provideViewModel() = createViewModel {
         AppInjector.appComponent.locationViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        checkLocationPermission()
-
         (childFragmentManager.findFragmentById(R.id.mapFullScreen) as SupportMapFragment)
             .getMapAsync(this)
+
+        viewModel.checkLocationPermission.observeValue(this) {
+            checkLocationPermission()
+        }
+
+        viewModel.moveCameraToPosition.observeValue(this) {
+            googleMap?.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    it,
+                    DEFAULT_MAP_ZOOM
+                )
+            )
+        }
+
+        viewModel.state.observeValue(this) { state ->
+            currentAddressTv.text = state.geoSuggestionData?.value
+
+            btnConfirm.text =
+                if (state.geoSuggestionData == null) getString(R.string.map_confirm_not_found_btn)
+                else getString(R.string.map_confirm_btn)
+        }
+
+        gpsBtnContainer.setDebounceOnClickListener {
+            checkLocationPermission()
+        }
+
+        leftIconContainer.setDebounceOnClickListener {
+            viewModel.onBackClick()
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) = with(googleMap) {
         MapsInitializer.initialize(requireContext())
 
-        setOnMapClickListener {
-
-        }
-
         setOnMapLoadedCallback { viewModel.onMapLoaded() }
         mapType = GoogleMap.MAP_TYPE_NORMAL
         isBuildingsEnabled = false
+
+        setOnCameraMoveListener {
+            viewModel.onMapPositionChanged(cameraPosition.target, cameraPosition.zoom)
+        }
 
         uiSettings.apply {
             isMyLocationButtonEnabled = false
