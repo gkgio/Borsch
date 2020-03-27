@@ -11,6 +11,7 @@ import javax.inject.Inject
 interface LoadLocationUseCase {
     fun getLocationOrThrow(): Single<Coordinates>
     fun getLocationIfPossible(): Maybe<Coordinates>
+    fun startUpdateLocationListener(): Single<Coordinates>
 }
 
 class LoadLocationUseCaseImpl @Inject constructor(
@@ -23,5 +24,9 @@ class LoadLocationUseCaseImpl @Inject constructor(
 
     override fun getLocationIfPossible(): Maybe<Coordinates> {
         return locationRepository.getLastKnownLocationIfPossible()
+    }
+
+    override fun startUpdateLocationListener(): Single<Coordinates> {
+        return locationRepository.startUpdateLocationListener()
     }
 }

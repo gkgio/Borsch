@@ -2,10 +2,12 @@ package com.gkgio.borsch.location
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
+import com.gkgio.borsch.utils.GpsUtils
 import com.google.android.gms.maps.*
 import kotlinx.android.synthetic.main.fragment_location.*
 
@@ -41,15 +43,46 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
         }
 
         viewModel.state.observeValue(this) { state ->
-            currentAddressTv.text = state.geoSuggestionData?.value
+            progressCircle.isVisible = state.isProgressCircle
 
-            btnConfirm.text =
-                if (state.geoSuggestionData == null) getString(R.string.map_confirm_not_found_btn)
-                else getString(R.string.map_confirm_btn)
+            currentAddressTv.text = if (state.isProgress) getString(R.string.map_search_progress)
+            else state.geoSuggestionData?.value
+
+            if (state.geoSuggestionData == null) {
+                btnConfirm.text = getString(R.string.map_confirm_not_found_btn)
+                btnConfirm.setDebounceOnClickListener {
+                    viewModel.onChangeAddressClick()
+                }
+            } else {
+                btnConfirm.text = getString(R.string.map_confirm_btn)
+                btnConfirm.setDebounceOnClickListener {
+                    viewModel.onConfirmAddressClick()
+                }
+            }
+        }
+
+        viewModel.openGpsGrantedDialog.observeValue(this) {
+            GpsUtils(requireContext()).turnGPSOn(object : GpsUtils.OnGpsListener {
+                override fun gpsStatus(isGPSEnable: Boolean) {
+                    if (isGPSEnable) {
+                        viewModel.onGpsGranted()
+                    } else {
+                        viewModel.onGpsNotGranted()
+                    }
+                }
+
+                override fun gpsSettingError() {
+                    viewModel.onGpsNotGranted()
+                }
+            })
         }
 
         gpsBtnContainer.setDebounceOnClickListener {
             checkLocationPermission()
+        }
+
+        locationChangeContainer.setDebounceOnClickListener {
+            viewModel.onChangeAddressClick()
         }
 
         leftIconContainer.setDebounceOnClickListener {

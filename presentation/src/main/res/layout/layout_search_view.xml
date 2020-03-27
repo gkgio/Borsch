@@ -49,7 +49,7 @@
             android:imeOptions="actionSearch"
             android:importantForAutofill="no"
             android:inputType="textCapSentences"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="@color/search_hint_color"
             android:textSize="14sp" />
 

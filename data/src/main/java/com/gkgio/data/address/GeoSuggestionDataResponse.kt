@@ -18,11 +18,13 @@ data class GeoSuggestionDataResponse(
     @Json(name = "flat")
     val flat: String?,
     @Json(name = "geo_lat")
-    val geoLat: String,
+    val geoLat: String?,
     @Json(name = "geo_lon")
-    val geoLon: String,
+    val geoLon: String?,
     @Json(name = "house")
     val house: String?,
     @Json(name = "region")
-    val region: String?
+    val region: String?,
+    @Json(name = "street_with_type")
+    val streetWithType: String?
 )

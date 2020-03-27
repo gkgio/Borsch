@@ -14,7 +14,7 @@ class AddressAddingDataRequestTransformer @Inject constructor(
             country,
             flat,
             house,
-            coordinatesRequestTransformer.transform(location),
+            location?.let { coordinatesRequestTransformer.transform(it) },
             street
         )
     }

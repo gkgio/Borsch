@@ -76,6 +76,8 @@ class SearchView @JvmOverloads constructor(
         get() = input.text.toString()
         set(value) {
             input.setText(value)
+            input.setSelection(value.length)
+            input.requestFocus()
         }
 
     init {

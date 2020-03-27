@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.gkgio.borsch.auth.InputPhoneFragment
 import com.gkgio.borsch.auth.ValidatePhoneFragment
+import com.gkgio.borsch.location.FindAddressFragment
 import com.gkgio.borsch.location.LocationFragment
 import com.gkgio.borsch.main.MainFragment
 import com.gkgio.borsch.onboarding.OnboardingFragment
@@ -47,6 +48,10 @@ object Screens {
 
     object LocationFragmentScreen : SupportAppScreen() {
         override fun getFragment() = LocationFragment()
+    }
+
+    object FindAddressFragmentScreen : SupportAppScreen() {
+        override fun getFragment() = FindAddressFragment()
     }
 
     class MarketScreen(

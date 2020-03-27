@@ -41,6 +41,7 @@
     <string name="map_change_address_btn">Изменить адрес доставки</string>
     <string name="map_confirm_btn">Я здесь</string>
     <string name="map_confirm_not_found_btn">Указать адрес</string>
+    <string name="map_search_progress">Ищем…</string>
 
     <string-array name="months_s">
         <item>января</item>
@@ -67,4 +68,5 @@
     <string name="error_empty_state">У нас что-то поломалось, кина не будет</string>
     <string name="error_empty_update_page">Перезагрузить страницу</string>
     <string name="error_state_search">По запросу «%1$s» ничего не нашлось</string>
+    <string name="address_search_hint">Поиск</string>
 </resources>

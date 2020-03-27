@@ -12,6 +12,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:fitsSystemWindows="true">
 
         <com.gkgio.borsch.view.SearchView
@@ -21,7 +22,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Поиск" />
+            android:hint="@string/address_search_hint"
+            app:leftIcon="@drawable/ic_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,4 +33,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

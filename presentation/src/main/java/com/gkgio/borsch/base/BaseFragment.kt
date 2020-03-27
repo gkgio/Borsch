@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -33,7 +34,12 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(getLayoutId(), container, false)
+        val view = inflater.inflate(getLayoutId(), container, false)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            onBackClick()
+        }
+        return view
     }
 
     protected fun showDialog(dialog: DialogFragment, tag: String) {
@@ -42,6 +48,12 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
 
         dialog.show(childFragmentManager, tag)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        subscribeErrorEvents()
     }
 
     @LayoutRes

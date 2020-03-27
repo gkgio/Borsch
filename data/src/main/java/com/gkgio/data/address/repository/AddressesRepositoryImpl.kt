@@ -53,7 +53,7 @@ class AddressesRepositoryImpl @Inject constructor(
         val type =
             Types.newParameterizedType(List::class.java, AddressAddingDataRequest::class.java)
         addressJsonString?.let {
-            moshi.adapter<List<AddressAddingDataRequest>>(type).fromJson(addressJsonString)
+            return moshi.adapter<List<AddressAddingDataRequest>>(type).fromJson(addressJsonString)
         }
         return null
     }

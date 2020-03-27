@@ -7,6 +7,7 @@ import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.domain.address.*
 import com.gkgio.domain.location.Coordinates
@@ -14,6 +15,7 @@ import com.gkgio.domain.location.LoadLocationUseCase
 import com.google.android.gms.maps.model.LatLng
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
@@ -23,10 +25,15 @@ class LocationViewModel @Inject constructor(
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
+    companion object {
+        private const val LOCATION_CHECKING_TIMEOUT = 3500L
+    }
+
     val state = MutableLiveData<State>()
     val checkLocationPermission = SingleLiveEvent<Unit>()
     val moveCameraToPosition = SingleLiveEvent<LatLng>()
     var lastRequestLocation: Location? = null
+    val openGpsGrantedDialog = SingleLiveEvent<Unit>()
 
     init {
         if (state.isNonInitialized()) {
@@ -39,12 +46,14 @@ class LocationViewModel @Inject constructor(
             .getSavedAddresses()
             .applySchedulers()
             .subscribe({
-                val latLng = LatLng(
-                    it[0].location.latitude,
-                    it[0].location.longitude
-                )
-                moveCameraToPosition.value = latLng
-                onMapPositionChanged(latLng)
+                if (it[0].location?.latitude != null && it[0].location?.longitude != null) {
+                    val latLng = LatLng(
+                        it[0].location!!.latitude,
+                        it[0].location!!.longitude
+                    )
+                    moveCameraToPosition.value = latLng
+                    onMapPositionChanged(latLng)
+                }
             }, {
                 checkLocationPermission.call()
             }).addDisposable()
@@ -59,9 +68,9 @@ class LocationViewModel @Inject constructor(
         if (lastRequestLocation != null) {
             val metersCheck =
                 when {
-                    zoom < 5 -> 5000f
-                    zoom >= 5 && zoom < 8 -> 500f
-                    zoom >= 8 && zoom < 11 -> 100f
+                    zoom < 5 -> 10000f
+                    zoom >= 5 && zoom < 8 -> 1000f
+                    zoom >= 8 && zoom < 11 -> 200f
                     zoom >= 11 && zoom < 13 -> 50f
                     zoom >= 13 && zoom < 16 -> 20f
                     else -> 10f
@@ -83,15 +92,49 @@ class LocationViewModel @Inject constructor(
                     )
                 )
                 .applySchedulers()
+                .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
                 .subscribe({
                     state.value =
                         state.nonNullValue.copy(
                             isProgress = false,
                             geoSuggestionData = if (it.suggestions.isNotEmpty()) it.suggestions[0] else null
                         )
-                }, {
-                    Timber.d(it)
+                }, { throwable ->
+                    state.value = state.nonNullValue.copy(isProgress = false)
+                    processThrowable(throwable)
                 }).addDisposable()
+        }
+    }
+
+    fun onConfirmAddressClick() {
+        state.nonNullValue.geoSuggestionData?.data?.let {
+            if (it.geo_lat != null && it.geo_lon != null) {
+                loadAddressesUseCase
+                    .addNewClientAddress(
+                        AddressAddingRequest(
+                            it.city,
+                            it.country,
+                            "2",//TODO delete after beck create task
+                            it.house,
+                            Coordinates(
+                                it.geo_lat!!.toDouble(),
+                                it.geo_lon!!.toDouble()
+                            ),
+                            it.streetWithType
+                        )
+                    )
+                    .applySchedulers()
+                    .doOnSubscribe {
+                        state.value = state.nonNullValue.copy(isProgressCircle = true)
+                    }
+                    .subscribe({
+                        state.value = state.nonNullValue.copy(isProgressCircle = false)
+                        router.exit()
+                    }, { throwable ->
+                        state.value = state.nonNullValue.copy(isProgressCircle = false)
+                        processThrowable(throwable)
+                    }).addDisposable()
+            }
         }
     }
 
@@ -114,15 +157,49 @@ class LocationViewModel @Inject constructor(
                 onMapPositionChanged(latLng)
             }, {
                 Timber.e(it, "Error get coordinates")
+                openGpsGrantedDialog.call()
             }).addDisposable()
     }
 
     private fun onLocationPermissionDenied() {
+        router.navigateTo(Screens.FindAddressFragmentScreen)
+    }
 
+    fun onGpsNotGranted() {
+        router.navigateTo(Screens.FindAddressFragmentScreen)
+    }
+
+    fun onChangeAddressClick() {
+        router.navigateTo(Screens.FindAddressFragmentScreen)
+    }
+
+    fun onGpsGranted() {
+        locationUseCase.startUpdateLocationListener()
+            .timeout(LOCATION_CHECKING_TIMEOUT, TimeUnit.MILLISECONDS)
+            .applySchedulers()
+            .doOnSubscribe { state.value = state.nonNullValue.copy(isProgressCircle = true) }
+            .subscribe(
+                {
+                    state.value = state.nonNullValue.copy(isProgressCircle = false)
+                    val latLng = LatLng(
+                        it.latitude,
+                        it.longitude
+                    )
+                    moveCameraToPosition.value = latLng
+                    onMapPositionChanged(latLng)
+                },
+                {
+                    state.value =
+                        state.nonNullValue.copy(isProgressCircle = false)
+                    processThrowable(it, "Error get coordinates")
+                }
+            )
+            .addDisposable()
     }
 
     data class State(
         val isProgress: Boolean = false,
+        val isProgressCircle: Boolean = false,
         val geoSuggestionData: GeoSuggestion? = null
     )
 
