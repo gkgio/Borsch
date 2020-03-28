@@ -46,12 +46,16 @@ object Screens {
         override fun getFragment() = ValidatePhoneFragment.newInstance(phone)
     }
 
-    object LocationFragmentScreen : SupportAppScreen() {
-        override fun getFragment() = LocationFragment()
+    class LocationFragmentScreen(
+        private val isOpenFromOnboarding: Boolean = false
+    ) : SupportAppScreen() {
+        override fun getFragment() = LocationFragment.newInstance(isOpenFromOnboarding)
     }
 
-    object FindAddressFragmentScreen : SupportAppScreen() {
-        override fun getFragment() = FindAddressFragment()
+    class FindAddressFragmentScreen(
+        private val isOpenFromOnboarding: Boolean
+    ) : SupportAppScreen() {
+        override fun getFragment() = FindAddressFragment.newInstance(isOpenFromOnboarding)
     }
 
     class MarketScreen(

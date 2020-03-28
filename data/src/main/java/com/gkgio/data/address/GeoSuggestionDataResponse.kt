@@ -26,5 +26,7 @@ data class GeoSuggestionDataResponse(
     @Json(name = "region")
     val region: String?,
     @Json(name = "street_with_type")
-    val streetWithType: String?
+    val streetWithType: String?,
+    @Json(name = "block")
+    val block: String?
 )

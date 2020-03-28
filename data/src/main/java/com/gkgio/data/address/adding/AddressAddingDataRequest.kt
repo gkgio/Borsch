@@ -16,5 +16,7 @@ data class AddressAddingDataRequest(
     @Json(name = "location")
     val location: CoordinatesRequest,
     @Json(name = "street")
-    val street: String?
+    val street: String?,
+    @Json(name = "block")
+    val block: String?
 )

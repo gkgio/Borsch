@@ -69,4 +69,7 @@
     <string name="error_empty_update_page">Перезагрузить страницу</string>
     <string name="error_state_search">По запросу «%1$s» ничего не нашлось</string>
     <string name="address_search_hint">Поиск</string>
+    <string name="address_add_new_sheet_title">Адрес доставки</string>
+    <string name="address_add_new_btn">Добавить новый адрес</string>
+    <string name="address_confirm_adding_new">Подтвердить</string>
 </resources>

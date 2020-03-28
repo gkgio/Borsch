@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface AddressesRepository {
     fun getSavedAddresses(): Single<List<Address>>
-    fun saveLastKnownAddress(addressAddingRequest: AddressAddingRequest): Completable
+    fun saveLastKnownAddress(address: Address): Completable
 }

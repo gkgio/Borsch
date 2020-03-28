@@ -11,5 +11,6 @@ data class GeoSuggestionData(
     val geo_lon: String?,
     val house: String?,
     val region: String?,
-    val streetWithType: String?
+    val streetWithType: String?,
+    val block: String?
 )

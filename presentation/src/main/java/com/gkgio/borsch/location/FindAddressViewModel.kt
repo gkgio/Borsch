@@ -7,6 +7,7 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
+import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.domain.address.*
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.location.Coordinates
@@ -17,6 +18,7 @@ class FindAddressViewModel @Inject constructor(
     private val router: Router,
     private val analyticsRepository: AnalyticsRepository,
     private val loadAddressesUseCase: LoadAddressesUseCase,
+    private val addressChangedEvent: AddressChangedEvent,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -47,7 +49,7 @@ class FindAddressViewModel @Inject constructor(
             }).addDisposable()
     }
 
-    fun onAddressSelectClick(geoSuggestion: GeoSuggestion) {
+    fun onAddressSelectClick(geoSuggestion: GeoSuggestion, isOpenFromOnboarding: Boolean) {
         loadAddressesUseCase
             .loadGeoSuggestions(
                 GeoSuggestionsRequest(
@@ -59,13 +61,14 @@ class FindAddressViewModel @Inject constructor(
                         AddressAddingRequest(
                             geoSuggestionList.suggestions[0].data.city,
                             geoSuggestionList.suggestions[0].data.country,
-                            "2",//TODO delete after beck create task
+                            null,
                             geoSuggestionList.suggestions[0].data.house,
                             Coordinates(
                                 geoSuggestionList.suggestions[0].data.geo_lat!!.toDouble(),
                                 geoSuggestionList.suggestions[0].data.geo_lon!!.toDouble()
                             ),
-                            geoSuggestionList.suggestions[0].data.streetWithType
+                            geoSuggestionList.suggestions[0].data.streetWithType,
+                            geoSuggestionList.suggestions[0].data.block
                         )
                     )
             }
@@ -73,7 +76,19 @@ class FindAddressViewModel @Inject constructor(
             .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
             .subscribe({
                 state.value = state.nonNullValue.copy(isProgress = false)
-                router.backTo(Screens.MainFragmentScreen)
+                addressChangedEvent.onComplete(
+                    String.format(
+                        "%s, %s%s",
+                        geoSuggestion.data.streetWithType,
+                        geoSuggestion.data.house,
+                        if (geoSuggestion.data.block != null) ", ${geoSuggestion.data.block}" else ""
+                    )
+                )
+                if (isOpenFromOnboarding) {
+                    router.newRootScreen(Screens.MainFragmentScreen)
+                } else {
+                    router.backTo(Screens.MainFragmentScreen)
+                }
             }, { throwable ->
                 state.value = state.nonNullValue.copy(isProgress = false)
                 processThrowable(throwable)

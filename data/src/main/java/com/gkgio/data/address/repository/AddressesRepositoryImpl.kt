@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AddressesRepositoryImpl @Inject constructor(
     private val prefs: SharedPreferences,
     private val moshi: Moshi,
-    private val addressAddingDataRequestTransformer: AddressAddingDataRequestTransformer,
+    private val addressAddingDataRequestTransformer: AddressRepositoryRequestTransformer,
     private val addressRepositoryDataResponseTransformer: AddressRepositoryDataResponseTransformer
 ) : AddressesRepository {
 
@@ -28,32 +28,37 @@ class AddressesRepositoryImpl @Inject constructor(
             getListAddresses()?.map { addressRepositoryDataResponseTransformer.transform(it) }
         }
 
-    override fun saveLastKnownAddress(addressAddingRequest: AddressAddingRequest): Completable =
+    override fun saveLastKnownAddress(address: Address): Completable =
         Completable.fromCallable {
-            var addressesList = getListAddresses()
+            var addressesList = getListAddresses()?.toMutableList()
             if (addressesList != null) {
-                addressesList.toMutableList()
-                    .add(addressAddingDataRequestTransformer.transform(addressAddingRequest))
+                val newAddress = addressAddingDataRequestTransformer.transform(address)
+                if (addressesList.contains(newAddress)) {
+                    addressesList.remove(newAddress)
+                }
+                addressesList.add(0, newAddress)
+                if (addressesList.size > 4) addressesList =
+                    addressesList.dropLast(1).toMutableList()
             } else {
                 addressesList = mutableListOf()
-                addressesList.add(addressAddingDataRequestTransformer.transform(addressAddingRequest))
+                addressesList.add(addressAddingDataRequestTransformer.transform(address))
             }
             val type =
-                Types.newParameterizedType(List::class.java, AddressAddingDataRequest::class.java)
+                Types.newParameterizedType(List::class.java, AddressRepositoryRequest::class.java)
             prefs.edit()
                 .putString(
                     KEY_LAST_KNOWN_ADDRESS,
-                    moshi.adapter<List<AddressAddingDataRequest>>(type)
+                    moshi.adapter<List<AddressRepositoryRequest>>(type)
                         .toJson(addressesList)
                 ).apply()
         }
 
-    private fun getListAddresses(): List<AddressAddingDataRequest>? {
+    private fun getListAddresses(): List<AddressRepositoryRequest>? {
         val addressJsonString = prefs.getString(KEY_LAST_KNOWN_ADDRESS, null)
         val type =
-            Types.newParameterizedType(List::class.java, AddressAddingDataRequest::class.java)
+            Types.newParameterizedType(List::class.java, AddressRepositoryRequest::class.java)
         addressJsonString?.let {
-            return moshi.adapter<List<AddressAddingDataRequest>>(type).fromJson(addressJsonString)
+            return moshi.adapter<List<AddressRepositoryRequest>>(type).fromJson(addressJsonString)
         }
         return null
     }

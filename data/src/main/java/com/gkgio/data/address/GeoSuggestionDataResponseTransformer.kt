@@ -19,7 +19,8 @@ class GeoSuggestionDataResponseTransformer @Inject constructor() :
             geoLon,
             house,
             region,
-            streetWithType
+            streetWithType,
+            block
         )
     }
 }

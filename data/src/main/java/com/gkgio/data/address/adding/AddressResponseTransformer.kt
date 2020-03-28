@@ -10,12 +10,14 @@ class AddressResponseTransformer @Inject constructor(
 
     override fun transform(data: AddressResponse) = with(data) {
         Address(
+            id,
             city,
             country,
             flat,
             house,
             coordinatesResponseTransformer.transform(location),
-            street
+            street,
+            block
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.gkgio.borsch.utils
+package com.gkgio.borsch.utils.events
 
 import io.reactivex.subjects.PublishSubject
 

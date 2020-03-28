@@ -16,12 +16,14 @@ import com.gkgio.borsch.favorites.FavoritesViewModel
 import com.gkgio.borsch.cookers.CookersViewModel
 import com.gkgio.borsch.location.FindAddressViewModel
 import com.gkgio.borsch.location.LocationViewModel
+import com.gkgio.borsch.location.saved.SavedAddressesViewModel
 import com.gkgio.borsch.main.LaunchActivity
 import com.gkgio.borsch.main.LaunchViewModel
 import com.gkgio.borsch.main.MainViewModel
 import com.gkgio.borsch.onboarding.OnboardingViewModel
 import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.profile.about.AboutUsViewModel
+import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.domain.errorreporter.ErrorReporter
 import com.squareup.moshi.Moshi
 import dagger.Component
@@ -63,6 +65,7 @@ interface AppComponent {
     val basketViewModel: BasketViewModel
     val locationViewModel: LocationViewModel
     val findAddressViewModel: FindAddressViewModel
+    val savedAddressesViewModel: SavedAddressesViewModel
 
     val context: Context
     val moshi: Moshi
@@ -77,6 +80,7 @@ interface AppComponent {
     val errorReporter: ErrorReporter
 
     //event
+    val addressChangedEvent: AddressChangedEvent
 
     //Cicerone
     val router: Router

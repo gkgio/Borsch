@@ -7,6 +7,7 @@ import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
+import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.utils.GpsUtils
 import com.google.android.gms.maps.*
 import kotlinx.android.synthetic.main.fragment_location.*
@@ -15,7 +16,13 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
 
     companion object {
         const val DEFAULT_MAP_ZOOM = 18.0f
+
+        fun newInstance(isOpenFromOnboarding: Boolean = false) = LocationFragment().apply {
+            this.isOpenFromOnboarding = isOpenFromOnboarding
+        }
     }
+
+    private var isOpenFromOnboarding: Boolean by FragmentArgumentDelegate()
 
     private var googleMap: GoogleMap? = null
 
@@ -51,12 +58,12 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
             if (state.geoSuggestionData == null) {
                 btnConfirm.text = getString(R.string.map_confirm_not_found_btn)
                 btnConfirm.setDebounceOnClickListener {
-                    viewModel.onChangeAddressClick()
+                    viewModel.onChangeAddressClick(isOpenFromOnboarding)
                 }
             } else {
                 btnConfirm.text = getString(R.string.map_confirm_btn)
                 btnConfirm.setDebounceOnClickListener {
-                    viewModel.onConfirmAddressClick()
+                    viewModel.onConfirmAddressClick(isOpenFromOnboarding)
                 }
             }
         }
@@ -67,12 +74,12 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
                     if (isGPSEnable) {
                         viewModel.onGpsGranted()
                     } else {
-                        viewModel.onGpsNotGranted()
+                        viewModel.onGpsNotGranted(isOpenFromOnboarding)
                     }
                 }
 
                 override fun gpsSettingError() {
-                    viewModel.onGpsNotGranted()
+                    viewModel.onGpsNotGranted(isOpenFromOnboarding)
                 }
             })
         }
@@ -82,7 +89,7 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
         }
 
         locationChangeContainer.setDebounceOnClickListener {
-            viewModel.onChangeAddressClick()
+            viewModel.onChangeAddressClick(isOpenFromOnboarding)
         }
 
         leftIconContainer.setDebounceOnClickListener {
@@ -113,7 +120,7 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
     private fun checkLocationPermission() {
         requestLocationPermission()
             .subscribe {
-                viewModel.onLocationPermissionResultLoaded(it)
+                viewModel.onLocationPermissionResultLoaded(it, isOpenFromOnboarding)
             }.addDisposable()
     }
 

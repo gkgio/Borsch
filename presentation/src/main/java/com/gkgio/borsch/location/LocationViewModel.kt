@@ -9,6 +9,7 @@ import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
+import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.domain.address.*
 import com.gkgio.domain.location.Coordinates
 import com.gkgio.domain.location.LoadLocationUseCase
@@ -22,6 +23,7 @@ class LocationViewModel @Inject constructor(
     private val router: Router,
     private val locationUseCase: LoadLocationUseCase,
     private val loadAddressesUseCase: LoadAddressesUseCase,
+    private val addressChangedEvent: AddressChangedEvent,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -46,14 +48,12 @@ class LocationViewModel @Inject constructor(
             .getSavedAddresses()
             .applySchedulers()
             .subscribe({
-                if (it[0].location?.latitude != null && it[0].location?.longitude != null) {
-                    val latLng = LatLng(
-                        it[0].location!!.latitude,
-                        it[0].location!!.longitude
-                    )
-                    moveCameraToPosition.value = latLng
-                    onMapPositionChanged(latLng)
-                }
+                val latLng = LatLng(
+                    it[0].location.latitude,
+                    it[0].location.longitude
+                )
+                moveCameraToPosition.value = latLng
+                onMapPositionChanged(latLng)
             }, {
                 checkLocationPermission.call()
             }).addDisposable()
@@ -106,7 +106,7 @@ class LocationViewModel @Inject constructor(
         }
     }
 
-    fun onConfirmAddressClick() {
+    fun onConfirmAddressClick(isOpenFromOnboarding: Boolean) {
         state.nonNullValue.geoSuggestionData?.data?.let {
             if (it.geo_lat != null && it.geo_lon != null) {
                 loadAddressesUseCase
@@ -114,13 +114,14 @@ class LocationViewModel @Inject constructor(
                         AddressAddingRequest(
                             it.city,
                             it.country,
-                            "2",//TODO delete after beck create task
+                            null,
                             it.house,
                             Coordinates(
                                 it.geo_lat!!.toDouble(),
                                 it.geo_lon!!.toDouble()
                             ),
-                            it.streetWithType
+                            it.streetWithType,
+                            it.block
                         )
                     )
                     .applySchedulers()
@@ -129,7 +130,19 @@ class LocationViewModel @Inject constructor(
                     }
                     .subscribe({
                         state.value = state.nonNullValue.copy(isProgressCircle = false)
-                        router.exit()
+                        addressChangedEvent.onComplete(
+                            String.format(
+                                "%s, %s%s",
+                                it.streetWithType,
+                                it.house,
+                                if (it.block != null) ", ${it.block}" else ""
+                            )
+                        )
+                        if (isOpenFromOnboarding) {
+                            router.newRootScreen(Screens.MainFragmentScreen)
+                        } else {
+                            onBackClick()
+                        }
                     }, { throwable ->
                         state.value = state.nonNullValue.copy(isProgressCircle = false)
                         processThrowable(throwable)
@@ -138,11 +151,11 @@ class LocationViewModel @Inject constructor(
         }
     }
 
-    fun onLocationPermissionResultLoaded(result: Boolean) =
+    fun onLocationPermissionResultLoaded(result: Boolean, isOpenFromOnboarding: Boolean) =
         if (result) {
             onLocationPermissionGranted()
         } else {
-            onLocationPermissionDenied()
+            onLocationPermissionDenied(isOpenFromOnboarding)
         }
 
     private fun onLocationPermissionGranted() {
@@ -161,16 +174,16 @@ class LocationViewModel @Inject constructor(
             }).addDisposable()
     }
 
-    private fun onLocationPermissionDenied() {
-        router.navigateTo(Screens.FindAddressFragmentScreen)
+    private fun onLocationPermissionDenied(isOpenFromOnboarding: Boolean) {
+        router.navigateTo(Screens.FindAddressFragmentScreen(isOpenFromOnboarding))
     }
 
-    fun onGpsNotGranted() {
-        router.navigateTo(Screens.FindAddressFragmentScreen)
+    fun onGpsNotGranted(isOpenFromOnboarding: Boolean) {
+        router.navigateTo(Screens.FindAddressFragmentScreen(isOpenFromOnboarding))
     }
 
-    fun onChangeAddressClick() {
-        router.navigateTo(Screens.FindAddressFragmentScreen)
+    fun onChangeAddressClick(isOpenFromOnboarding: Boolean) {
+        router.navigateTo(Screens.FindAddressFragmentScreen(isOpenFromOnboarding))
     }
 
     fun onGpsGranted() {

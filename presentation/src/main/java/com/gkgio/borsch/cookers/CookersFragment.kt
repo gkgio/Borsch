@@ -2,10 +2,12 @@ package com.gkgio.borsch.cookers
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
+import com.gkgio.borsch.location.saved.SavedAddressesSheet
 import kotlinx.android.synthetic.main.fragment_cookers.*
 
 
@@ -26,6 +28,15 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
 
         addressContainer.setDebounceOnClickListener {
             viewModel.onCurrentAddressContainerClick()
+        }
+
+        viewModel.state.observeValue(this) { state ->
+            addressClientTv.text = state.lastAddedAddress
+            addressContainer.isVisible = state.lastAddedAddress != null
+        }
+
+        viewModel.openAddressesSheet.observeValue(this) {
+            showDialog(SavedAddressesSheet(), TAG)
         }
     }
 }

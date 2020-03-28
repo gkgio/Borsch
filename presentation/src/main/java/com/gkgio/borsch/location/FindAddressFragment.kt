@@ -11,9 +11,18 @@ import com.gkgio.borsch.ext.closeKeyboard
 import com.gkgio.borsch.ext.createViewModel
 import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.ext.openKeyBoard
+import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import kotlinx.android.synthetic.main.fragment_find_address.*
 
 class FindAddressFragment : BaseFragment<FindAddressViewModel>() {
+
+    companion object {
+        fun newInstance(isOpenFromOnboarding: Boolean) = FindAddressFragment().apply {
+            this.isOpenFromOnboarding = isOpenFromOnboarding
+        }
+    }
+
+    private var isOpenFromOnboarding: Boolean by FragmentArgumentDelegate()
 
     private var findAddressRecyclerAdapter: FindAddressRecyclerAdapter? = null
 
@@ -53,7 +62,7 @@ class FindAddressFragment : BaseFragment<FindAddressViewModel>() {
                 addressSearchView.currentInput = it.value
                 openKeyBoard()
             } else {
-                viewModel.onAddressSelectClick(it)
+                viewModel.onAddressSelectClick(it, isOpenFromOnboarding)
             }
         }
         rvAddresses.layoutManager = LinearLayoutManager(context)
