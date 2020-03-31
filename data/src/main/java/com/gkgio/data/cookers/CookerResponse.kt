@@ -15,6 +15,8 @@ data class CookerResponse(
     val id: String,
     @Json(name = "meals")
     val meals: List<MealResponse>,
+    @Json(name = "lunches")
+    val lunches: List<LunchResponse>?,
     @Json(name = "name")
     val name: String,
     @Json(name = "paid")
@@ -26,5 +28,13 @@ data class CookerResponse(
     @Json(name = "suspended")
     val suspended: Boolean,
     @Json(name = "verified")
-    val verified: Boolean
+    val verified: Boolean,
+    @Json(name = "avatar_url")
+    val avatarUrl: String?,
+    @Json(name = "delivery")
+    val delivery: Boolean,
+    @Json(name = "country_tags")
+    val countryTags: List<String>?,
+    @Json(name = "description")
+    val description: String
 )

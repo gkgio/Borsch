@@ -5,7 +5,8 @@ import com.gkgio.domain.cookers.Cooker
 import javax.inject.Inject
 
 class CookerResponseTransformer @Inject constructor(
-    private val mealResponseTransformer: MealResponseTransformer
+    private val mealResponseTransformer: MealResponseTransformer,
+    private val lunchResponseTransformer: LunchResponseTransformer
 ) : BaseTransformer<CookerResponse, Cooker> {
 
     override fun transform(data: CookerResponse) = with(data) {
@@ -15,12 +16,17 @@ class CookerResponseTransformer @Inject constructor(
             commission,
             id,
             meals.map { mealResponseTransformer.transform(it) },
+            lunches?.map { lunchResponseTransformer.transform(it) },
             name,
             paid,
             phone,
             rating,
             suspended,
-            verified
+            verified,
+            avatarUrl,
+            delivery,
+            countryTags,
+            description
         )
     }
 }

@@ -71,10 +71,15 @@ class CookersViewModel @Inject constructor(
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
-                state.value = state.nonNullValue.copy(isLoading = false)
+                state.value = state.nonNullValue.copy(isLoading = false, cookers = it)
             }, {
                 state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
+                processThrowable(it)
             }).addDisposable()
+    }
+
+    fun onCookerClick(cookerId: String) {
+
     }
 
     fun onCurrentAddressContainerClick() {

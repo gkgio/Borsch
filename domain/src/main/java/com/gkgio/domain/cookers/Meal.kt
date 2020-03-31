@@ -1,7 +1,7 @@
 package com.gkgio.domain.cookers
 
 data class Meal(
-    val available: Boolean,
+    val available: Boolean?,
     val calories: Int,
     val cookTime: Int,
     val description: String,
@@ -12,6 +12,6 @@ data class Meal(
     val portions: Int,//Amount of available portions
     val price: String,
     val tags: List<String>,
-    val type: String,
+    val type: String?,
     val weight: Int
 )

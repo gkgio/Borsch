@@ -117,6 +117,9 @@ dependencies {
     //permissions
     implementation deps.rxPermissions
 
+    //flexBox
+    implementation deps.flexBoxLayout
+
     //test
     androidTestImplementation deps.mockito
     androidTestImplementation deps.espresso

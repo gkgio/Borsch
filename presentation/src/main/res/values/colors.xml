@@ -12,7 +12,7 @@
     <color name="blue">#595bd4</color>
     <color name="btn_color">#ff5a5f</color>
     <color name="btn_color_40">#66ff5a5f</color>
-    <color name="recycle_divider">#a6545458</color>
+    <color name="recycle_divider">#f7f7f7</color>
 
     <color name="grey_text">#a3aaae</color>
     <color name="grey_btn">#DCDCDC</color>
@@ -31,6 +31,7 @@
     <color name="black">#000000</color>
     <color name="black_4">#0a000000</color>
     <color name="black_25">#40000000</color>
+    <color name="black_50">#80000000</color>
     <color name="black_70">#B3000000</color>
     <color name="black_90">#E6000000</color>
     <color name="black_100">#FF000000</color>

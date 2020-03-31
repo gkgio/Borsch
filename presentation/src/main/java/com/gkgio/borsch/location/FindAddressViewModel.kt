@@ -85,6 +85,7 @@ class FindAddressViewModel @Inject constructor(
                     )
                 )
                 if (isOpenFromOnboarding) {
+                    closeKeyBoard.call()
                     router.newRootScreen(Screens.MainFragmentScreen)
                 } else {
                     router.backTo(Screens.MainFragmentScreen)

@@ -24,8 +24,8 @@ class LoadCookersUseCaseImpl @Inject constructor(
             .flatMap {
                 cookersService.loadCookersList(
                     CookersWithoutAuthRequest(
-                        it.location.latitude,
-                        it.location.longitude,
+                        0,
+                        0,
                         distance,
                         targets
                     )

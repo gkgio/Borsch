@@ -20,8 +20,7 @@ class LaunchViewModel @Inject constructor(
 ) : BaseViewModel(baseScreensNavigator) {
 
     fun onNewStart() {
-        router.newRootScreen(Screens.MainFragmentScreen)
-        /*loadAddressesUseCase
+        loadAddressesUseCase
             .getLastSavedAddress()
             .applySchedulers()
             .subscribe({
@@ -32,6 +31,6 @@ class LaunchViewModel @Inject constructor(
                 }
             }, {
                 router.newRootScreen(Screens.OnboardingFragmentScreen)
-            }).addDisposable()*/
+            }).addDisposable()
     }
 }

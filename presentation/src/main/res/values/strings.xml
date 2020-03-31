@@ -18,13 +18,12 @@
 
     <string name="about_us_text">Hi</string>
 
-    <string name="onboarding_title_1">Только проверенные повара</string>
-    <string name="onboarding_title_2">Блюда «по-домашнему»</string>
-    <string name="onboarding_title_3">Без переплат</string>
+    <string name="onboarding_title">БОРЩ</string>
 
-    <string name="onboarding_label_1">Все повары верифицированы\nи готовят с соблюдением гигиены</string>
-    <string name="onboarding_label_2">Любимые блюда от поваров в вашем доме</string>
-    <string name="onboarding_label_3">Большая экономия на\nвремени готовки и цене\nконечного блюда</string>
+    <string name="onboarding_label_1">Ваш доступ\nк домашней еде</string>
+    <string name="onboarding_label_2">Самовывоз или доставка в\nтечение 15 минут</string>
+    <string name="onboarding_label_3">Справедливая цена без\nресторанных накруток</string>
+    <string name="onboarding_label_4">Проверенные повара</string>
 
     <string name="dots_separator">%d / %d</string>
 
@@ -42,6 +41,13 @@
     <string name="map_confirm_btn">Я здесь</string>
     <string name="map_confirm_not_found_btn">Указать адрес</string>
     <string name="map_search_progress">Ищем…</string>
+
+    <string name="address_search_hint">Поиск</string>
+    <string name="address_add_new_sheet_title">Адрес доставки</string>
+    <string name="address_add_new_btn">Добавить новый адрес</string>
+    <string name="address_confirm_adding_new">Подтвердить</string>
+
+    <string name="cookers_popular_meals">Популярные блюда</string>
 
     <string-array name="months_s">
         <item>января</item>
@@ -68,8 +74,4 @@
     <string name="error_empty_state">У нас что-то поломалось, кина не будет</string>
     <string name="error_empty_update_page">Перезагрузить страницу</string>
     <string name="error_state_search">По запросу «%1$s» ничего не нашлось</string>
-    <string name="address_search_hint">Поиск</string>
-    <string name="address_add_new_sheet_title">Адрес доставки</string>
-    <string name="address_add_new_btn">Добавить новый адрес</string>
-    <string name="address_confirm_adding_new">Подтвердить</string>
 </resources>

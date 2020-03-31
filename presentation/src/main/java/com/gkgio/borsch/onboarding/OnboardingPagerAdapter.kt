@@ -12,8 +12,8 @@ class OnboardingPagerAdapter : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any =
         with(container.getViewByLayoutId(R.layout.view_onboarding_page)) {
             with(OnboardingPagerEnum.values()[position]) {
-                onboardingPageTitle.text = context.getString(titleResId)
                 onboardPageLabel.text = context.getString(labelResId)
+                onboardingContainer.setBackgroundResource(imageResId)
             }
             container.addView(this)
             return this

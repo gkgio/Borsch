@@ -3,6 +3,7 @@ package com.gkgio.borsch.cookers
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
@@ -17,6 +18,8 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         val TAG = CookersFragment::class.java.simpleName
     }
 
+    private var cookersRecyclerAdapter: CookersRecyclerAdapter? = null
+
     override fun getLayoutId(): Int = R.layout.fragment_cookers
 
     override fun provideViewModel() = createViewModel {
@@ -26,6 +29,8 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initCookersRv()
+
         addressContainer.setDebounceOnClickListener {
             viewModel.onCurrentAddressContainerClick()
         }
@@ -33,10 +38,30 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         viewModel.state.observeValue(this) { state ->
             addressClientTv.text = state.lastAddedAddress
             addressContainer.isVisible = state.lastAddedAddress != null
+
+            state.cookers?.let {
+                cookersRecyclerAdapter?.setCookersList(it)
+            }
         }
 
         viewModel.openAddressesSheet.observeValue(this) {
             showDialog(SavedAddressesSheet(), TAG)
         }
+    }
+
+    private fun initCookersRv() {
+        cookersRecyclerAdapter = CookersRecyclerAdapter(
+            { cookerId ->
+                viewModel.onCookerClick(cookerId)
+            },
+            { id, type ->
+
+            })
+        cookersRv.adapter = cookersRecyclerAdapter
+        cookersRv.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun initFiltersRv() {
+        filtersRv
     }
 }
