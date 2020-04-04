@@ -12,6 +12,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:fitsSystemWindows="true">
 
         <TextView
@@ -19,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/gtwalsheimpro_bold"
+            android:fontFamily="@font/tt_norms_bold"
             android:text="@string/settings_fragment_title"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="34sp" />
 
     </com.google.android.material.appbar.AppBarLayout>

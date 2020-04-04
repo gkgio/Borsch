@@ -34,6 +34,8 @@ class LaunchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
 
+        viewModel.init()
+
         ViewCompat.setOnApplyWindowInsetsListener(containerRoot) { view, insets ->
             var consumed = false
             (view as ViewGroup).forEach { child ->
@@ -43,10 +45,6 @@ class LaunchActivity : AppCompatActivity() {
                 }
             }
             if (consumed) insets.consumeSystemWindowInsets() else insets
-        }
-
-        if (savedInstanceState == null) {
-            viewModel.onNewStart()
         }
     }
 

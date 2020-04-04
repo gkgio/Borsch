@@ -9,14 +9,14 @@ import com.gkgio.domain.address.GeoSuggestion
 import kotlinx.android.synthetic.main.layout_geo_suggestion_view_holder.view.*
 
 class CookersFilterRecyclerAdapter(
-    val itemClick: (GeoSuggestion) -> Unit
+    val itemClick: (String) -> Unit
 ) : RecyclerView.Adapter<SyntheticViewHolder>() {
 
-    private val geoSuggestionList = mutableListOf<GeoSuggestion>()
+    private val filerList = mutableListOf<String>()
 
-    fun setGeoSuggestionList(geoSuggestionList: List<GeoSuggestion>) {
-        this.geoSuggestionList.clear()
-        this.geoSuggestionList.addAll(geoSuggestionList)
+    fun setFiltersList(filerList: List<String>) {
+        this.filerList.clear()
+        this.filerList.addAll(filerList)
         notifyDataSetChanged()
     }
 
@@ -26,17 +26,12 @@ class CookersFilterRecyclerAdapter(
 
     override fun onBindViewHolder(holder: SyntheticViewHolder, position: Int) =
         with(holder.itemView) {
-            val geoSuggestion = geoSuggestionList[position]
+            val filter = filerList[position]
 
-            addressTv.text = geoSuggestion.value
-
-            setDebounceOnClickListener {
-                itemClick(geoSuggestion)
-            }
 
         }
 
     override fun getItemCount(): Int {
-        return geoSuggestionList.size
+        return filerList.size
     }
 }

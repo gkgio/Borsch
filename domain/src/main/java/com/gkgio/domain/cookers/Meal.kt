@@ -1,5 +1,7 @@
 package com.gkgio.domain.cookers
 
+import java.math.BigDecimal
+
 data class Meal(
     val available: Boolean?,
     val calories: Int,
@@ -10,7 +12,7 @@ data class Meal(
     val ingredients: List<String>,
     val name: String,//Meal name
     val portions: Int,//Amount of available portions
-    val price: String,
+    val price: BigDecimal,
     val tags: List<String>,
     val type: String?,
     val weight: Int

@@ -44,6 +44,9 @@ class FindAddressFragment : BaseFragment<FindAddressViewModel>() {
             viewModel.onBackClick()
         }
 
+        addressSearchView.requestFocusForInput()
+        openKeyBoard()
+
         viewModel.closeKeyBoard.observeValue(this) {
             closeKeyboard()
         }
@@ -70,7 +73,8 @@ class FindAddressFragment : BaseFragment<FindAddressViewModel>() {
     }
 
     override fun onStop() {
+        addressSearchView.clearFocusForInput()
+        closeKeyboard(addressSearchView)
         super.onStop()
-        closeKeyboard()
     }
 }

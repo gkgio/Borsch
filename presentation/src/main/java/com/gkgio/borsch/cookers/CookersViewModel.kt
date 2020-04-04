@@ -79,7 +79,7 @@ class CookersViewModel @Inject constructor(
     }
 
     fun onCookerClick(cookerId: String) {
-
+        router.navigateTo(Screens.CookerDetailFragmentScreen(cookerId))
     }
 
     fun onCurrentAddressContainerClick() {

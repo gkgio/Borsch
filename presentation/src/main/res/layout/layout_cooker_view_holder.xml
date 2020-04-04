@@ -16,15 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="16dp"
+
         android:paddingTop="16dp"
-        android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="8dp">
 
             <ImageView
@@ -43,7 +44,7 @@
                     android:id="@+id/cookerNameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/tt_norms_regular"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -67,7 +68,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
             android:paddingTop="16dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="8dp">
 
             <ImageView
@@ -84,7 +87,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/tt_norms_light"
                 android:lineSpacingExtra="2dp"
                 android:maxLines="2"
                 android:textColor="@color/black"
@@ -100,7 +103,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/tt_norms_regular"
             android:text="@string/cookers_popular_meals"
             android:textColor="@color/grey_text"
             android:textSize="14sp" />
@@ -121,7 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -146,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/tt_norms_regular"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
                     tools:text="4" />

@@ -43,7 +43,7 @@ class SavedAddressesSheet : BaseBottomSheetDialog() {
 
         initAddressesRv(view)
 
-        addNewAddressTv.setDebounceOnClickListener {
+        addNewAddressContainer.setDebounceOnClickListener {
             viewModel.onAddNewAddressClick()
         }
 

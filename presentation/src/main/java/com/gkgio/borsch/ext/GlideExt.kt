@@ -21,3 +21,7 @@ fun RequestBuilder<*>.withCenterCropRoundedCorners(
 fun RequestBuilder<Drawable>.withFade() = apply(
     transition(DrawableTransitionOptions.withCrossFade())
 )
+
+fun RequestBuilder<Drawable>.withCenterCropOval() = apply(
+    RequestOptions().circleCrop()
+)

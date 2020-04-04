@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.gkgio.borsch.auth.InputPhoneFragment
 import com.gkgio.borsch.auth.ValidatePhoneFragment
+import com.gkgio.borsch.cookers.detail.CookerDetailFragment
 import com.gkgio.borsch.location.FindAddressFragment
 import com.gkgio.borsch.location.LocationFragment
 import com.gkgio.borsch.main.MainFragment
@@ -56,6 +57,12 @@ object Screens {
         private val isOpenFromOnboarding: Boolean
     ) : SupportAppScreen() {
         override fun getFragment() = FindAddressFragment.newInstance(isOpenFromOnboarding)
+    }
+
+    class CookerDetailFragmentScreen(
+        private val cookerId: String
+    ) : SupportAppScreen() {
+        override fun getFragment() = CookerDetailFragment.newInstance(cookerId)
     }
 
     class MarketScreen(

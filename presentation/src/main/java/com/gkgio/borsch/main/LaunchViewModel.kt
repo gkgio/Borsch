@@ -19,7 +19,7 @@ class LaunchViewModel @Inject constructor(
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
-    fun onNewStart() {
+    fun init() {
         loadAddressesUseCase
             .getLastSavedAddress()
             .applySchedulers()

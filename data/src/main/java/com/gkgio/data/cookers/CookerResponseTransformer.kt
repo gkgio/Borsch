@@ -13,12 +13,10 @@ class CookerResponseTransformer @Inject constructor(
         Cooker(
             banned,
             certified,
-            commission,
             id,
             meals.map { mealResponseTransformer.transform(it) },
             lunches?.map { lunchResponseTransformer.transform(it) },
             name,
-            paid,
             phone,
             rating,
             suspended,
@@ -26,7 +24,8 @@ class CookerResponseTransformer @Inject constructor(
             avatarUrl,
             delivery,
             countryTags,
-            description
+            description,
+            onDuty
         )
     }
 }

@@ -12,7 +12,7 @@ import timber.log.Timber
 
 abstract class BaseViewModel(
     private val screensNavigator: BaseScreensNavigator
-    ) : ViewModel() {
+) : ViewModel() {
 
     protected val disposables = CompositeDisposable()
 

@@ -14,6 +14,9 @@ import com.gkgio.borsch.base.bottomsheet.BaseBottomSheetDialog
 import com.gkgio.borsch.basket.BasketViewModel
 import com.gkgio.borsch.favorites.FavoritesViewModel
 import com.gkgio.borsch.cookers.CookersViewModel
+import com.gkgio.borsch.cookers.detail.CookerDetailViewModel
+import com.gkgio.borsch.cookers.detail.information.CookerInformationViewModel
+import com.gkgio.borsch.cookers.detail.meals.CookerMealViewModel
 import com.gkgio.borsch.location.FindAddressViewModel
 import com.gkgio.borsch.location.LocationViewModel
 import com.gkgio.borsch.location.saved.SavedAddressesViewModel
@@ -66,6 +69,9 @@ interface AppComponent {
     val locationViewModel: LocationViewModel
     val findAddressViewModel: FindAddressViewModel
     val savedAddressesViewModel: SavedAddressesViewModel
+    val cookerDetailViewModel: CookerDetailViewModel
+    val cookerMealViewModel: CookerMealViewModel
+    val cookerInformationViewModel: CookerInformationViewModel
 
     val context: Context
     val moshi: Moshi

@@ -120,6 +120,9 @@ dependencies {
     //flexBox
     implementation deps.flexBoxLayout
 
+    // Facebook Shimmer Layout
+    implementation deps.shimmerLayout
+
     //test
     androidTestImplementation deps.mockito
     androidTestImplementation deps.espresso

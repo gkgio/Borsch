@@ -26,6 +26,11 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         AppInjector.appComponent.cookersViewModel
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        closeKeyboard()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

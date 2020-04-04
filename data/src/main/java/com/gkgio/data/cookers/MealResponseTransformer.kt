@@ -2,6 +2,7 @@ package com.gkgio.data.cookers
 
 import com.gkgio.data.BaseTransformer
 import com.gkgio.domain.cookers.Meal
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class MealResponseTransformer @Inject constructor() : BaseTransformer<MealResponse, Meal> {
@@ -17,7 +18,7 @@ class MealResponseTransformer @Inject constructor() : BaseTransformer<MealRespon
             ingredients,
             name,
             portions,
-            price,
+            BigDecimal(price),
             tags,
             type,
             weight

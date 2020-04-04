@@ -107,7 +107,7 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/tt_norms_medium"
         android:paddingStart="20dp"
         android:paddingTop="12dp"
         android:paddingEnd="20dp"

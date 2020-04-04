@@ -6,11 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CookerResponse(
     @Json(name = "banned")
-    val banned: Boolean,
+    val banned: Boolean?,
     @Json(name = "certified")
     val certified: Boolean,
-    @Json(name = "commission")
-    val commission: String,
     @Json(name = "id")
     val id: String,
     @Json(name = "meals")
@@ -19,16 +17,14 @@ data class CookerResponse(
     val lunches: List<LunchResponse>?,
     @Json(name = "name")
     val name: String,
-    @Json(name = "paid")
-    val paid: String,
     @Json(name = "phone")
-    val phone: String,
+    val phone: String?,
     @Json(name = "rating")
     val rating: String,
     @Json(name = "suspended")
-    val suspended: Boolean,
+    val suspended: Boolean?,
     @Json(name = "verified")
-    val verified: Boolean,
+    val verified: Boolean?,
     @Json(name = "avatar_url")
     val avatarUrl: String?,
     @Json(name = "delivery")
@@ -36,5 +32,7 @@ data class CookerResponse(
     @Json(name = "country_tags")
     val countryTags: List<String>?,
     @Json(name = "description")
-    val description: String
+    val description: String?,
+    @Json(name = "on_duty")
+    val onDuty: Boolean //Whether user is online and accepting orders
 )

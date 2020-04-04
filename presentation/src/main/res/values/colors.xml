@@ -3,10 +3,11 @@
     <color name="primary">#1b1b1d</color>
     <color name="accent">#ff5a5f</color>
     <color name="primary_dark">#000000</color>
+    <color name="window_background">#846666</color>
 
     <color name="toolbar">#FFFFFF</color>
     <color name="search_hint_color">#a0a0a7</color>
-    <color name="snack_bar">#4c000000</color>
+    <color name="snack_bar">#D0CBCB</color>
     <color name="search_view_background">#FCFCFF</color>
 
     <color name="blue">#595bd4</color>
@@ -14,10 +15,14 @@
     <color name="btn_color_40">#66ff5a5f</color>
     <color name="recycle_divider">#f7f7f7</color>
 
+    <color name="grey_text3">#939393</color>
+    <color name="grey_text2">#6d7278</color>
     <color name="grey_text">#a3aaae</color>
     <color name="grey_btn">#DCDCDC</color>
     <color name="grey_bg">#f8f8f8</color>
     <color name="bg_map_items">#80F2E5E5</color>
+
+    <color name="green">#04AA11</color>
 
     <color name="white">#FFFFFF</color>
     <color name="white_2">#05ffffff</color>
@@ -35,4 +40,6 @@
     <color name="black_70">#B3000000</color>
     <color name="black_90">#E6000000</color>
     <color name="black_100">#FF000000</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

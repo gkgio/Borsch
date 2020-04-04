@@ -44,7 +44,7 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@null"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/tt_norms_regular"
             android:hint="@string/default_search_hint"
             android:imeOptions="actionSearch"
             android:importantForAutofill="no"
