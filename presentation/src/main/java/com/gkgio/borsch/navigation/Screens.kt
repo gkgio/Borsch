@@ -60,9 +60,11 @@ object Screens {
     }
 
     class CookerDetailFragmentScreen(
-        private val cookerId: String
+        private val cookerId: String,
+        private val foodId: String? = null,
+        private val type: Int? = null
     ) : SupportAppScreen() {
-        override fun getFragment() = CookerDetailFragment.newInstance(cookerId)
+        override fun getFragment() = CookerDetailFragment.newInstance(cookerId, foodId, type)
     }
 
     class MarketScreen(

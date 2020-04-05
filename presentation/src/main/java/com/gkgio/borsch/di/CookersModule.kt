@@ -1,9 +1,7 @@
 package com.gkgio.borsch.di
 
 import com.gkgio.data.cookers.CookersServiceImpl
-import com.gkgio.domain.cookers.CookersService
-import com.gkgio.domain.cookers.LoadCookersUseCase
-import com.gkgio.domain.cookers.LoadCookersUseCaseImpl
+import com.gkgio.domain.cookers.*
 import dagger.Module
 import dagger.Provides
 import dagger.Binds
@@ -24,5 +22,8 @@ class CookersModule {
 
         @Binds
         abstract fun cookersUseCase(arg: LoadCookersUseCaseImpl): LoadCookersUseCase
+
+        @Binds
+        abstract fun foodItemUseCase(arg: LoadFoodItemUseCaseImpl): LoadFoodItemUseCase
     }
 }

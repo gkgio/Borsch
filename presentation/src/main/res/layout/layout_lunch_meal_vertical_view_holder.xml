@@ -6,4 +6,5 @@
     android:layout_height="88dp"
     android:layout_marginStart="8dp"
     android:background="@drawable/round_angle_background_16"
+    android:clickable="false"
     tools:ignore="ContentDescription" />

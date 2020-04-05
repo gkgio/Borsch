@@ -78,6 +78,10 @@ class CookersViewModel @Inject constructor(
             }).addDisposable()
     }
 
+    fun onCookerFoodClick(cookerId: String, foodId: String, type: Int) {
+        router.navigateTo(Screens.CookerDetailFragmentScreen(cookerId, foodId, type))
+    }
+
     fun onCookerClick(cookerId: String) {
         router.navigateTo(Screens.CookerDetailFragmentScreen(cookerId))
     }

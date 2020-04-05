@@ -15,6 +15,7 @@ import com.gkgio.borsch.basket.BasketViewModel
 import com.gkgio.borsch.favorites.FavoritesViewModel
 import com.gkgio.borsch.cookers.CookersViewModel
 import com.gkgio.borsch.cookers.detail.CookerDetailViewModel
+import com.gkgio.borsch.cookers.detail.food.FoodItemViewModel
 import com.gkgio.borsch.cookers.detail.information.CookerInformationViewModel
 import com.gkgio.borsch.cookers.detail.meals.CookerMealViewModel
 import com.gkgio.borsch.location.FindAddressViewModel
@@ -72,6 +73,7 @@ interface AppComponent {
     val cookerDetailViewModel: CookerDetailViewModel
     val cookerMealViewModel: CookerMealViewModel
     val cookerInformationViewModel: CookerInformationViewModel
+    val foodItemViewModel: FoodItemViewModel
 
     val context: Context
     val moshi: Moshi

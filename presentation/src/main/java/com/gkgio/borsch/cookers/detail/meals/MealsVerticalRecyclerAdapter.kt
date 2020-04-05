@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
+import com.gkgio.borsch.cookers.CookersFragment.Companion.LUNCH_TYPE
+import com.gkgio.borsch.cookers.CookersFragment.Companion.MEAL_TYPE
 import com.gkgio.borsch.cookers.detail.LunchUi
 import com.gkgio.borsch.cookers.detail.MealUi
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
-import com.gkgio.domain.cookers.Lunch
-import com.gkgio.domain.cookers.Meal
 import kotlinx.android.synthetic.main.layout_lunch_vertical_view_holder.view.*
 import kotlinx.android.synthetic.main.layout_meal_vertical_view_holder.view.*
 
@@ -23,10 +23,6 @@ class MealsVerticalRecyclerAdapter(
     val itemClick: (String, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    companion object {
-        const val LUNCH_TYPE = 1
-        const val MEAL_TYPE = 2
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SyntheticViewHolder {
         return when (viewType) {
@@ -58,7 +54,9 @@ class MealsVerticalRecyclerAdapter(
         if (holder is LunchViewHolder) {
             with(holder.itemView) {
                 val lunch = lunchesList[position]
-                val lunchMealsRecyclerAdapter = LunchMealsVerticalRecyclerAdapter(lunch.meals)
+                val lunchMealsRecyclerAdapter = LunchMealsVerticalRecyclerAdapter(lunch.meals){
+                    itemClick(lunch.id, LUNCH_TYPE)
+                }
                 rvLunchMeals.adapter = lunchMealsRecyclerAdapter
                 rvLunchMeals.layoutManager =
                     LinearLayoutManager(
@@ -81,6 +79,7 @@ class MealsVerticalRecyclerAdapter(
                 Glide.with(mealIv)
                     .load(meal.imageUrl)
                     .withCenterCropRoundedCorners(context, 18)
+                    .placeholder(R.drawable.ic_dish_place_holder)
                     .into(mealIv)
 
                 mealNameTv.text = meal.name

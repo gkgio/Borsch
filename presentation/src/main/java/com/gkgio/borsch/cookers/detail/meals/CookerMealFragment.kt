@@ -1,5 +1,6 @@
 package com.gkgio.borsch.cookers.detail.meals
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,8 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
         }
     }
 
+    lateinit var listener: CookerMealClickListener
+
     private var cookerDetailUi: CookerDetailUi by FragmentArgumentDelegate()
 
     private var mealsVerticalRecyclerAdapter: MealsVerticalRecyclerAdapter? = null
@@ -28,6 +31,15 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
 
     override fun provideViewModel() = createViewModel {
         AppInjector.appComponent.cookerMealViewModel
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = when {
+            parentFragment is CookerMealClickListener -> parentFragment as CookerMealClickListener
+            context is CookerMealClickListener -> context
+            else -> throw IllegalStateException("Either parentFragment or context must implement FoodItemDialogListener")
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,9 +53,13 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
                 cookerDetailUi.meals,
                 cookerDetailUi.lunches ?: listOf()
             ) { id, type ->
-                viewModel.onMealClick(id, type)
+                listener.onMealClick(id, type)
             }
         mealsRv.adapter = mealsVerticalRecyclerAdapter
         mealsRv.layoutManager = LinearLayoutManager(context)
     }
+}
+
+interface CookerMealClickListener {
+    fun onMealClick(id: String, type: Int)
 }

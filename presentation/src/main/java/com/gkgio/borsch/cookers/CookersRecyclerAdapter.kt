@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_cooker_view_holder.view.*
 
 class CookersRecyclerAdapter(
     val cookerClick: (String) -> Unit,
-    val mealClick: (String, Int) -> Unit
+    val mealClick: (String, String, Int) -> Unit
 ) : RecyclerView.Adapter<SyntheticViewHolder>() {
 
     companion object {
@@ -70,12 +70,13 @@ class CookersRecyclerAdapter(
                 .load(cooker.avatarUrl)
                 .withFade()
                 .withCenterCropOval()
+                .placeholder(R.drawable.ic_chef_place_holder)
                 .apply(RequestOptions.circleCropTransform())
                 .into(cookerAvatarIv)
 
             val mealsRecyclerAdapter =
                 MealsRecyclerAdapter(cooker.meals, cooker.lunches ?: listOf()) { id, type ->
-                    mealClick(id, type)
+                    mealClick(cooker.id, id, type)
                 }
             mealsRv.adapter = mealsRecyclerAdapter
             mealsRv.layoutManager =

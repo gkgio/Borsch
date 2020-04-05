@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/bg_bottom_sheet_title">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +20,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_bottom_sheet_title"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 tools:ignore="UselessParent">

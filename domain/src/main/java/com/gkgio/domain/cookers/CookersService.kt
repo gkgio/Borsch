@@ -8,4 +8,6 @@ interface CookersService {
     fun loadCookersListWithoutAuth(cookersRequest: CookersWithoutAuthRequest): Single<List<Cooker>>
     fun loadCookerDetail(cookerId: String): Single<CookerDetail>
     fun loadCookerDetailWithoutAuth(cookerId: String): Single<CookerDetail>
+    fun loadLunch(cookerId: String, lunchId: String): Single<Lunch>
+    fun loadMeal(cookerId: String, mealId: String): Single<Meal>
 }

@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_cookers.*
 class CookersFragment : BaseFragment<CookersViewModel>() {
 
     companion object {
+        const val LUNCH_TYPE = 1
+        const val MEAL_TYPE = 2
+
         val TAG = CookersFragment::class.java.simpleName
     }
 
@@ -59,8 +62,8 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
             { cookerId ->
                 viewModel.onCookerClick(cookerId)
             },
-            { id, type ->
-
+            { cookerId, foodId, type ->
+                viewModel.onCookerFoodClick(cookerId, foodId, type)
             })
         cookersRv.adapter = cookersRecyclerAdapter
         cookersRv.layoutManager = LinearLayoutManager(context)

@@ -1,29 +1,48 @@
 package com.gkgio.borsch.cookers.detail
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
+import com.gkgio.borsch.cookers.detail.food.FoodItemDialogListener
+import com.gkgio.borsch.cookers.detail.food.FoodItemFragment
+import com.gkgio.borsch.cookers.detail.meals.CookerMealClickListener
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
+import com.gkgio.borsch.utils.FragmentNullableArgumentDelegate
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_cooker_detail.*
 
-class CookerDetailFragment : BaseFragment<CookerDetailViewModel>() {
+class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDialogListener,
+    CookerMealClickListener {
 
     companion object {
-        fun newInstance(cookerId: String) = CookerDetailFragment().apply {
-            this.cookerId = cookerId
-        }
+        private const val MAX_SCHEDULE_SHEET_ALPHA = 0.5f
+
+        fun newInstance(cookerId: String, foodId: String?, type: Int?) =
+            CookerDetailFragment().apply {
+                this.cookerId = cookerId
+                this.foodId = foodId
+                this.type = type
+            }
     }
 
     private var cookerId: String by FragmentArgumentDelegate()
+    private var foodId: String? by FragmentNullableArgumentDelegate()
+    private var type: Int? by FragmentNullableArgumentDelegate()
 
     private lateinit var pagerAdapter: CookerDetailPagerAdapter
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     override fun getLayoutId(): Int = R.layout.fragment_cooker_detail
 
@@ -33,7 +52,12 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.init(cookerId)
+        viewModel.init(cookerId, foodId, type)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupAlphaOnRestoreState()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,6 +75,7 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>() {
                     .load(cooker.avatarUrl)
                     .withFade()
                     .withCenterCropOval()
+                    .placeholder(R.drawable.ic_chef_place_holder)
                     .apply(RequestOptions.circleCropTransform())
                     .into(cookerAvatarIv)
 
@@ -69,6 +94,76 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>() {
 
             }
         }
+
+        viewModel.openFoodItem.observeValue(this) {
+            addFragmentToContainerBottomSheet(FoodItemFragment.newInstance(it))
+        }
+
+        bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<View>(R.id.foodSheet))
+        bottomSheetBehavior.setBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(p0: View, slide: Float) {
+                alphaView.alpha = slide / 2
+            }
+
+            override fun onStateChanged(p0: View, state: Int) {
+                alphaView.isVisible = state != BottomSheetBehavior.STATE_COLLAPSED
+            }
+        })
+
+        coordinatorCookerDetail.doOnPreDraw {
+            foodSheet.layoutParams.height =
+                coordinatorCookerDetail.height - (toolbar.height * 1.4).toInt()
+        }
+
+        setupLockListeners()
+    }
+
+    override fun onBackClick() {
+        when {
+            bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED -> {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            else -> {
+                super.onBackClick()
+            }
+        }
+    }
+
+    override fun onCollapseClick() = onBackClick()
+
+    override fun onMealClick(id: String, type: Int) {
+        viewModel.onMealClick(cookerId, id, type)
+    }
+
+    private fun setupAlphaOnRestoreState() {
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED
+            && resources.configuration.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        ) {
+            alphaView.alpha = MAX_SCHEDULE_SHEET_ALPHA
+            alphaView.isVisible = true
+        }
+    }
+
+    private fun setupLockListeners() {
+
+        alphaView.setOnTouchListener { _, _ ->
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    private fun addFragmentToContainerBottomSheet(fragment: Fragment) {
+        val fm = childFragmentManager.beginTransaction()
+        with(fm) {
+            replace(
+                R.id.sheetContainer,
+                fragment,
+                fragment::class.java.name
+            )
+            commitNowAllowingStateLoss()
+        }
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun initViewPager(cookerDetailUi: CookerDetailUi) {

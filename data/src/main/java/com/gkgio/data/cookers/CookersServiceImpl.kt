@@ -2,10 +2,7 @@ package com.gkgio.data.cookers
 
 import com.gkgio.data.cookers.detail.CookerDetailDataResponse
 import com.gkgio.data.cookers.detail.CookerDetailTransformer
-import com.gkgio.domain.cookers.Cooker
-import com.gkgio.domain.cookers.CookersRequest
-import com.gkgio.domain.cookers.CookersService
-import com.gkgio.domain.cookers.CookersWithoutAuthRequest
+import com.gkgio.domain.cookers.*
 import com.gkgio.domain.cookers.detail.CookerDetail
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -19,7 +16,9 @@ class CookersServiceImpl @Inject constructor(
     private val cookerResponseTransformer: CookerResponseTransformer,
     private val cookersDataRequestTransformer: CookersDataRequestTransformer,
     private val cookersDataWithoutAuthRequestTransformer: CookersDataWithoutAuthRequestTransformer,
-    private val cookerDetailTransformer: CookerDetailTransformer
+    private val cookerDetailTransformer: CookerDetailTransformer,
+    private val lunchResponseTransformer: LunchResponseTransformer,
+    private val mealResponseTransformer: MealResponseTransformer
 ) : CookersService {
 
     override fun loadCookersList(cookersRequest: CookersRequest): Single<List<Cooker>> =
@@ -48,6 +47,15 @@ class CookersServiceImpl @Inject constructor(
         cookersServiceApi.loadCookerDetailWithoutAuth(cookerId)
             .map { cookerDetailTransformer.transform(it.cooker) }
 
+    override fun loadLunch(cookerId: String, lunchId: String): Single<Lunch> =
+        cookersServiceApi.loadLunch(cookerId, lunchId)
+            .map { lunchResponseTransformer.transform(it.lunch) }
+
+    override fun loadMeal(cookerId: String, mealId: String): Single<Meal> =
+        cookersServiceApi.loadMeal(cookerId, mealId)
+            .map { mealResponseTransformer.transform(it.meal) }
+
+
     interface CookersServiceApi {
         @POST("client/cookers")
         fun loadCookersList(@Body cookersRequest: CookersDataRequest): Single<CookersDataResponse>
@@ -60,5 +68,17 @@ class CookersServiceImpl @Inject constructor(
 
         @GET("public/cookers/{cookerId}")
         fun loadCookerDetailWithoutAuth(@Path("cookerId") cookerId: String): Single<CookerDetailDataResponse>
+
+        @GET("public/cookers/{cookerId}/lunches/{lunchId}")
+        fun loadLunch(
+            @Path("cookerId") cookerId: String,
+            @Path("lunchId") lunchId: String
+        ): Single<LunchDataResponse>
+
+        @GET("public/cookers/{cookerId}/meals/{mealId}")
+        fun loadMeal(
+            @Path("cookerId") cookerId: String,
+            @Path("mealId") mealId: String
+        ): Single<MealDataResponse>
     }
 }
