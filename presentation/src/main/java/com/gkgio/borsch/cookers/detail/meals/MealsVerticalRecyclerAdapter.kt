@@ -20,7 +20,8 @@ import kotlinx.android.synthetic.main.layout_meal_vertical_view_holder.view.*
 class MealsVerticalRecyclerAdapter(
     private val mealsList: List<MealUi>,
     private val lunchesList: List<LunchUi>,
-    val itemClick: (String, Int) -> Unit
+    val itemClick: (String, Int) -> Unit,
+    val addToBasketClick: (String, String, String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -54,7 +55,7 @@ class MealsVerticalRecyclerAdapter(
         if (holder is LunchViewHolder) {
             with(holder.itemView) {
                 val lunch = lunchesList[position]
-                val lunchMealsRecyclerAdapter = LunchMealsVerticalRecyclerAdapter(lunch.meals){
+                val lunchMealsRecyclerAdapter = LunchMealsVerticalRecyclerAdapter(lunch.meals) {
                     itemClick(lunch.id, LUNCH_TYPE)
                 }
                 rvLunchMeals.adapter = lunchMealsRecyclerAdapter
@@ -72,6 +73,10 @@ class MealsVerticalRecyclerAdapter(
                 setDebounceOnClickListener {
                     itemClick(lunch.id, LUNCH_TYPE)
                 }
+
+                addToBasketLunchIv.setDebounceOnClickListener {
+                    addToBasketClick(lunch.id, lunch.name, lunch.price)
+                }
             }
         } else if (holder is MealsViewHolder) {
             with(holder.itemView) {
@@ -88,6 +93,10 @@ class MealsVerticalRecyclerAdapter(
 
                 setDebounceOnClickListener {
                     itemClick(meal.id, MEAL_TYPE)
+                }
+                
+                addToBasketMealIv.setDebounceOnClickListener {
+                    addToBasketClick(meal.id, meal.name, meal.price)
                 }
             }
         }

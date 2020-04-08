@@ -42,4 +42,11 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <declare-styleable name="BorschBrandButton">
+        <attr name="corner_radius" format="integer" />
+        <attr name="padding_top_bottom_dp" format="integer" />
+        <attr name="padding_left_right_dp" format="integer" />
+        <attr name="color" format="color" />
+    </declare-styleable>
 </resources>

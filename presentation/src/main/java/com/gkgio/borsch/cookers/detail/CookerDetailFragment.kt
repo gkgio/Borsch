@@ -21,6 +21,7 @@ import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.utils.FragmentNullableArgumentDelegate
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.empty_error_view.*
 import kotlinx.android.synthetic.main.fragment_cooker_detail.*
 
 class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDialogListener,
@@ -67,6 +68,9 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
         }
 
         viewModel.state.observeValue(this) { state ->
+            progress.isVisible = state.isLoading
+            emptyErrorView.isVisible = state.isInitialError
+
             state.cookerDetail?.let { cooker ->
                 toolbar.setTitle(cooker.name)
                 initViewPager(cooker)
@@ -91,12 +95,15 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
 
                 ratingTv.text = cooker.rating
                 deliveryContainer.isVisible = cooker.delivery
-
             }
         }
 
         viewModel.openFoodItem.observeValue(this) {
             addFragmentToContainerBottomSheet(FoodItemFragment.newInstance(it))
+        }
+
+        updateEmptyBtn.setDebounceOnClickListener {
+            viewModel.loadData(cookerId, foodId, type)
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<View>(R.id.foodSheet))

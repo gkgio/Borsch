@@ -2,6 +2,7 @@ package com.gkgio.borsch.cookers.detail
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.math.BigDecimal
 
 @Parcelize
 data class LunchUi(
@@ -15,5 +16,6 @@ data class LunchUi(
     val name: String,
     val price: String,
     val calories: String,
-    val weight: String
+    val weight: String,
+    val pricePure: BigDecimal
 ) : Parcelable

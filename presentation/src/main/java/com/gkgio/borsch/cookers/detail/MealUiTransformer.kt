@@ -25,7 +25,8 @@ class MealUiTransformer @Inject constructor(
             priceFormatter.format(price),
             tags,
             type,
-            weightFormatter.formatToOnePotion(weight)
+            weightFormatter.formatToOnePotion(weight),
+            price
         )
     }
 }

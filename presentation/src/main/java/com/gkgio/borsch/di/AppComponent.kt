@@ -12,7 +12,7 @@ import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.base.bottomsheet.BaseBottomSheetDialog
 import com.gkgio.borsch.basket.BasketViewModel
-import com.gkgio.borsch.favorites.FavoritesViewModel
+import com.gkgio.borsch.orders.OrdersViewModel
 import com.gkgio.borsch.cookers.CookersViewModel
 import com.gkgio.borsch.cookers.detail.CookerDetailViewModel
 import com.gkgio.borsch.cookers.detail.food.FoodItemViewModel
@@ -47,7 +47,8 @@ import javax.inject.Singleton
         ThemeModule::class,
         OnboardingModule::class,
         CookersModule::class,
-        LocationModule::class
+        LocationModule::class,
+        BasketModule::class
     ]
 )
 interface AppComponent {
@@ -59,7 +60,7 @@ interface AppComponent {
 
     val launchViewModel: LaunchViewModel
     val mainViewModel: MainViewModel
-    val empty2ViewModel: FavoritesViewModel
+    val ordersViewModel: OrdersViewModel
     val cookersViewModel: CookersViewModel
     val settingsViewModel: SettingsViewModel
     val onboardingViewModel: OnboardingViewModel

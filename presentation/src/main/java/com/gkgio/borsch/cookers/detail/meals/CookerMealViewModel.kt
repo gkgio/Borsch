@@ -15,4 +15,8 @@ class CookerMealViewModel @Inject constructor(
     fun onMealClick(id: String, type: Int) {
 
     }
+
+    fun addToBasketClick(id: String, name: String, price: String) {
+
+    }
 }

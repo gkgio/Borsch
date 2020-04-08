@@ -51,10 +51,14 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
         mealsVerticalRecyclerAdapter =
             MealsVerticalRecyclerAdapter(
                 cookerDetailUi.meals,
-                cookerDetailUi.lunches ?: listOf()
-            ) { id, type ->
-                listener.onMealClick(id, type)
-            }
+                cookerDetailUi.lunches ?: listOf(),
+                { id, type ->
+                    listener.onMealClick(id, type)
+                },
+                { id, name, price ->
+                    viewModel.addToBasketClick(id, name, price)
+                }
+            )
         mealsRv.adapter = mealsVerticalRecyclerAdapter
         mealsRv.layoutManager = LinearLayoutManager(context)
     }

@@ -5,7 +5,7 @@
 
     <string name="tab_name_cookers">Повара</string>
     <string name="tab_name_basket">Корзина</string>
-    <string name="tab_name_favorites">Избранные</string>
+    <string name="tab_name_orders">Заказы</string>
     <string name="tab_name_profile">Профиль</string>
 
     <string name="theme_dark">Тёмная тема</string>
@@ -88,4 +88,12 @@
     <string name="min_price_format">от %1$s ₽</string>
     <string name="weight_format">%d мл</string>
     <string name="weight_1_portion">1 порция: ~ %d мл</string>
+
+    <string name="error_empty_text">Что-то пошло не так</string>
+    <string name="error_btn_text">Обновить</string>
+    <string name="basket_title">Корзина</string>
+    <string name="basket_sum">Итого:</string>
+    <string name="basket_add_filter">Добавить %s</string>
+    <string name="basket_add_change_filter">Готово %s</string>
+    <string name="food_detail_title">Описание</string>
 </resources>

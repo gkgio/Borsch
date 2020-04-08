@@ -10,9 +10,16 @@ import com.gkgio.borsch.cookers.detail.*
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.utils.PriceFormatter
+import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
+import com.gkgio.domain.basket.BasketData
+import com.gkgio.domain.basket.BasketRepository
+import com.gkgio.domain.basket.BasketUseCase
 import com.gkgio.domain.cookers.LoadFoodItemUseCase
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class FoodItemViewModel @Inject constructor(
@@ -21,12 +28,18 @@ class FoodItemViewModel @Inject constructor(
     private val lunchUiTransformer: LunchUiTransformer,
     private val mealUiTransformer: MealUiTransformer,
     private val loadFoodItemUseCase: LoadFoodItemUseCase,
+    private val basketUseCase: BasketUseCase,
+    private val priceFormatter: PriceFormatter,
+    private val basketRepository: BasketRepository,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
     lateinit var foodItemRequest: FoodItemRequest
 
     val state = MutableLiveData<State>()
+    val showClearBasketWarning = SingleLiveEvent<Unit>()
+    val showDialogDeleteFromBasket = SingleLiveEvent<Unit>()
+    val closeDialog = SingleLiveEvent<Unit>()
 
     fun init(foodItemRequest: FoodItemRequest) {
         if (state.isNonInitialized()) {
@@ -51,7 +64,14 @@ class FoodItemViewModel @Inject constructor(
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
-                state.value = state.nonNullValue.copy(lunchUi = it, isLoading = false)
+                state.value = state.nonNullValue.copy(
+                    lunchUi = it,
+                    isLoading = false,
+                    currentPricePure = it.pricePure,
+                    currentPriceFormatted = priceFormatter.format(it.pricePure),
+                    nameFood = it.name
+                )
+                loadBasketItem()
             }, {
                 state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
                 processThrowable(it)
@@ -65,10 +85,138 @@ class FoodItemViewModel @Inject constructor(
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
-                state.value = state.nonNullValue.copy(mealUi = it, isLoading = false)
+                state.value =
+                    state.nonNullValue.copy(
+                        mealUi = it,
+                        isLoading = false,
+                        currentPricePure = it.purePrice,
+                        currentPriceFormatted = priceFormatter.format(it.purePrice),
+                        nameFood = it.name
+                    )
+                loadBasketItem()
             }, {
                 state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
                 processThrowable(it)
+            }).addDisposable()
+    }
+
+    private fun loadBasketItem() {
+        basketUseCase
+            .loadBasketItem(foodItemRequest.foodId)
+            .applySchedulers()
+            .subscribe({
+                state.value =
+                    state.nonNullValue.copy(
+                        currentCount = it.count,
+                        currentPricePure = it.price,
+                        currentPriceFormatted = priceFormatter.format(it.price),
+                        goodsWasInBasket = true
+                    )
+            }, {
+                Timber.d(it)
+            }).addDisposable()
+    }
+
+    fun onAddToBasketClick() {
+        if (state.nonNullValue?.nameFood != null && state.nonNullValue?.currentPricePure != null
+            && state.nonNullValue?.currentCount != null
+        ) {
+            if (state.nonNullValue.goodsWasInBasket) {
+                updateBasketItemCount()
+            } else {
+                val basketCountAndSum = basketRepository.loadBasketCountAndSum()
+                when {
+                    basketCountAndSum == null -> {
+                        addToBasket()
+                    }
+                    basketCountAndSum.cookerId != foodItemRequest.cookerId -> {
+                        showClearBasketWarning.call()
+                    }
+                    else -> {
+                        addToBasket()
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun addToBasket() {
+        basketUseCase
+            .addToBasket(
+                foodItemRequest.foodId,
+                state.nonNullValue.nameFood!!,
+                state.nonNullValue.currentPricePure!!,
+                foodItemRequest.cookerId,
+                state.nonNullValue.currentCount
+            )
+            .applySchedulers()
+            .subscribe({
+                state.value = state.nonNullValue.copy(goodsWasInBasket = true)
+            }, {
+                Timber.d(it)
+            }).addDisposable()
+    }
+
+    private fun updateBasketItemCount() {
+        basketUseCase
+            .updateBasketItemCount(
+                foodItemRequest.foodId,
+                state.nonNullValue.currentCount,
+                state.nonNullValue.currentPricePure!!
+            )
+            .applySchedulers()
+            .subscribe({
+                closeDialog.call()
+            }, {
+                Timber.d(it)
+            }).addDisposable()
+    }
+
+    fun onPlusCountClick() {
+        val newPrice = (state.nonNullValue.currentPricePure!!
+            .multiply(BigDecimal(2)))
+        state.value = state.nonNullValue.copy(
+            currentCount = state.nonNullValue.currentCount + 1,
+            currentPricePure = newPrice,
+            currentPriceFormatted = priceFormatter.format(newPrice)
+        )
+    }
+
+    fun onMinusCountClick() {
+        if (state.nonNullValue.currentCount > 1) {
+            val newPrice = (state.nonNullValue.currentPricePure!!
+                .divide(BigDecimal(2)))
+            state.value = state.nonNullValue.copy(
+                currentCount = state.nonNullValue.currentCount - 1,
+                currentPricePure = newPrice,
+                currentPriceFormatted = priceFormatter.format(newPrice)
+            )
+        } else if (state.nonNullValue.goodsWasInBasket) {
+            showDialogDeleteFromBasket.call()
+        }
+    }
+
+    fun onDeleteFromBasketClick() {
+        basketUseCase
+            .removeFromBasket(foodItemRequest.foodId)
+            .applySchedulers()
+            .subscribe({
+                closeDialog.call()
+            }, {
+                Timber.d(it)
+            }).addDisposable()
+    }
+
+    fun onClearBasketClick() {
+        basketUseCase
+            .clearBasket()
+            .applySchedulers()
+            .subscribe({
+                onPlusCountClick()
+                onAddToBasketClick()
+            }, {
+                Timber.d(it)
             }).addDisposable()
     }
 
@@ -76,6 +224,11 @@ class FoodItemViewModel @Inject constructor(
         val isLoading: Boolean,
         val isInitialError: Boolean = false,
         val lunchUi: LunchUi? = null,
-        val mealUi: MealUi? = null
+        val mealUi: MealUi? = null,
+        val nameFood: String? = null,
+        val currentPriceFormatted: String? = null,
+        val currentPricePure: BigDecimal? = null,
+        val currentCount: Int = 1,
+        val goodsWasInBasket: Boolean = false
     )
 }

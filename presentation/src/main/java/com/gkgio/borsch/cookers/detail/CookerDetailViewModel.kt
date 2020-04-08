@@ -31,28 +31,32 @@ class CookerDetailViewModel @Inject constructor(
         if (state.isNonInitialized()) {
             state.value = State(false)
 
-            cookersUseCase
-                .loadCookerDetail(cookerId)
-                .map { cookerDetailUiTransformer.transform(it) }
-                .applySchedulers()
-                .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
-                .subscribe({
-                    state.value = state.nonNullValue.copy(isLoading = false, cookerDetail = it)
-                    if (foodId != null && type != null) {
-                        Handler().postDelayed(
-                            {
-                                openFoodItem.value = FoodItemRequest(
-                                    cookerId, foodId, type
-                                )
-                            },
-                            300
-                        )
-                    }
-                }, {
-                    state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
-                    processThrowable(it)
-                }).addDisposable()
+            loadData(cookerId, foodId, type)
         }
+    }
+
+    fun loadData(cookerId: String, foodId: String?, type: Int?) {
+        cookersUseCase
+            .loadCookerDetail(cookerId)
+            .map { cookerDetailUiTransformer.transform(it) }
+            .applySchedulers()
+            .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
+            .subscribe({
+                state.value = state.nonNullValue.copy(isLoading = false, cookerDetail = it)
+                if (foodId != null && type != null) {
+                    Handler().postDelayed(
+                        {
+                            openFoodItem.value = FoodItemRequest(
+                                cookerId, foodId, type
+                            )
+                        },
+                        300
+                    )
+                }
+            }, {
+                state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
+                processThrowable(it)
+            }).addDisposable()
     }
 
     fun onMealClick(cookerId: String, foodId: String, type: Int) {

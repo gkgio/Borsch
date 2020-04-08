@@ -1,4 +1,4 @@
-package com.gkgio.borsch.favorites
+package com.gkgio.borsch.orders
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,13 @@ import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.createViewModel
 
-class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
+class OrdersFragment : BaseFragment<OrdersViewModel>() {
 
 
-    override fun getLayoutId(): Int = R.layout.fragment_favorites
+    override fun getLayoutId(): Int = R.layout.fragment_orders
 
     override fun provideViewModel() = createViewModel {
-        AppInjector.appComponent.empty2ViewModel
+        AppInjector.appComponent.ordersViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

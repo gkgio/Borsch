@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.gkgio.borsch.basket.BasketFragment
-import com.gkgio.borsch.favorites.FavoritesFragment
+import com.gkgio.borsch.orders.OrdersFragment
 import com.gkgio.borsch.cookers.CookersFragment
 import com.gkgio.borsch.profile.SettingsFragment
 
@@ -20,7 +20,7 @@ class MainPagerAdapter(
         return when (position) {
             0 -> CookersFragment()
             1 -> BasketFragment()
-            2 -> FavoritesFragment()
+            2 -> OrdersFragment()
             3 -> SettingsFragment()
             else -> throw IllegalArgumentException("Unsupported tab")
         }

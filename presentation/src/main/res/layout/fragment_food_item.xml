@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -18,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:iconLeft="@drawable/ic_back" />
+            app:iconLeft="@drawable/ic_back"
+            app:titleText="@string/food_detail_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.gkgio.borsch.view.ScrollOverrideRecyclerView
@@ -27,6 +29,73 @@
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <LinearLayout
+        android:id="@+id/changeCountContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_basket_selected_items"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/removeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_remove"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_basket_count"
+                android:fontFamily="@font/tt_norms_medium"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="3" />
+
+            <ImageView
+                android:id="@+id/addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_add"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <com.gkgio.borsch.view.brandbutton.BorschBrandButton
+            android:id="@+id/addToBasketButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/emptyErrorView"
+        layout="@layout/empty_error_view"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress"

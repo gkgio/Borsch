@@ -9,7 +9,10 @@ import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.location.saved.SavedAddressesSheet
+import kotlinx.android.synthetic.main.empty_error_view.*
 import kotlinx.android.synthetic.main.fragment_cookers.*
+import kotlinx.android.synthetic.main.fragment_cookers.emptyErrorView
+import kotlinx.android.synthetic.main.fragment_cookers.progress
 
 
 class CookersFragment : BaseFragment<CookersViewModel>() {
@@ -44,6 +47,9 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         }
 
         viewModel.state.observeValue(this) { state ->
+            progress.isVisible = state.isLoading
+            emptyErrorView.isVisible = state.isInitialError
+
             addressClientTv.text = state.lastAddedAddress
             addressContainer.isVisible = state.lastAddedAddress != null
 
@@ -55,6 +61,11 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         viewModel.openAddressesSheet.observeValue(this) {
             showDialog(SavedAddressesSheet(), TAG)
         }
+
+        updateEmptyBtn.setDebounceOnClickListener {
+            viewModel.loadCookers()
+        }
+
     }
 
     private fun initCookersRv() {

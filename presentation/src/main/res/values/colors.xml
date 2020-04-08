@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#1b1b1d</color>
-    <color name="accent">#ff5a5f</color>
+    <color name="accent">#333333</color>
     <color name="primary_dark">#000000</color>
     <color name="window_background">#846666</color>
 
@@ -15,6 +15,7 @@
     <color name="btn_color_40">#66ff5a5f</color>
     <color name="recycle_divider">#f7f7f7</color>
 
+    <color name="grey_text4">#afafaf</color>
     <color name="grey_text3">#939393</color>
     <color name="grey_text2">#6d7278</color>
     <color name="grey_text">#a3aaae</color>
@@ -27,6 +28,7 @@
     <color name="white">#FFFFFF</color>
     <color name="white_2">#05ffffff</color>
     <color name="white_4">#0affffff</color>
+    <color name="white_8">#14000000</color>
     <color name="white_10">#1AFFFFFF</color>
     <color name="white_40">#66FFFFFF</color>
     <color name="white_60">#99FFFFFF</color>
@@ -35,6 +37,7 @@
 
     <color name="black">#000000</color>
     <color name="black_4">#0a000000</color>
+    <color name="black_8">#14000000</color>
     <color name="black_25">#40000000</color>
     <color name="black_50">#80000000</color>
     <color name="black_70">#B3000000</color>

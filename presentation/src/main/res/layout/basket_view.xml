@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="24dp"
+    android:background="@drawable/bg_basket_selected_items"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/basketTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:fontFamily="@font/tt_norms_medium"
+        android:text="@string/basket_title"
+        android:textColor="@color/grey_text4"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/countTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/basketTitleTv"
+        android:background="@drawable/bg_basket_count"
+        android:paddingStart="2dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="3dp"
+        android:textColor="@color/white"
+        tools:text="4" />
+
+    <TextView
+        android:id="@+id/sumTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@id/sumTv"
+        android:layout_toEndOf="@id/countTv"
+        android:fontFamily="@font/tt_norms_medium"
+        android:gravity="end"
+        android:text="@string/basket_sum"
+        android:textColor="@color/grey_text4"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sumTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/tt_norms_bold"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:text="54" />
+</RelativeLayout>

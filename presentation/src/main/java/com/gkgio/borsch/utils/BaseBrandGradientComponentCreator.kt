@@ -1,13 +1,12 @@
 package com.gkgio.borsch.utils
 
 import android.content.Context
+import com.gkgio.borsch.R
 import com.gkgio.borsch.ext.getColorCompat
 import top.defaults.drawabletoolbox.DrawableBuilder
 
 class BaseBrandGradientComponentCreator(
-    private val context: Context,
-    private val colorStart: Int,
-    private val colorEnd: Int
+    private val context: Context
 ) : BackgroundComponentCreator {
 
     override fun create(): DrawableBuilder {
@@ -15,10 +14,11 @@ class BaseBrandGradientComponentCreator(
             .rectangle()
             .gradient()
             .gradientColors(
-                context.getColorCompat(colorStart),
-                context.getColorCompat(colorEnd),
+                context.getColorCompat(R.color.blue),
+                context.getColorCompat(R.color.btn_color),
                 null
             )
+            .angle(90)
             .linearGradient()
     }
 }

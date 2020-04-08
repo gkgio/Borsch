@@ -13,6 +13,8 @@ import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.os.Build.VERSION_CODES
 import android.os.Build.VERSION
+import androidx.annotation.FontRes
+import androidx.core.content.res.ResourcesCompat
 
 fun Context.getColorCompat(@ColorRes colorId: Int) = ContextCompat.getColor(this, colorId)
 
@@ -33,3 +35,6 @@ fun Context.getColoredDrawableCompat(@DrawableRes drawableRes: Int, @ColorInt co
         }
     }
 }
+
+
+fun Context.getFont(@FontRes fontRes: Int) = ResourcesCompat.getFont(this, fontRes)
