@@ -15,10 +15,17 @@ interface BasketUseCase {
         count: Int = 1
     ): Single<BasketCountAndSum>
 
-    fun removeFromBasket(id: String): Completable
+    fun removeFromBasket(id: String, cookerId: String): Completable
     fun loadBasketItem(id: String): Single<BasketData>
     fun loadBasketData(): Single<List<BasketData>>
-    fun updateBasketItemCount(id: String, count: Int, price: BigDecimal): Single<List<BasketData>>
+    fun updateBasketItemCount(
+        id: String,
+        count: Int,
+        price: BigDecimal,
+        cookerId: String,
+        isPlusOne: Boolean = false
+    ): Single<List<BasketData>>
+
     fun clearBasket(): Completable
 }
 
@@ -66,7 +73,7 @@ class BasketUseCaseImpl @Inject constructor(
             }
         }
 
-    override fun removeFromBasket(id: String) =
+    override fun removeFromBasket(id: String, cookerId: String) =
         basketRepository
             .loadBasketData()
             .flatMapCompletable { basketDataList ->
@@ -74,10 +81,21 @@ class BasketUseCaseImpl @Inject constructor(
                 val updateItem = mutableBasketDataList.find { it.id == id }
                 if (updateItem != null) {
                     mutableBasketDataList.remove(updateItem)
-                    basketRepository.updateBasket(mutableBasketDataList)
-                        .flatMapCompletable {
-                            Completable.complete()
-                        }
+                    var sum: BigDecimal = BigDecimal.ZERO
+                    mutableBasketDataList.forEach {
+                        sum += it.price
+                    }
+                    val basketCountAndSum =
+                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId)
+
+                    Single.zip(
+                        basketRepository.updateBasket(mutableBasketDataList),
+                        basketRepository.updateBasketCountAndSum(basketCountAndSum),
+                        BiFunction<List<BasketData>, BasketCountAndSum, List<BasketData>> { _, _ ->
+                            basketDataList
+                        }).flatMapCompletable {
+                        Completable.complete()
+                    }
                 } else {
                     Completable.complete()
                 }
@@ -89,7 +107,9 @@ class BasketUseCaseImpl @Inject constructor(
     override fun updateBasketItemCount(
         id: String,
         count: Int,
-        price: BigDecimal
+        price: BigDecimal,
+        cookerId: String,
+        isPlusOne: Boolean
     ): Single<List<BasketData>> =
         basketRepository
             .loadBasketData()
@@ -97,11 +117,26 @@ class BasketUseCaseImpl @Inject constructor(
                 val mutableBasketDataList = basketDataList.toMutableList()
                 val updateItem = mutableBasketDataList.find { it.id == id }
                 updateItem?.let {
-                    updateItem.count = count
-                    updateItem.price = price
+                    updateItem.count = if (isPlusOne) updateItem.count + 1 else count
+                    updateItem.price = if (isPlusOne) updateItem.price + price else price
                     val index = mutableBasketDataList.indexOf(updateItem)
                     mutableBasketDataList[index] = updateItem
-                    basketRepository.updateBasket(mutableBasketDataList)
+
+                    var sum: BigDecimal = BigDecimal.ZERO
+                    mutableBasketDataList.forEach {
+                        sum += it.price
+                    }
+                    val basketCountAndSum =
+                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId)
+
+                    Single.zip(
+                        basketRepository.updateBasket(mutableBasketDataList),
+                        basketRepository.updateBasketCountAndSum(basketCountAndSum),
+                        BiFunction<List<BasketData>, BasketCountAndSum, List<BasketData>> { basketDataList, _ ->
+                            basketDataList
+                        }).flatMap {
+                        Single.fromCallable { it }
+                    }
                 }
             }
 

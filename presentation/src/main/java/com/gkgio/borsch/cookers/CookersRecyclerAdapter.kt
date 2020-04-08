@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gkgio.borsch.R
+import com.gkgio.borsch.cookers.detail.CookerUi
 import com.gkgio.borsch.ext.dpToPx
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropOval
@@ -28,9 +29,9 @@ class CookersRecyclerAdapter(
         private const val COOKERS_TAG_MARGIN_DP = 8
     }
 
-    private val cookersList = mutableListOf<Cooker>()
+    private val cookersList = mutableListOf<CookerUi>()
 
-    fun setCookersList(cookersList: List<Cooker>) {
+    fun setCookersList(cookersList: List<CookerUi>) {
         this.cookersList.clear()
         this.cookersList.addAll(cookersList)
         notifyDataSetChanged()
@@ -48,7 +49,7 @@ class CookersRecyclerAdapter(
             val tagMargins = context.dpToPx(COOKERS_TAG_MARGIN_DP)
 
             if (!cooker.countryTags.isNullOrEmpty()) {
-                cooker.countryTags?.forEach { tag ->
+                cooker.countryTags.forEach { tag ->
                     tagsFlexBox.addView(
                         createTagView(
                             layoutInflater,
@@ -65,6 +66,8 @@ class CookersRecyclerAdapter(
             cookerDescriptionTv.text = cooker.description
             rankingTv.text = cooker.rating
             deliveryContainer.isVisible = cooker.delivery
+            distanceContainer.isVisible = cooker.distance != null
+            distanceTv.text = cooker.distance
 
             Glide.with(cookerAvatarIv)
                 .load(cooker.avatarUrl)

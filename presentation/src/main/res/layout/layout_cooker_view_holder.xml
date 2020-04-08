@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         android:paddingTop="16dp"
         android:paddingBottom="8dp">
 
@@ -121,7 +120,7 @@
             android:layout_height="0.5dp"
             android:background="@color/recycle_divider" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -130,8 +129,11 @@
             android:paddingEnd="16dp">
 
             <LinearLayout
+                android:id="@+id/rankingContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/round_angle_background_16_grey"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -162,14 +164,15 @@
                 android:id="@+id/deliveryContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/rankingContainer"
                 android:background="@drawable/round_angle_background_16_grey"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingTop="4dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
-                android:visibility="gone"
                 tools:ignore="UseCompoundDrawables,UselessParent">
 
                 <ImageView
@@ -180,7 +183,31 @@
 
             </FrameLayout>
 
-        </LinearLayout>
+            <FrameLayout
+                android:id="@+id/distanceContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/round_angle_background_16_grey"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="4dp"
+                tools:ignore="UseCompoundDrawables,UselessParent">
+
+                <TextView
+                    android:id="@+id/distanceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tt_norms_regular"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    tools:text="4" />
+            </FrameLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

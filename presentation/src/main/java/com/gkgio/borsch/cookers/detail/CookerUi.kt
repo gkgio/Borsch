@@ -1,11 +1,11 @@
-package com.gkgio.domain.cookers
+package com.gkgio.borsch.cookers.detail
 
-data class Cooker(
+data class CookerUi(
     val banned: Boolean?,
     val certified: Boolean,
     val id: String,
-    val meals: List<Meal>,
-    val lunches: List<Lunch>?,
+    val meals: List<MealUi>,
+    val lunches: List<LunchUi>?,
     val name: String,
     val phone: String?,
     val rating: String,
@@ -16,5 +16,5 @@ data class Cooker(
     val countryTags: List<String>?,
     val description: String?,
     val onDuty: Boolean, //Whether user is online and accepting orders
-    val distance: Int?
+    val distance: String?
 )

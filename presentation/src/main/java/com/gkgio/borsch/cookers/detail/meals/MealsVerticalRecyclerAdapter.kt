@@ -16,12 +16,13 @@ import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_lunch_vertical_view_holder.view.*
 import kotlinx.android.synthetic.main.layout_meal_vertical_view_holder.view.*
+import java.math.BigDecimal
 
 class MealsVerticalRecyclerAdapter(
     private val mealsList: List<MealUi>,
     private val lunchesList: List<LunchUi>,
     val itemClick: (String, Int) -> Unit,
-    val addToBasketClick: (String, String, String) -> Unit
+    val addToBasketClick: (String, String, BigDecimal) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -75,7 +76,7 @@ class MealsVerticalRecyclerAdapter(
                 }
 
                 addToBasketLunchIv.setDebounceOnClickListener {
-                    addToBasketClick(lunch.id, lunch.name, lunch.price)
+                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure)
                 }
             }
         } else if (holder is MealsViewHolder) {
@@ -94,9 +95,9 @@ class MealsVerticalRecyclerAdapter(
                 setDebounceOnClickListener {
                     itemClick(meal.id, MEAL_TYPE)
                 }
-                
+
                 addToBasketMealIv.setDebounceOnClickListener {
-                    addToBasketClick(meal.id, meal.name, meal.price)
+                    addToBasketClick(meal.id, meal.name, meal.purePrice)
                 }
             }
         }

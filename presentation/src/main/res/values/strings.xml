@@ -96,4 +96,7 @@
     <string name="basket_add_filter">Добавить %s</string>
     <string name="basket_add_change_filter">Готово %s</string>
     <string name="food_detail_title">Описание</string>
+
+    <string name="place_distance_metres_format">~%s м</string>
+    <string name="place_distance_km_format">~%.1f км</string>
 </resources>

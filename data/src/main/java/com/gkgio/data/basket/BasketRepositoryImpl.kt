@@ -37,15 +37,19 @@ class BasketRepositoryImpl @Inject constructor(
     }
 
 
-    override fun updateBasketCountAndSum(basketCountAndSum: BasketCountAndSum) =
+    override fun updateBasketCountAndSum(basketCountAndSum: BasketCountAndSum): Single<BasketCountAndSum> =
         Single.fromCallable {
-            prefs.edit().putString(
-                KEY_BASKET_COUNT_AND_SUM,
-                moshi.adapter(BasketCountAndSumRepositoryData::class.java)
-                    .toJson(
-                        basketCountAndSumToRepositoryDataTransformer.transform(basketCountAndSum)
-                    )
-            ).apply()
+            if (basketCountAndSum.count == 0) {
+                prefs.edit().remove(KEY_BASKET_COUNT_AND_SUM).apply()
+            } else {
+                prefs.edit().putString(
+                    KEY_BASKET_COUNT_AND_SUM,
+                    moshi.adapter(BasketCountAndSumRepositoryData::class.java)
+                        .toJson(
+                            basketCountAndSumToRepositoryDataTransformer.transform(basketCountAndSum)
+                        )
+                ).apply()
+            }
             basketCountAndSum
         }
 

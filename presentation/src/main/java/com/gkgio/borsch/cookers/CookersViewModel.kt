@@ -3,6 +3,8 @@ package com.gkgio.borsch.cookers
 import androidx.lifecycle.MutableLiveData
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
+import com.gkgio.borsch.cookers.detail.CookerUi
+import com.gkgio.borsch.cookers.detail.CookerUiTransformer
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
@@ -24,6 +26,7 @@ class CookersViewModel @Inject constructor(
     private val analyticsRepository: AnalyticsRepository,
     private val loadCookersUseCase: LoadCookersUseCase,
     private val loadAddressesUseCase: LoadAddressesUseCase,
+    private val cookerUiTransformer: CookerUiTransformer,
     addressChangedEvent: AddressChangedEvent,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
@@ -68,6 +71,7 @@ class CookersViewModel @Inject constructor(
     fun loadCookers() {
         loadCookersUseCase
             .loadCookersList()
+            .map { cookerList -> cookerList.map { cookerUiTransformer.transform(it) } }
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
@@ -93,7 +97,7 @@ class CookersViewModel @Inject constructor(
     data class State(
         val isLoading: Boolean,
         val isInitialError: Boolean = false,
-        val cookers: List<Cooker>? = null,
+        val cookers: List<CookerUi>? = null,
         val lastAddedAddress: String? = null
     )
 }

@@ -7,15 +7,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.cookers.detail.CookerDetailUi
+import com.gkgio.borsch.cookers.detail.food.FoodItemFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.createViewModel
+import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.profile.SettingsViewModel
+import com.gkgio.borsch.utils.ClickDialogCallBack
+import com.gkgio.borsch.utils.DialogUtils
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import kotlinx.android.synthetic.main.fragment_cooker_meal.*
 
-class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
+class CookerMealFragment : BaseFragment<CookerMealViewModel>(), ClickDialogCallBack {
 
     companion object {
+        val TAG_CLEAR_BASKET = "${CookerMealFragment::class.java.simpleName}ClearBasket"
+
         fun newInstance(cookerDetailUi: CookerDetailUi) = CookerMealFragment().apply {
             this.cookerDetailUi = cookerDetailUi
         }
@@ -45,6 +51,21 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initMealsRv()
+
+        viewModel.showClearBasketWarning.observeValue(this) {
+            DialogUtils.showDialog(
+                TAG_CLEAR_BASKET,
+                childFragmentManager,
+                "Все ранее выбранные продукты будут удалены из корины. Продолжить?",
+                "Да",
+                buttonLeftText = "Отмена"
+            )
+        }
+    }
+
+    override fun onRightButtonClick(fragmentTag: String) {
+        super.onRightButtonClick(fragmentTag)
+        viewModel.addToBasketAfterCleaning(cookerDetailUi.id)
     }
 
     private fun initMealsRv() {
@@ -56,7 +77,7 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>() {
                     listener.onMealClick(id, type)
                 },
                 { id, name, price ->
-                    viewModel.addToBasketClick(id, name, price)
+                    viewModel.addToBasketClick(id, name, price, cookerDetailUi.id)
                 }
             )
         mealsRv.adapter = mealsVerticalRecyclerAdapter

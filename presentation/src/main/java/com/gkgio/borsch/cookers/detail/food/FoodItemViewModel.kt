@@ -12,6 +12,7 @@ import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.utils.PriceFormatter
 import com.gkgio.borsch.utils.SingleLiveEvent
+import com.gkgio.borsch.utils.events.BasketChangeEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.basket.BasketData
 import com.gkgio.domain.basket.BasketRepository
@@ -31,6 +32,7 @@ class FoodItemViewModel @Inject constructor(
     private val basketUseCase: BasketUseCase,
     private val priceFormatter: PriceFormatter,
     private val basketRepository: BasketRepository,
+    private val basketChangeEvent: BasketChangeEvent,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -153,6 +155,7 @@ class FoodItemViewModel @Inject constructor(
             .applySchedulers()
             .subscribe({
                 state.value = state.nonNullValue.copy(goodsWasInBasket = true)
+                basketChangeEvent.onComplete("")
             }, {
                 Timber.d(it)
             }).addDisposable()
@@ -163,10 +166,12 @@ class FoodItemViewModel @Inject constructor(
             .updateBasketItemCount(
                 foodItemRequest.foodId,
                 state.nonNullValue.currentCount,
-                state.nonNullValue.currentPricePure!!
+                state.nonNullValue.currentPricePure!!,
+                foodItemRequest.cookerId
             )
             .applySchedulers()
             .subscribe({
+                basketChangeEvent.onComplete("")
                 closeDialog.call()
             }, {
                 Timber.d(it)
@@ -199,9 +204,10 @@ class FoodItemViewModel @Inject constructor(
 
     fun onDeleteFromBasketClick() {
         basketUseCase
-            .removeFromBasket(foodItemRequest.foodId)
+            .removeFromBasket(foodItemRequest.foodId, foodItemRequest.cookerId)
             .applySchedulers()
             .subscribe({
+                basketChangeEvent.onComplete("")
                 closeDialog.call()
             }, {
                 Timber.d(it)

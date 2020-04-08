@@ -21,6 +21,7 @@ import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.utils.FragmentNullableArgumentDelegate
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.basket_view.*
 import kotlinx.android.synthetic.main.empty_error_view.*
 import kotlinx.android.synthetic.main.fragment_cooker_detail.*
 
@@ -95,6 +96,12 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
 
                 ratingTv.text = cooker.rating
                 deliveryContainer.isVisible = cooker.delivery
+            }
+
+            basketView.isVisible = state.basketCountAndSum != null
+            state.basketCountAndSum?.let {
+               countTv.text = it.count.toString()
+                sumTv.text= it.sum
             }
         }
 

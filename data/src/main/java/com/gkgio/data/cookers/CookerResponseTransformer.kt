@@ -25,7 +25,8 @@ class CookerResponseTransformer @Inject constructor(
             delivery,
             countryTags,
             description,
-            onDuty
+            onDuty,
+            distance
         )
     }
 }

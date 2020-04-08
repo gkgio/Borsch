@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
 import com.gkgio.borsch.cookers.CookersFragment.Companion.LUNCH_TYPE
 import com.gkgio.borsch.cookers.CookersFragment.Companion.MEAL_TYPE
+import com.gkgio.borsch.cookers.detail.LunchUi
+import com.gkgio.borsch.cookers.detail.MealUi
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
@@ -18,8 +20,8 @@ import kotlinx.android.synthetic.main.layout_lunch_view_holder.view.*
 import kotlinx.android.synthetic.main.layout_meal_view_holder.view.*
 
 class MealsRecyclerAdapter(
-    private val mealsList: List<Meal>,
-    private val lunchesList: List<Lunch>,
+    private val mealsList: List<MealUi>,
+    private val lunchesList: List<LunchUi>,
     val itemClick: (String, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
