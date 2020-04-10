@@ -40,5 +40,7 @@ class CookerDetailResponse(
     @Json(name = "description")
     val description: String?,
     @Json(name = "on_duty")
-    val onDuty: Boolean //Whether user is online and accepting orders
+    val onDuty: Boolean,//Whether user is online and accepting orders
+    @Json(name = "address")
+    val address: CookerAddressResponse?
 )

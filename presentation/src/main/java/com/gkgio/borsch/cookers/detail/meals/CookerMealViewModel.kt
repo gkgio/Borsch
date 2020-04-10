@@ -2,12 +2,15 @@ package com.gkgio.borsch.cookers.detail.meals
 
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
+import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.basket.BasketRepository
 import com.gkgio.domain.basket.BasketUseCase
+import com.gkgio.domain.cookers.detail.CookerAddress
+import com.gkgio.domain.location.Coordinates
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import java.math.BigDecimal
@@ -27,11 +30,17 @@ class CookerMealViewModel @Inject constructor(
     var savedPrice: BigDecimal? = null
     var savedName: String? = null
 
-    fun addToBasketClick(id: String, name: String, price: BigDecimal, cookerId: String) {
+    fun addToBasketClick(
+        id: String,
+        name: String,
+        price: BigDecimal,
+        cookerId: String,
+        cookerAddressUi: CookerAddressUi?
+    ) {
         val basketCountAndSum = basketRepository.loadBasketCountAndSum()
         when {
             basketCountAndSum == null -> {
-                addToBasket(id, name, price, cookerId)
+                addToBasket(id, name, price, cookerId, cookerAddressUi)
             }
             basketCountAndSum.cookerId != cookerId -> {
                 savedFoodId = id
@@ -40,18 +49,18 @@ class CookerMealViewModel @Inject constructor(
                 showClearBasketWarning.call()
             }
             else -> {
-                checkBasket(id, name, price, cookerId)
+                checkBasket(id, name, price, cookerId, cookerAddressUi)
             }
         }
     }
 
-    fun addToBasketAfterCleaning(cookerId: String) {
+    fun addToBasketAfterCleaning(cookerId: String, cookerAddressUi: CookerAddressUi?) {
         if (savedFoodId != null && savedName != null && savedPrice != null) {
             basketUseCase
                 .clearBasket()
                 .applySchedulers()
                 .subscribe({
-                    addToBasket(savedFoodId!!, savedName!!, savedPrice!!, cookerId)
+                    addToBasket(savedFoodId!!, savedName!!, savedPrice!!, cookerId, cookerAddressUi)
                     savedFoodId = null
                     savedName = null
                     savedPrice = null
@@ -61,23 +70,46 @@ class CookerMealViewModel @Inject constructor(
         }
     }
 
-    private fun checkBasket(foodId: String, name: String, price: BigDecimal, cookerId: String) {
+    private fun checkBasket(
+        foodId: String,
+        name: String,
+        price: BigDecimal,
+        cookerId: String,
+        cookerAddressUi: CookerAddressUi?
+    ) {
         basketUseCase
             .loadBasketItem(foodId)
             .applySchedulers()
             .subscribe({
-                updateItemCount(foodId, price, cookerId)
+                updateItemCount(foodId, price, cookerId, cookerAddressUi)
             }, {
-                addToBasket(foodId, name, price, cookerId)
+                addToBasket(foodId, name, price, cookerId, cookerAddressUi)
             }).addDisposable()
     }
 
-    private fun updateItemCount(foodId: String, price: BigDecimal, cookerId: String) {
+    private fun updateItemCount(
+        foodId: String,
+        price: BigDecimal,
+        cookerId: String,
+        cookerAddressUi: CookerAddressUi?
+    ) {
         basketUseCase.updateBasketItemCount(
             foodId,
             1,
             price,
             cookerId,
+            cookerAddressUi?.let {
+                CookerAddress(
+                    it.street,
+                    it.house,
+                    it.flat,
+                    it.floor,
+                    Coordinates(
+                        it.coordinates.latitude,
+                        it.coordinates.longitude
+                    )
+                )
+            },
             true
         ).applySchedulers()
             .subscribe({
@@ -87,13 +119,32 @@ class CookerMealViewModel @Inject constructor(
             }).addDisposable()
     }
 
-    private fun addToBasket(foodId: String, name: String, price: BigDecimal, cookerId: String) {
+    private fun addToBasket(
+        foodId: String,
+        name: String,
+        price: BigDecimal,
+        cookerId: String,
+        cookerAddressUi: CookerAddressUi?
+    ) {
         basketUseCase
             .addToBasket(
                 foodId,
                 name,
                 price,
+                price,
                 cookerId,
+                cookerAddressUi?.let {
+                    CookerAddress(
+                        it.street,
+                        it.house,
+                        it.flat,
+                        it.floor,
+                        Coordinates(
+                            it.coordinates.latitude,
+                            it.coordinates.longitude
+                        )
+                    )
+                },
                 1
             )
             .applySchedulers()

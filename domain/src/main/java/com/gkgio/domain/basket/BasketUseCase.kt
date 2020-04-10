@@ -1,5 +1,6 @@
 package com.gkgio.domain.basket
 
+import com.gkgio.domain.cookers.detail.CookerAddress
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -11,11 +12,13 @@ interface BasketUseCase {
         id: String,
         name: String,
         price: BigDecimal,
+        priceOneItem: BigDecimal,
         cookerId: String,
+        cookerAddress: CookerAddress?,
         count: Int = 1
     ): Single<BasketCountAndSum>
 
-    fun removeFromBasket(id: String, cookerId: String): Completable
+    fun removeFromBasket(id: String, cookerId: String, cookerAddress: CookerAddress?): Completable
     fun loadBasketItem(id: String): Single<BasketData>
     fun loadBasketData(): Single<List<BasketData>>
     fun updateBasketItemCount(
@@ -23,6 +26,7 @@ interface BasketUseCase {
         count: Int,
         price: BigDecimal,
         cookerId: String,
+        cookerAddress: CookerAddress?,
         isPlusOne: Boolean = false
     ): Single<List<BasketData>>
 
@@ -37,7 +41,9 @@ class BasketUseCaseImpl @Inject constructor(
         id: String,
         name: String,
         price: BigDecimal,
+        priceOneItem: BigDecimal,
         cookerId: String,
+        cookerAddress: CookerAddress?,
         count: Int
     ): Single<BasketCountAndSum> =
         basketRepository
@@ -49,14 +55,16 @@ class BasketUseCaseImpl @Inject constructor(
                         name = name,
                         id = id,
                         price = price,
-                        count = count
+                        count = count,
+                        priceOneItem = priceOneItem
                     )
                 )
                 var sum: BigDecimal = BigDecimal.ZERO
                 mutableBasketDataList.forEach {
                     sum += it.price
                 }
-                val basketCountAndSum = BasketCountAndSum(mutableBasketDataList.size, sum, cookerId)
+                val basketCountAndSum =
+                    BasketCountAndSum(mutableBasketDataList.size, sum, cookerId, cookerAddress)
 
                 Single.zip(
                     basketRepository.updateBasket(mutableBasketDataList),
@@ -73,7 +81,7 @@ class BasketUseCaseImpl @Inject constructor(
             }
         }
 
-    override fun removeFromBasket(id: String, cookerId: String) =
+    override fun removeFromBasket(id: String, cookerId: String, cookerAddress: CookerAddress?) =
         basketRepository
             .loadBasketData()
             .flatMapCompletable { basketDataList ->
@@ -86,7 +94,7 @@ class BasketUseCaseImpl @Inject constructor(
                         sum += it.price
                     }
                     val basketCountAndSum =
-                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId)
+                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId, cookerAddress)
 
                     Single.zip(
                         basketRepository.updateBasket(mutableBasketDataList),
@@ -109,6 +117,7 @@ class BasketUseCaseImpl @Inject constructor(
         count: Int,
         price: BigDecimal,
         cookerId: String,
+        cookerAddress: CookerAddress?,
         isPlusOne: Boolean
     ): Single<List<BasketData>> =
         basketRepository
@@ -127,7 +136,7 @@ class BasketUseCaseImpl @Inject constructor(
                         sum += it.price
                     }
                     val basketCountAndSum =
-                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId)
+                        BasketCountAndSum(mutableBasketDataList.size, sum, cookerId, cookerAddress)
 
                     Single.zip(
                         basketRepository.updateBasket(mutableBasketDataList),

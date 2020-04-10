@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gkgio.borsch.R
+import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.cookers.detail.CookerUi
 import com.gkgio.borsch.ext.dpToPx
 import com.gkgio.borsch.ext.setDebounceOnClickListener
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.layout_cooker_view_holder.view.*
 
 class CookersRecyclerAdapter(
     val cookerClick: (String) -> Unit,
-    val mealClick: (String, String, Int) -> Unit
+    val mealClick: (String, String, Int, CookerAddressUi?) -> Unit
 ) : RecyclerView.Adapter<SyntheticViewHolder>() {
 
     companion object {
@@ -79,7 +80,7 @@ class CookersRecyclerAdapter(
 
             val mealsRecyclerAdapter =
                 MealsRecyclerAdapter(cooker.meals, cooker.lunches ?: listOf()) { id, type ->
-                    mealClick(cooker.id, id, type)
+                    mealClick(cooker.id, id, type, cooker.cookerAddress)
                 }
             mealsRv.adapter = mealsRecyclerAdapter
             mealsRv.layoutManager =

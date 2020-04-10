@@ -15,7 +15,8 @@ class BasketToRepositoryDataTransformer @Inject constructor() :
             name,
             id,
             count,
-            price.toString()
+            price.toString(),
+            priceOneItem.toString()
         )
     }
 }

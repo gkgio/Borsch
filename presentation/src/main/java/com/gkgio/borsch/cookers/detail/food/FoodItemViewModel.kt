@@ -14,10 +14,11 @@ import com.gkgio.borsch.utils.PriceFormatter
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
-import com.gkgio.domain.basket.BasketData
 import com.gkgio.domain.basket.BasketRepository
 import com.gkgio.domain.basket.BasketUseCase
 import com.gkgio.domain.cookers.LoadFoodItemUseCase
+import com.gkgio.domain.cookers.detail.CookerAddress
+import com.gkgio.domain.location.Coordinates
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import java.math.BigDecimal
@@ -70,6 +71,7 @@ class FoodItemViewModel @Inject constructor(
                     lunchUi = it,
                     isLoading = false,
                     currentPricePure = it.pricePure,
+                    currentPriceOneItem = it.pricePure,
                     currentPriceFormatted = priceFormatter.format(it.pricePure),
                     nameFood = it.name
                 )
@@ -92,6 +94,7 @@ class FoodItemViewModel @Inject constructor(
                         mealUi = it,
                         isLoading = false,
                         currentPricePure = it.purePrice,
+                        currentPriceOneItem = it.purePrice,
                         currentPriceFormatted = priceFormatter.format(it.purePrice),
                         nameFood = it.name
                     )
@@ -111,6 +114,7 @@ class FoodItemViewModel @Inject constructor(
                     state.nonNullValue.copy(
                         currentCount = it.count,
                         currentPricePure = it.price,
+                        currentPriceOneItem = it.priceOneItem,
                         currentPriceFormatted = priceFormatter.format(it.price),
                         goodsWasInBasket = true
                     )
@@ -149,7 +153,20 @@ class FoodItemViewModel @Inject constructor(
                 foodItemRequest.foodId,
                 state.nonNullValue.nameFood!!,
                 state.nonNullValue.currentPricePure!!,
+                state.nonNullValue.currentPricePure!!,
                 foodItemRequest.cookerId,
+                foodItemRequest.cookerAddressUi?.let {
+                    CookerAddress(
+                        it.street,
+                        it.house,
+                        it.flat,
+                        it.floor,
+                        Coordinates(
+                            it.coordinates.latitude,
+                            it.coordinates.longitude
+                        )
+                    )
+                },
                 state.nonNullValue.currentCount
             )
             .applySchedulers()
@@ -167,7 +184,19 @@ class FoodItemViewModel @Inject constructor(
                 foodItemRequest.foodId,
                 state.nonNullValue.currentCount,
                 state.nonNullValue.currentPricePure!!,
-                foodItemRequest.cookerId
+                foodItemRequest.cookerId,
+                foodItemRequest.cookerAddressUi?.let {
+                    CookerAddress(
+                        it.street,
+                        it.house,
+                        it.flat,
+                        it.floor,
+                        Coordinates(
+                            it.coordinates.latitude,
+                            it.coordinates.longitude
+                        )
+                    )
+                }
             )
             .applySchedulers()
             .subscribe({
@@ -179,8 +208,8 @@ class FoodItemViewModel @Inject constructor(
     }
 
     fun onPlusCountClick() {
-        val newPrice = (state.nonNullValue.currentPricePure!!
-            .multiply(BigDecimal(2)))
+        val newPrice =
+            state.nonNullValue.currentPricePure!! + state.nonNullValue.currentPriceOneItem!!
         state.value = state.nonNullValue.copy(
             currentCount = state.nonNullValue.currentCount + 1,
             currentPricePure = newPrice,
@@ -204,7 +233,21 @@ class FoodItemViewModel @Inject constructor(
 
     fun onDeleteFromBasketClick() {
         basketUseCase
-            .removeFromBasket(foodItemRequest.foodId, foodItemRequest.cookerId)
+            .removeFromBasket(
+                foodItemRequest.foodId,
+                foodItemRequest.cookerId,
+                foodItemRequest.cookerAddressUi?.let {
+                    CookerAddress(
+                        it.street,
+                        it.house,
+                        it.flat,
+                        it.floor,
+                        Coordinates(
+                            it.coordinates.latitude,
+                            it.coordinates.longitude
+                        )
+                    )
+                })
             .applySchedulers()
             .subscribe({
                 basketChangeEvent.onComplete("")
@@ -234,6 +277,7 @@ class FoodItemViewModel @Inject constructor(
         val nameFood: String? = null,
         val currentPriceFormatted: String? = null,
         val currentPricePure: BigDecimal? = null,
+        val currentPriceOneItem: BigDecimal? = null,
         val currentCount: Int = 1,
         val goodsWasInBasket: Boolean = false
     )

@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class FoodItemRequest(
     val cookerId: String,
     val foodId: String,
-    val type: Int
+    val type: Int,
+    val cookerAddressUi: CookerAddressUi?
 ) : Parcelable

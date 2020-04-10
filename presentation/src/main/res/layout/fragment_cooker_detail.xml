@@ -36,8 +36,8 @@
 
             <ImageView
                 android:id="@+id/cookerAvatarIv"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="24dp"
                 tools:ignore="ContentDescription" />
@@ -45,7 +45,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
 
                 <ImageView
                     android:id="@+id/isOnlineIv"
@@ -91,28 +94,66 @@
 
             </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/deliveryContainer"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/round_angle_background_16_grey"
+                android:layout_marginEnd="16dp"
+                android:baselineAligned="false"
                 android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="4dp"
-                android:visibility="gone"
-                tools:ignore="UseCompoundDrawables,UselessParent">
+                android:orientation="horizontal">
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/cookerAddressContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/cookerAddressTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tt_norms_regular"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="ffd fsfdd dfd f" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:srcCompat="@drawable/ic_location_pin"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/deliveryContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_delivery"
-                    tools:ignore="ContentDescription" />
+                    android:background="@drawable/round_angle_background_16_grey"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:visibility="gone"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
-            </FrameLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_delivery"
+                        tools:ignore="ContentDescription" />
+
+                </FrameLayout>
+
+            </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/cookerTabs"

@@ -16,5 +16,6 @@ data class CookerUi(
     val countryTags: List<String>?,
     val description: String?,
     val onDuty: Boolean, //Whether user is online and accepting orders
-    val distance: String?
+    val distance: String?,
+    val cookerAddress: CookerAddressUi?
 )

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.gkgio.borsch.auth.InputPhoneFragment
 import com.gkgio.borsch.auth.ValidatePhoneFragment
+import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.cookers.detail.CookerDetailFragment
 import com.gkgio.borsch.location.FindAddressFragment
 import com.gkgio.borsch.location.LocationFragment
@@ -62,9 +63,11 @@ object Screens {
     class CookerDetailFragmentScreen(
         private val cookerId: String,
         private val foodId: String? = null,
-        private val type: Int? = null
+        private val type: Int? = null,
+        private val cookerAddressUi: CookerAddressUi? = null
     ) : SupportAppScreen() {
-        override fun getFragment() = CookerDetailFragment.newInstance(cookerId, foodId, type)
+        override fun getFragment() =
+            CookerDetailFragment.newInstance(cookerId, foodId, type, cookerAddressUi)
     }
 
     class MarketScreen(

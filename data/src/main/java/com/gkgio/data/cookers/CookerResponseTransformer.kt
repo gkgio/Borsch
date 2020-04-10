@@ -1,12 +1,14 @@
 package com.gkgio.data.cookers
 
 import com.gkgio.data.BaseTransformer
+import com.gkgio.data.cookers.detail.CookerAddressResponseTransformer
 import com.gkgio.domain.cookers.Cooker
 import javax.inject.Inject
 
 class CookerResponseTransformer @Inject constructor(
     private val mealResponseTransformer: MealResponseTransformer,
-    private val lunchResponseTransformer: LunchResponseTransformer
+    private val lunchResponseTransformer: LunchResponseTransformer,
+    private val cookerAddressResponseTransformer: CookerAddressResponseTransformer
 ) : BaseTransformer<CookerResponse, Cooker> {
 
     override fun transform(data: CookerResponse) = with(data) {
@@ -26,7 +28,8 @@ class CookerResponseTransformer @Inject constructor(
             countryTags,
             description,
             onDuty,
-            distance
+            distance,
+            address?.let { cookerAddressResponseTransformer.transform(address) }
         )
     }
 }

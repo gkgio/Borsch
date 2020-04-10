@@ -1,11 +1,12 @@
-package com.gkgio.domain.basket
+package com.gkgio.borsch.basket
 
 import java.math.BigDecimal
 
-data class BasketData(
+
+class BasketDataUi(
     val name: String,
     val id: String,
     var count: Int,
-    var price: BigDecimal,
+    var price: String,
     var priceOneItem: BigDecimal
 )

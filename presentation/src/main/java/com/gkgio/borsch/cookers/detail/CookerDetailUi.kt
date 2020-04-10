@@ -3,6 +3,7 @@ package com.gkgio.borsch.cookers.detail
 import android.os.Parcelable
 import com.gkgio.domain.cookers.Lunch
 import com.gkgio.domain.cookers.Meal
+import com.gkgio.domain.cookers.detail.CookerAddress
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -23,5 +24,6 @@ data class CookerDetailUi(
     val delivery: Boolean,
     val countryTags: List<String>?,
     val description: String,
-    val onDuty: Boolean? //Whether user is online and accepting orders
+    val onDuty: Boolean?, //Whether user is online and accepting orders
+    val cookerAddress: CookerAddressUi?
 ) : Parcelable

@@ -12,7 +12,7 @@
         android:title="@string/tab_name_basket" />
 
     <item
-        android:id="@+id/tab_favorites"
+        android:id="@+id/tab_orders"
         android:icon="@drawable/ic_tab_orders"
         android:title="@string/tab_name_orders" />
 

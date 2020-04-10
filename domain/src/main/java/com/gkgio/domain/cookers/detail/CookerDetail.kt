@@ -20,5 +20,6 @@ data class CookerDetail(
     val delivery: Boolean,
     val countryTags: List<String>?,
     val description: String?,
-    val onDuty: Boolean? //Whether user is online and accepting orders
+    val onDuty: Boolean?, //Whether user is online and accepting orders
+    val cookerAddress: CookerAddress?
 )

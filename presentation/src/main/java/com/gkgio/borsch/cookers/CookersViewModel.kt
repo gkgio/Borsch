@@ -3,6 +3,8 @@ package com.gkgio.borsch.cookers
 import androidx.lifecycle.MutableLiveData
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
+import com.gkgio.borsch.cookers.detail.BasketCountAndSumUiTransformer
+import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.cookers.detail.CookerUi
 import com.gkgio.borsch.cookers.detail.CookerUiTransformer
 import com.gkgio.borsch.ext.applySchedulers
@@ -27,6 +29,7 @@ class CookersViewModel @Inject constructor(
     private val loadCookersUseCase: LoadCookersUseCase,
     private val loadAddressesUseCase: LoadAddressesUseCase,
     private val cookerUiTransformer: CookerUiTransformer,
+    private val cookerCountAndSumUiTransformer: BasketCountAndSumUiTransformer,
     addressChangedEvent: AddressChangedEvent,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
@@ -82,8 +85,20 @@ class CookersViewModel @Inject constructor(
             }).addDisposable()
     }
 
-    fun onCookerFoodClick(cookerId: String, foodId: String, type: Int) {
-        router.navigateTo(Screens.CookerDetailFragmentScreen(cookerId, foodId, type))
+    fun onCookerFoodClick(
+        cookerId: String,
+        foodId: String,
+        type: Int,
+        cookerAddressUi: CookerAddressUi?
+    ) {
+        router.navigateTo(
+            Screens.CookerDetailFragmentScreen(
+                cookerId,
+                foodId,
+                type,
+                cookerAddressUi
+            )
+        )
     }
 
     fun onCookerClick(cookerId: String) {

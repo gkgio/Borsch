@@ -10,6 +10,7 @@ import javax.inject.Inject
 class CookerUiTransformer @Inject constructor(
     private val lunchUiTransformer: LunchUiTransformer,
     private val mealUiTransformer: MealUiTransformer,
+    private val cookerAddressUiTransformer: CookerAddressUiTransformer,
     private val context: Context
 ) : BaseTransformer<Cooker, CookerUi> {
 
@@ -34,7 +35,8 @@ class CookerUiTransformer @Inject constructor(
             countryTags,
             description ?: "",
             onDuty,
-            distance?.let { transformDistance(it) }
+            distance?.let { transformDistance(it) },
+            cookerAddress?.let { cookerAddressUiTransformer.transform(it) }
         )
     }
 

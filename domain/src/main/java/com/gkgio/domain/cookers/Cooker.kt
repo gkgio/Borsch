@@ -1,5 +1,7 @@
 package com.gkgio.domain.cookers
 
+import com.gkgio.domain.cookers.detail.CookerAddress
+
 data class Cooker(
     val banned: Boolean?,
     val certified: Boolean,
@@ -16,5 +18,6 @@ data class Cooker(
     val countryTags: List<String>?,
     val description: String?,
     val onDuty: Boolean, //Whether user is online and accepting orders
-    val distance: Int?
+    val distance: Int?,
+    val cookerAddress: CookerAddress?
 )

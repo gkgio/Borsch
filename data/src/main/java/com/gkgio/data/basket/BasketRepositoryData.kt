@@ -12,5 +12,7 @@ data class BasketRepositoryData(
     @Json(name = "count")
     var count: Int,
     @Json(name = "price")
-    val price: String
+    val price: String,
+    @Json(name = "priceOneItem")
+    var priceOneItem: String
 )

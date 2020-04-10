@@ -13,7 +13,8 @@ class BasketFromRepositoryDataTransformer @Inject constructor() :
             name,
             id,
             count,
-            BigDecimal(price)
+            BigDecimal(price),
+            BigDecimal(priceOneItem)
         )
     }
 }

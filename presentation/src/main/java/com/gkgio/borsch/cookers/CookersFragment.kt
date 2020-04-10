@@ -73,8 +73,8 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
             { cookerId ->
                 viewModel.onCookerClick(cookerId)
             },
-            { cookerId, foodId, type ->
-                viewModel.onCookerFoodClick(cookerId, foodId, type)
+            { cookerId, foodId, type, cookerAddress ->
+                viewModel.onCookerFoodClick(cookerId, foodId, type, cookerAddress)
             })
         cookersRv.adapter = cookersRecyclerAdapter
         cookersRv.layoutManager = LinearLayoutManager(context)

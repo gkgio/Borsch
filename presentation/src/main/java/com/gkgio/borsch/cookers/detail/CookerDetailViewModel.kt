@@ -34,11 +34,11 @@ class CookerDetailViewModel @Inject constructor(
     val state = MutableLiveData<State>()
     val openFoodItem = SingleLiveEvent<FoodItemRequest>()
 
-    fun init(cookerId: String, foodId: String?, type: Int?) {
+    fun init(cookerId: String, foodId: String?, type: Int?, cookerAddressUi: CookerAddressUi?) {
         if (state.isNonInitialized()) {
             state.value = State(false)
 
-            loadData(cookerId, foodId, type)
+            loadData(cookerId, foodId, type, cookerAddressUi)
 
             updateBasket()
 
@@ -61,7 +61,7 @@ class CookerDetailViewModel @Inject constructor(
             state.nonNullValue.copy(basketCountAndSum = basketCountAndSumUi)
     }
 
-    fun loadData(cookerId: String, foodId: String?, type: Int?) {
+    fun loadData(cookerId: String, foodId: String?, type: Int?, cookerAddressUi: CookerAddressUi?) {
         cookersUseCase
             .loadCookerDetail(cookerId)
             .map { cookerDetailUiTransformer.transform(it) }
@@ -73,7 +73,7 @@ class CookerDetailViewModel @Inject constructor(
                     Handler().postDelayed(
                         {
                             openFoodItem.value = FoodItemRequest(
-                                cookerId, foodId, type
+                                cookerId, foodId, type, cookerAddressUi
                             )
                         },
                         300
@@ -85,8 +85,10 @@ class CookerDetailViewModel @Inject constructor(
             }).addDisposable()
     }
 
-    fun onMealClick(cookerId: String, foodId: String, type: Int) {
-        openFoodItem.value = FoodItemRequest(cookerId, foodId, type)
+    fun onMealClick(foodId: String, type: Int) {
+        state.nonNullValue.cookerDetail?.let {
+            openFoodItem.value = FoodItemRequest(it.id, foodId, type, it.cookerAddress)
+        }
     }
 
     data class State(

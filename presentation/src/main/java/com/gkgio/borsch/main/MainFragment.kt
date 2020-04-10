@@ -2,10 +2,18 @@ package com.gkgio.borsch.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
+import com.gkgio.borsch.basket.BasketFragment
+import com.gkgio.borsch.cookers.CookersFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.createViewModel
+import com.gkgio.borsch.ext.observeValue
+import com.gkgio.borsch.orders.OrdersFragment
+import com.gkgio.borsch.profile.SettingsFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
@@ -14,7 +22,7 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
         private const val PAGE_CACHE_SIZE = 4
         private const val PAGE_COOKERS = 0
         private const val PAGE_BASKET = 1
-        private const val PAGE_FAVORITES = 2
+        private const val PAGE_ORDERS = 2
         private const val PAGE_PROFILE = 3
     }
 
@@ -24,55 +32,71 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
         AppInjector.appComponent.mainViewModel
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigation) { view, insets ->
+            view.isVisible = insets.systemWindowInsetBottom == 0
+            insets
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewPager.adapter = MainPagerAdapter(childFragmentManager)
-        mainViewPager.offscreenPageLimit = PAGE_CACHE_SIZE
-
+        viewModel.openFirstTab.observeValue(this) {
+            childFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragmentContainer, getFragment(R.id.tab_cookers), getFragmentTag(R.id.tab_cookers))
+                .commit()
+        }
 
         bottomNavigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.tab_cookers -> {
-                    mainViewPager.setCurrentItem(0, false)
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.tab_basket -> {
-                    mainViewPager.setCurrentItem(1, false)
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.tab_favorites -> {
-                    mainViewPager.setCurrentItem(2, false)
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.tab_profile -> {
-                    mainViewPager.setCurrentItem(3, false)
-                    return@setOnNavigationItemSelectedListener true
-                }
-            }
-            false
+            val tag = getFragmentTag(it.itemId)
+            val fragment = childFragmentManager.findFragmentByTag(tag) ?: getFragment(it.itemId)
+            replaceFragment(fragment, tag)
+            return@setOnNavigationItemSelectedListener true
         }
 
     }
 
+    private fun replaceFragment(fragment: Fragment, tag: String) {
+        childFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragmentContainer, fragment, tag)
+            .commit()
+    }
+
+    private fun getFragment(itemId: Int) = when (itemId) {
+        R.id.tab_cookers -> CookersFragment()
+        R.id.tab_basket -> BasketFragment()
+        R.id.tab_orders -> OrdersFragment()
+        R.id.tab_profile -> SettingsFragment()
+        else -> throw IllegalArgumentException("Unsupported tab")
+    }
+
+    private fun getFragmentTag(itemId: Int) = when (itemId) {
+        R.id.tab_cookers -> PAGE_COOKERS.toString()
+        R.id.tab_basket -> PAGE_BASKET.toString()
+        R.id.tab_orders -> PAGE_ORDERS.toString()
+        R.id.tab_profile -> PAGE_PROFILE.toString()
+        else -> throw IllegalArgumentException("Unsupported tab")
+    }
+
     override fun switchToCookersTab() {
         bottomNavigation.selectedItemId = R.id.tab_cookers
-        mainViewPager.setCurrentItem(PAGE_COOKERS, false)
     }
 
     override fun switchToBasketTab() {
         bottomNavigation.selectedItemId = R.id.tab_basket
-        mainViewPager.setCurrentItem(PAGE_BASKET, false)
     }
 
     override fun switchToFavoritesTab() {
-        bottomNavigation.selectedItemId = R.id.tab_favorites
-        mainViewPager.setCurrentItem(PAGE_FAVORITES, false)
+        bottomNavigation.selectedItemId = R.id.tab_orders
     }
 
     override fun switchToProfileTab() {
         bottomNavigation.selectedItemId = R.id.tab_profile
-        mainViewPager.setCurrentItem(PAGE_PROFILE, false)
     }
 }
 

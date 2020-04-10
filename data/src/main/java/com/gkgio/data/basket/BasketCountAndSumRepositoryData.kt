@@ -1,5 +1,6 @@
 package com.gkgio.data.basket
 
+import com.gkgio.data.cookers.detail.CookerAddressResponse
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -10,5 +11,7 @@ data class BasketCountAndSumRepositoryData(
     @Json(name = "sum")
     val sum: String,
     @Json(name = "cookerId")
-    val cookerId: String
+    val cookerId: String,
+    @Json(name = "cookerAddress")
+    val cookerAddress: CookerAddressResponse?
 )

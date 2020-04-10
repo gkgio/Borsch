@@ -58,6 +58,8 @@
     <string name="food_combo_lunch_title">Комбо обед</string>
     <string name="food_meal_title">Блюдо</string>
 
+    <string name="basket_page_title">Корзина</string>
+
     <string-array name="months_s">
         <item>января</item>
         <item>февраля</item>

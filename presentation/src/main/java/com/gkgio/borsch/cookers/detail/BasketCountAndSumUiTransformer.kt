@@ -3,10 +3,10 @@ package com.gkgio.borsch.cookers.detail
 import com.gkgio.borsch.utils.PriceFormatter
 import com.gkgio.data.BaseTransformer
 import com.gkgio.domain.basket.BasketCountAndSum
-import com.gkgio.domain.cookers.detail.CookerDetail
 import javax.inject.Inject
 
 class BasketCountAndSumUiTransformer @Inject constructor(
+    private val cookerAddressUiTransformer: CookerAddressUiTransformer,
     private val priceFormatter: PriceFormatter
 ) : BaseTransformer<BasketCountAndSum, BasketCountAndSumUi> {
 
@@ -14,7 +14,8 @@ class BasketCountAndSumUiTransformer @Inject constructor(
         BasketCountAndSumUi(
             count,
             priceFormatter.format(data.sum),
-            cookerId
+            cookerId,
+            cookerAddress?.let { cookerAddressUiTransformer.transform(it) }
         )
     }
 }

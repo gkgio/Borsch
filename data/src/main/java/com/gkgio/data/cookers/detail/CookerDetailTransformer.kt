@@ -10,7 +10,8 @@ import javax.inject.Inject
 
 data class CookerDetailTransformer @Inject constructor(
     private val mealResponseTransformer: MealResponseTransformer,
-    private val lunchResponseTransformer: LunchResponseTransformer
+    private val lunchResponseTransformer: LunchResponseTransformer,
+    private val cookerAddressResponseTransformer: CookerAddressResponseTransformer
 ) : BaseTransformer<CookerDetailResponse, CookerDetail> {
 
     override fun transform(data: CookerDetailResponse) = with(data) {
@@ -31,7 +32,8 @@ data class CookerDetailTransformer @Inject constructor(
             delivery,
             countryTags,
             description,
-            onDuty
+            onDuty,
+            address?.let { cookerAddressResponseTransformer.transform(address) }
         )
     }
 }

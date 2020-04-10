@@ -1,5 +1,6 @@
 package com.gkgio.data.cookers
 
+import com.gkgio.data.cookers.detail.CookerAddressResponse
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -36,5 +37,7 @@ data class CookerResponse(
     @Json(name = "on_duty")
     val onDuty: Boolean, //Whether user is online and accepting orders
     @Json(name = "distance")
-    val distance: Int?
+    val distance: Int?,
+    @Json(name = "address")
+    val address: CookerAddressResponse?
 )

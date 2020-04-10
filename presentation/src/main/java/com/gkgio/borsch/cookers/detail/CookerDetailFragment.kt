@@ -31,17 +31,23 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
     companion object {
         private const val MAX_SCHEDULE_SHEET_ALPHA = 0.5f
 
-        fun newInstance(cookerId: String, foodId: String?, type: Int?) =
-            CookerDetailFragment().apply {
-                this.cookerId = cookerId
-                this.foodId = foodId
-                this.type = type
-            }
+        fun newInstance(
+            cookerId: String,
+            foodId: String?,
+            type: Int?,
+            cookerAddressUi: CookerAddressUi?
+        ) = CookerDetailFragment().apply {
+            this.cookerId = cookerId
+            this.foodId = foodId
+            this.type = type
+            this.cookerAddressUi = cookerAddressUi
+        }
     }
 
     private var cookerId: String by FragmentArgumentDelegate()
     private var foodId: String? by FragmentNullableArgumentDelegate()
     private var type: Int? by FragmentNullableArgumentDelegate()
+    private var cookerAddressUi: CookerAddressUi? by FragmentNullableArgumentDelegate()
 
     private lateinit var pagerAdapter: CookerDetailPagerAdapter
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
@@ -54,7 +60,7 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.init(cookerId, foodId, type)
+        viewModel.init(cookerId, foodId, type, cookerAddressUi)
     }
 
     override fun onResume() {
@@ -96,12 +102,19 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
 
                 ratingTv.text = cooker.rating
                 deliveryContainer.isVisible = cooker.delivery
+                cookerAddressContainer.isVisible = cooker.cookerAddress?.street != null
+                cookerAddressTv.text =
+                    String.format(
+                        "%s, %s",
+                        cooker.cookerAddress?.street,
+                        cooker.cookerAddress?.house
+                    )
             }
 
             basketView.isVisible = state.basketCountAndSum != null
             state.basketCountAndSum?.let {
-               countTv.text = it.count.toString()
-                sumTv.text= it.sum
+                countTv.text = it.count.toString()
+                sumTv.text = it.sum
             }
         }
 
@@ -110,7 +123,7 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
         }
 
         updateEmptyBtn.setDebounceOnClickListener {
-            viewModel.loadData(cookerId, foodId, type)
+            viewModel.loadData(cookerId, foodId, type, cookerAddressUi)
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById<View>(R.id.foodSheet))
@@ -147,7 +160,7 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
     override fun onCollapseClick() = onBackClick()
 
     override fun onMealClick(id: String, type: Int) {
-        viewModel.onMealClick(cookerId, id, type)
+        viewModel.onMealClick(id, type)
     }
 
     private fun setupAlphaOnRestoreState() {

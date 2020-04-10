@@ -90,7 +90,7 @@ public class SupportAppNavigator implements Navigator {
             fragment.switchToCookersTab();
         } else if (command.getId() == R.id.tab_basket) {
             fragment.switchToBasketTab();
-        } else if (command.getId() == R.id.tab_favorites) {
+        } else if (command.getId() == R.id.tab_orders) {
             fragment.switchToFavoritesTab();
         } else if (command.getId() == R.id.tab_profile) {
             fragment.switchToProfileTab();
