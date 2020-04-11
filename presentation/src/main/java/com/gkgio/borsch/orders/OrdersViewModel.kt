@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.domain.analytics.AnalyticsRepository
+import com.gkgio.domain.basket.OrderData
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -13,12 +14,13 @@ class OrdersViewModel @Inject constructor(
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
-    val state  = MutableLiveData<State>()
+    val state = MutableLiveData<State>()
+
     init {
 
     }
 
     data class State(
-
+        val orderData: OrderData? = null
     )
 }

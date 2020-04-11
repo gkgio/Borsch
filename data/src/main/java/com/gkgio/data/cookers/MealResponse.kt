@@ -8,17 +8,17 @@ data class MealResponse(
     @Json(name = "available")
     val available: Boolean?,
     @Json(name = "calories")
-    val calories: Int,
+    val calories: Int?,
     @Json(name = "cook_time")
-    val cookTime: Int,
+    val cookTime: Int?,
     @Json(name = "description")
-    val description: String,
+    val description: String?,
     @Json(name = "id")
     val id: String,
     @Json(name = "image_url")
     val imageUrl: String,
     @Json(name = "ingredients")
-    val ingredients: List<String>,
+    val ingredients: List<String>?,
     @Json(name = "name")
     val name: String,//Meal name
     @Json(name = "portions")

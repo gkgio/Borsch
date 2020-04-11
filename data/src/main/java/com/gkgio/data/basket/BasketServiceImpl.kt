@@ -2,7 +2,9 @@ package com.gkgio.data.basket
 
 import com.gkgio.domain.basket.BasketOrderRequest
 import com.gkgio.domain.basket.BasketService
+import com.gkgio.domain.basket.OrderData
 import io.reactivex.Completable
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -10,18 +12,19 @@ import javax.inject.Inject
 
 class BasketServiceImpl @Inject constructor(
     private val basketOrderDataRequestTransformer: BasketOrderDataRequestTransformer,
-    private val basketServiceApi: BasketServiceApi
+    private val basketServiceApi: BasketServiceApi,
+    private val orderDataResponseTransformer: OrderDataResponseTransformer
 ) : BasketService {
     override fun createOrder(
         basketOrderRequest: BasketOrderRequest,
         cookerId: String
-    ): Completable =
+    ): Single<OrderData> =
         basketServiceApi.createBasketOrder(
             basketOrderDataRequestTransformer.transform(
                 basketOrderRequest
             ),
             cookerId
-        )
+        ).map { orderData -> orderDataResponseTransformer.transform(orderData.order) }
 
 
     interface BasketServiceApi {
@@ -29,6 +32,6 @@ class BasketServiceImpl @Inject constructor(
         fun createBasketOrder(
             @Body basketOrderDataRequest: BasketOrderDataRequest,
             @Path("cookerId") cookerId: String
-        ): Completable
+        ): Single<OrderDataObjectResponse>
     }
 }

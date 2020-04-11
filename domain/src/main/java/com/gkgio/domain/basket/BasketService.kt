@@ -1,8 +1,9 @@
 package com.gkgio.domain.basket
 
 import io.reactivex.Completable
+import io.reactivex.Single
 
 
 interface BasketService {
-    fun createOrder(basketOrderRequest: BasketOrderRequest, cookerId: String): Completable
+    fun createOrder(basketOrderRequest: BasketOrderRequest, cookerId: String): Single<OrderData>
 }

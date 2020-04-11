@@ -162,7 +162,7 @@ class BasketUseCaseImpl @Inject constructor(
         cookerId: String
     ): Completable =
         basketService.createOrder(basketOrderRequest, cookerId)
-            .doFinally {
+            .flatMapCompletable {
                 clearBasket()
             }
 }

@@ -15,7 +15,7 @@ data class LunchUi(
     val meals: List<MealUi>,
     val name: String,
     val price: String,
-    val calories: String,
+    val calories: String?,
     val weight: String,
     val pricePure: BigDecimal
 ) : Parcelable

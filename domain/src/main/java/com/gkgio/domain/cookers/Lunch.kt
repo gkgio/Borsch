@@ -12,6 +12,6 @@ data class Lunch(
     val meals: List<Meal>,
     val name: String,
     val price: BigDecimal,
-    val calories: String,
+    val calories: String?,
     val weight: Int
 )
