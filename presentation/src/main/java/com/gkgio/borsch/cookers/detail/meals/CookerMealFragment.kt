@@ -74,13 +74,14 @@ class CookerMealFragment : BaseFragment<CookerMealViewModel>(), ClickDialogCallB
                 { id, type ->
                     listener.onMealClick(id, type)
                 },
-                { id, name, price ->
+                { id, name, price, type ->
                     viewModel.addToBasketClick(
                         id,
                         name,
                         price,
                         cookerDetailUi.id,
-                        cookerDetailUi.cookerAddress
+                        cookerDetailUi.cookerAddress,
+                        type
                     )
                 }
             )

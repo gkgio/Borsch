@@ -29,38 +29,48 @@ class CookerMealViewModel @Inject constructor(
     var savedFoodId: String? = null
     var savedPrice: BigDecimal? = null
     var savedName: String? = null
+    var savedType: Int? = null
 
     fun addToBasketClick(
         id: String,
         name: String,
         price: BigDecimal,
         cookerId: String,
-        cookerAddressUi: CookerAddressUi?
+        cookerAddressUi: CookerAddressUi?,
+        type: Int
     ) {
         val basketCountAndSum = basketRepository.loadBasketCountAndSum()
         when {
             basketCountAndSum == null -> {
-                addToBasket(id, name, price, cookerId, cookerAddressUi)
+                addToBasket(id, name, price, cookerId, cookerAddressUi, type)
             }
             basketCountAndSum.cookerId != cookerId -> {
                 savedFoodId = id
                 savedName = name
                 savedPrice = price
+                savedType = type
                 showClearBasketWarning.call()
             }
             else -> {
-                checkBasket(id, name, price, cookerId, cookerAddressUi)
+                checkBasket(id, name, price, cookerId, cookerAddressUi, type)
             }
         }
     }
 
     fun addToBasketAfterCleaning(cookerId: String, cookerAddressUi: CookerAddressUi?) {
-        if (savedFoodId != null && savedName != null && savedPrice != null) {
+        if (savedFoodId != null && savedName != null && savedPrice != null && savedType != null) {
             basketUseCase
                 .clearBasket()
                 .applySchedulers()
                 .subscribe({
-                    addToBasket(savedFoodId!!, savedName!!, savedPrice!!, cookerId, cookerAddressUi)
+                    addToBasket(
+                        savedFoodId!!,
+                        savedName!!,
+                        savedPrice!!,
+                        cookerId,
+                        cookerAddressUi,
+                        savedType!!
+                    )
                     savedFoodId = null
                     savedName = null
                     savedPrice = null
@@ -75,7 +85,8 @@ class CookerMealViewModel @Inject constructor(
         name: String,
         price: BigDecimal,
         cookerId: String,
-        cookerAddressUi: CookerAddressUi?
+        cookerAddressUi: CookerAddressUi?,
+        type: Int
     ) {
         basketUseCase
             .loadBasketItem(foodId)
@@ -83,7 +94,7 @@ class CookerMealViewModel @Inject constructor(
             .subscribe({
                 updateItemCount(foodId, price, cookerId, cookerAddressUi)
             }, {
-                addToBasket(foodId, name, price, cookerId, cookerAddressUi)
+                addToBasket(foodId, name, price, cookerId, cookerAddressUi, type)
             }).addDisposable()
     }
 
@@ -124,7 +135,8 @@ class CookerMealViewModel @Inject constructor(
         name: String,
         price: BigDecimal,
         cookerId: String,
-        cookerAddressUi: CookerAddressUi?
+        cookerAddressUi: CookerAddressUi?,
+        type: Int
     ) {
         basketUseCase
             .addToBasket(
@@ -133,6 +145,7 @@ class CookerMealViewModel @Inject constructor(
                 price,
                 price,
                 cookerId,
+                type,
                 cookerAddressUi?.let {
                     CookerAddress(
                         it.street,

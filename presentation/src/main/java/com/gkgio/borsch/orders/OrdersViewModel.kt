@@ -1,5 +1,6 @@
 package com.gkgio.borsch.orders
 
+import androidx.lifecycle.MutableLiveData
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.domain.analytics.AnalyticsRepository
@@ -12,4 +13,12 @@ class OrdersViewModel @Inject constructor(
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
+    val state  = MutableLiveData<State>()
+    init {
+
+    }
+
+    data class State(
+
+    )
 }

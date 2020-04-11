@@ -9,6 +9,8 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
+import com.gkgio.borsch.utils.events.UserProfileChanged
+import com.gkgio.domain.address.LoadAddressesUseCase
 import com.gkgio.domain.auth.AuthUseCase
 import ru.terrakok.cicerone.Router
 import java.util.*
@@ -18,6 +20,8 @@ import javax.inject.Inject
 class ValidatePhoneViewModel @Inject constructor(
     private val router: Router,
     private val authUseCase: AuthUseCase,
+    private val userProfileChanged: UserProfileChanged,
+    private val addressesUseCase: LoadAddressesUseCase,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -55,9 +59,9 @@ class ValidatePhoneViewModel @Inject constructor(
                 .validateSmsCode(it, smsCode)
                 .applySchedulers()
                 .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
-                .subscribe({ response ->
+                .subscribe({
                     state.value = state.nonNullValue.copy(isProgress = false)
-                    authUseCase.saveAuthToken(response.token)
+                    userProfileChanged.onComplete("")
                     router.backTo(Screens.MainFragmentScreen)
                 }, { throwable ->
                     state.value = state.nonNullValue.copy(isProgress = false)

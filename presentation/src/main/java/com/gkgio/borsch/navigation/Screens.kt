@@ -17,10 +17,6 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    object SettingsFragmentScreen : SupportAppScreen() {
-        override fun getFragment() = SettingsFragment()
-    }
-
     object MainFragmentScreen : SupportAppScreen() {
         override fun getFragment() = MainFragment()
     }
@@ -75,5 +71,12 @@ object Screens {
     ) : SupportAppScreen() {
         override fun getActivityIntent(context: Context?) =
             IntentUtils.createMarketIntent(packageName)
+    }
+
+    class SettingsFragmentScreen(
+        private val isInsidePage: Boolean
+    ) : SupportAppScreen() {
+        override fun getFragment() =
+            SettingsFragment.newInstance(isInsidePage)
     }
 }

@@ -7,5 +7,6 @@ data class BasketData(
     val id: String,
     var count: Int,
     var price: BigDecimal,
-    var priceOneItem: BigDecimal
+    var priceOneItem: BigDecimal,
+    var type: Int
 )

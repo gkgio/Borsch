@@ -15,7 +15,8 @@ class BasketDataUiTransformer @Inject constructor(
             id,
             count,
             priceFormatter.format(price),
-            priceOneItem
+            priceOneItem,
+            type
         )
     }
 }

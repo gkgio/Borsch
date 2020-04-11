@@ -8,5 +8,6 @@ class BasketDataUi(
     val id: String,
     var count: Int,
     var price: String,
-    var priceOneItem: BigDecimal
+    var priceOneItem: BigDecimal,
+    val type: Int
 )

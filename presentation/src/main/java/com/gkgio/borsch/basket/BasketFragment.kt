@@ -32,6 +32,8 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
         initBasketRv()
 
         viewModel.state.observeValue(this) { state ->
+            progress.isVisible = state.isLoading
+
             basketEmptyView.isVisible = state.basketDataList.isNullOrEmpty()
 
             cookerAddressTitle.isVisible = state.basketCountAndSumUi?.cookerAddressUi != null
@@ -48,11 +50,10 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
 
             sumContainer.isVisible = state.basketCountAndSumUi != null
             sumTv.text = state.basketCountAndSumUi?.sum
-
         }
 
         confirmButton.setDebounceOnClickListener {
-
+            viewModel.onOrderConfirmBtnClick()
         }
     }
 

@@ -29,6 +29,7 @@ import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.profile.about.AboutUsViewModel
 import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
+import com.gkgio.borsch.utils.events.UserProfileChanged
 import com.gkgio.domain.errorreporter.ErrorReporter
 import com.squareup.moshi.Moshi
 import dagger.Component
@@ -92,6 +93,7 @@ interface AppComponent {
     //event
     val addressChangedEvent: AddressChangedEvent
     val basketChangeEvent: BasketChangeEvent
+    val userProfileChanged: UserProfileChanged
 
     //Cicerone
     val router: Router

@@ -56,10 +56,10 @@ class NotificationUtils(val context: Context) : ContextWrapper(context) {
             .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setSmallIcon(R.drawable.ic_splash)
+            builder.setSmallIcon(R.drawable.ic_push_notification)
             builder.color = context.getColorCompat(R.color.accent)
         } else {
-            builder.setSmallIcon(R.mipmap.ic_notification_small)
+            builder.setSmallIcon(R.mipmap.ic_launcher)
         }
 
         notificationManager.notify(id, builder.build())

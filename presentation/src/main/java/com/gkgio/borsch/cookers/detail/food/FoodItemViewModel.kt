@@ -155,6 +155,7 @@ class FoodItemViewModel @Inject constructor(
                 state.nonNullValue.currentPricePure!!,
                 state.nonNullValue.currentPricePure!!,
                 foodItemRequest.cookerId,
+                foodItemRequest.type,
                 foodItemRequest.cookerAddressUi?.let {
                     CookerAddress(
                         it.street,

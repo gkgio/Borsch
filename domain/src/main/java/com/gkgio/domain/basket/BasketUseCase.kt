@@ -8,12 +8,14 @@ import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 interface BasketUseCase {
+    fun createOrder(basketOrderRequest: BasketOrderRequest, cookerId: String): Completable
     fun addToBasket(
         id: String,
         name: String,
         price: BigDecimal,
         priceOneItem: BigDecimal,
         cookerId: String,
+        type: Int,
         cookerAddress: CookerAddress?,
         count: Int = 1
     ): Single<BasketCountAndSum>
@@ -34,7 +36,8 @@ interface BasketUseCase {
 }
 
 class BasketUseCaseImpl @Inject constructor(
-    private val basketRepository: BasketRepository
+    private val basketRepository: BasketRepository,
+    private val basketService: BasketService
 ) : BasketUseCase {
 
     override fun addToBasket(
@@ -43,6 +46,7 @@ class BasketUseCaseImpl @Inject constructor(
         price: BigDecimal,
         priceOneItem: BigDecimal,
         cookerId: String,
+        type: Int,
         cookerAddress: CookerAddress?,
         count: Int
     ): Single<BasketCountAndSum> =
@@ -56,7 +60,8 @@ class BasketUseCaseImpl @Inject constructor(
                         id = id,
                         price = price,
                         count = count,
-                        priceOneItem = priceOneItem
+                        priceOneItem = priceOneItem,
+                        type = type
                     )
                 )
                 var sum: BigDecimal = BigDecimal.ZERO
@@ -151,4 +156,13 @@ class BasketUseCaseImpl @Inject constructor(
 
     override fun clearBasket(): Completable =
         basketRepository.clearBasket()
+
+    override fun createOrder(
+        basketOrderRequest: BasketOrderRequest,
+        cookerId: String
+    ): Completable =
+        basketService.createOrder(basketOrderRequest, cookerId)
+            .doFinally {
+                clearBasket()
+            }
 }

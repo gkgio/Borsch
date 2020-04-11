@@ -27,7 +27,7 @@ class LoadCookersUseCaseImpl @Inject constructor(
         addressesUseCase
             .getLastSavedAddress()
             .flatMap {
-                val token = authUseCase.getAuthToken()
+               /* val token = authUseCase.getAuthToken()
                 if (token != null) {
                     cookersService.loadCookersList(
                         CookersRequest(
@@ -36,7 +36,7 @@ class LoadCookersUseCaseImpl @Inject constructor(
                             targets
                         )
                     )
-                } else {
+                } else {*/
                     cookersService.loadCookersListWithoutAuth(
                         CookersWithoutAuthRequest(
                             0,//TODO delete after fix on the back
@@ -45,7 +45,7 @@ class LoadCookersUseCaseImpl @Inject constructor(
                             targets
                         )
                     )
-                }
+              //  }
             }
 
     override fun loadCookerDetail(cookerId: String): Single<CookerDetail> {

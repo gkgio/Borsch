@@ -22,7 +22,7 @@ class MealsVerticalRecyclerAdapter(
     private val mealsList: List<MealUi>,
     private val lunchesList: List<LunchUi>,
     val itemClick: (String, Int) -> Unit,
-    val addToBasketClick: (String, String, BigDecimal) -> Unit
+    val addToBasketClick: (String, String, BigDecimal, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -76,7 +76,7 @@ class MealsVerticalRecyclerAdapter(
                 }
 
                 addToBasketLunchIv.setDebounceOnClickListener {
-                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure)
+                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, LUNCH_TYPE)
                 }
             }
         } else if (holder is MealsViewHolder) {
@@ -97,7 +97,7 @@ class MealsVerticalRecyclerAdapter(
                 }
 
                 addToBasketMealIv.setDebounceOnClickListener {
-                    addToBasketClick(meal.id, meal.name, meal.purePrice)
+                    addToBasketClick(meal.id, meal.name, meal.purePrice, MEAL_TYPE)
                 }
             }
         }
