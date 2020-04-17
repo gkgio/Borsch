@@ -36,20 +36,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    /* signingConfigs {
+     signingConfigs {
          release {
              storeFile file("borsch.jks")
              storePassword '21091995gio'
              keyAlias 'borsch-app'
              keyPassword '21091995gio'
          }
-     }*/
+     }
 
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -122,6 +122,8 @@ dependencies {
 
     // Facebook Shimmer Layout
     implementation deps.shimmerLayout
+
+    implementation deps.chatView
 
     //test
     androidTestImplementation deps.mockito

@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.gkgio.borsch.BuildConfig
 import com.gkgio.data.DeviceInterceptor
 import com.gkgio.data.errorreporter.ErrorReporterImpl
 import com.gkgio.domain.errorreporter.ErrorReporter
@@ -47,7 +48,8 @@ class AppModule(private val app: Application) {
         deviceInterceptor: DeviceInterceptor
     ): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.level =
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
         val okHttpBuilder = OkHttpClient.Builder()
             .addInterceptor(deviceInterceptor)

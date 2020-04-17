@@ -7,6 +7,7 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.domain.analytics.AnalyticsRepository
+import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
 import com.gkgio.domain.basket.OrderData
 import ru.terrakok.cicerone.Router
@@ -16,6 +17,7 @@ class OrdersViewModel @Inject constructor(
     private val router: Router,
     private val analyticsRepository: AnalyticsRepository,
     private val basketUseCase: BasketUseCase,
+    private val authRepository: AuthRepository,
     private val orderDataUiTransformer: OrderDataUiTransformer,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
@@ -31,17 +33,19 @@ class OrdersViewModel @Inject constructor(
     }
 
     fun loadOrderData() {
-        basketUseCase
-            .getBasketOrder()
-            .map { orderDataList -> orderDataList.map { orderDataUiTransformer.transform(it) } }
-            .applySchedulers()
-            .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
-            .subscribe({
-                state.value = state.nonNullValue.copy(orderDataList = it, isLoading = false)
-            }, {
-                state.value = state.nonNullValue.copy(isLoading = false)
-                processThrowable(it)
-            }).addDisposable()
+        if (authRepository.getAuthToken() != null) {
+            basketUseCase
+                .getBasketOrder()
+                .map { orderDataList -> orderDataList.map { orderDataUiTransformer.transform(it) } }
+                .applySchedulers()
+                .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
+                .subscribe({
+                    state.value = state.nonNullValue.copy(orderDataList = it, isLoading = false)
+                }, {
+                    state.value = state.nonNullValue.copy(isLoading = false)
+                    processThrowable(it)
+                }).addDisposable()
+        }
     }
 
     data class State(

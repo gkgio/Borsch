@@ -50,6 +50,7 @@ class ValidatePhoneViewModel @Inject constructor(
                 startTimer()
             }, {
                 state.value = state.nonNullValue.copy(isProgress = false, isInitialError = true)
+                processThrowable(it)
             }).addDisposable()
     }
 

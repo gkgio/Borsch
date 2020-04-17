@@ -25,8 +25,11 @@ import com.gkgio.borsch.main.LaunchActivity
 import com.gkgio.borsch.main.LaunchViewModel
 import com.gkgio.borsch.main.MainViewModel
 import com.gkgio.borsch.onboarding.OnboardingViewModel
+import com.gkgio.borsch.orders.chat.OrderChatFragment
+import com.gkgio.borsch.orders.chat.OrderChatViewModel
 import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.profile.about.AboutUsViewModel
+import com.gkgio.borsch.support.SupportViewModel
 import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
 import com.gkgio.borsch.utils.events.UserProfileChanged
@@ -77,6 +80,8 @@ interface AppComponent {
     val cookerMealViewModel: CookerMealViewModel
     val cookerInformationViewModel: CookerInformationViewModel
     val foodItemViewModel: FoodItemViewModel
+    val orderChatViewModel: OrderChatViewModel
+    val supportViewModel: SupportViewModel
 
     val context: Context
     val moshi: Moshi

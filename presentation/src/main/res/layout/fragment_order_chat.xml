@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <com.gkgio.borsch.view.ToolbarTwoIconView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:titleText="Заказы" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.github.bassaer.chatmessageview.view.ChatView
+        android:id="@+id/chatView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:date_separator_font_size="16sp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:message_font_size="20sp"
+        app:message_max_width="200dp"
+        app:option_button_enable="true"
+        app:text_selectable="true"
+        app:time_label_font_size="16sp" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

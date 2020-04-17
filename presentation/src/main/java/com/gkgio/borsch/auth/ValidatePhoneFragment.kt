@@ -42,6 +42,10 @@ class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
             progress.isVisible = it.isProgress
         }
 
+        toolbar.setLeftIconClickListener {
+            viewModel.onBackClick()
+        }
+
         viewModel.countDownSmsTimer.observeValue(this) {
             if (it == 0L) {
                 timeAgainRequestTitle.isInvisible = true
