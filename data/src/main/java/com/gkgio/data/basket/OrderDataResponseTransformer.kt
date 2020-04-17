@@ -7,6 +7,7 @@ import com.gkgio.data.cookers.MealResponseTransformer
 import com.gkgio.data.cookers.detail.CookerAddressResponse
 import com.gkgio.domain.basket.OrderData
 import com.gkgio.domain.cookers.detail.CookerAddress
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class OrderDataResponseTransformer @Inject constructor(
@@ -37,7 +38,8 @@ class OrderDataResponseTransformer @Inject constructor(
                 } else null
             },
             orderId,
-            orderPrice,
+            id,
+            BigDecimal(orderPrice),
             status,
             type
         )

@@ -21,10 +21,12 @@
     <color name="grey_text">#a3aaae</color>
     <color name="grey_btn">#DCDCDC</color>
     <color name="grey_bg">#f8f8f8</color>
+    <color name="grey_bg2">#f7f7f7</color>
     <color name="bg_map_items">#80F2E5E5</color>
     <color name="sum_container">#80686868</color>
 
     <color name="green">#04AA11</color>
+    <color name="red">#e83131</color>
 
     <color name="white">#FFFFFF</color>
     <color name="white_2">#05ffffff</color>

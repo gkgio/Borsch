@@ -32,6 +32,8 @@ data class OrderDataResponse(
     val lunches: List<BasketLunchResponse>?,
     @Json(name = "order_id")
     val orderId: String,
+    @Json(name = "id")
+    val id: String?,
     @Json(name = "order_price")
     val orderPrice: String,
     @Json(name = "status")

@@ -16,7 +16,7 @@ data class MealResponse(
     @Json(name = "id")
     val id: String,
     @Json(name = "image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @Json(name = "ingredients")
     val ingredients: List<String>?,
     @Json(name = "name")

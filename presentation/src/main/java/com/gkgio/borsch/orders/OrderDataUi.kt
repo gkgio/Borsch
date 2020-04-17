@@ -1,11 +1,11 @@
-package com.gkgio.domain.basket
+package com.gkgio.borsch.orders
 
 import com.gkgio.domain.address.Address
-import com.gkgio.domain.cookers.Lunch
-import com.gkgio.domain.cookers.Meal
-import java.math.BigDecimal
+import com.gkgio.domain.basket.BasketLunch
+import com.gkgio.domain.basket.BasketMeal
 
-data class OrderData(
+
+data class OrderDataUi(
     val acceptedAt: String?,
     val chatId: String,
     val clientAddress: Address?,
@@ -19,7 +19,7 @@ data class OrderData(
     val lunches: List<BasketLunch>?,
     val orderId: String,
     val id: String?,
-    val orderPrice: BigDecimal,
+    val orderPrice: String,
     val status: String,
-    val type: String // pickup, delivery
+    val type: OrderStatus // pickup, delivery
 )

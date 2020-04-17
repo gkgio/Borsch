@@ -6,4 +6,5 @@ import io.reactivex.Single
 
 interface BasketService {
     fun createOrder(basketOrderRequest: BasketOrderRequest, cookerId: String): Single<OrderData>
+    fun getBasketOrder(): Single<List<OrderData>>
 }

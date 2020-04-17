@@ -14,7 +14,7 @@ data class CookerDetailUi(
     val id: String,
     val meals: List<MealUi>,
     val lunches: List<LunchUi>?,
-    val name: String,
+    val name: String?,
     val paid: String?,
     val phone: String?,
     val rating: String,

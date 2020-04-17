@@ -8,7 +8,7 @@ data class Meal(
     val cookTime: Int?,
     val description: String?,
     val id: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val ingredients: List<String>?,
     val name: String,//Meal name
     val portions: Int,//Amount of available portions

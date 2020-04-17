@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="portion_counter">
+        <item quantity="zero">%d порции</item>
+        <item quantity="one">%d порция</item>
+        <item quantity="two">%d порции</item>
+        <item quantity="few">%d порции</item>
+        <item quantity="many">%d порции</item>
+        <item quantity="other">%d порция</item>
+    </plurals>
+
+    <plurals name="meals_counter">
+        <item quantity="zero">%d блюд</item>
+        <item quantity="one">%d блюдо</item>
+        <item quantity="two">%d блюда</item>
+        <item quantity="few">%d блюда</item>
+        <item quantity="many">%d блюд</item>
+        <item quantity="other">%d блюдо</item>
+    </plurals>
+</resources>

@@ -33,6 +33,7 @@ interface BasketUseCase {
     ): Single<List<BasketData>>
 
     fun clearBasket(): Completable
+    fun getBasketOrder(): Single<List<OrderData>>
 }
 
 class BasketUseCaseImpl @Inject constructor(
@@ -165,4 +166,7 @@ class BasketUseCaseImpl @Inject constructor(
             .flatMapCompletable {
                 clearBasket()
             }
+
+    override fun getBasketOrder(): Single<List<OrderData>> =
+        basketService.getBasketOrder()
 }

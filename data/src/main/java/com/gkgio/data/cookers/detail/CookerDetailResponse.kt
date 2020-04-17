@@ -20,7 +20,7 @@ class CookerDetailResponse(
     @Json(name = "lunches")
     val lunches: List<LunchResponse>?,
     @Json(name = "name")
-    val name: String,
+    val name: String?,
     @Json(name = "paid")
     val paid: String?,
     @Json(name = "phone")

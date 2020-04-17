@@ -8,7 +8,7 @@ data class Cooker(
     val id: String,
     val meals: List<Meal>,
     val lunches: List<Lunch>?,
-    val name: String,
+    val name: String?,
     val phone: String?,
     val rating: String,
     val suspended: Boolean?,
