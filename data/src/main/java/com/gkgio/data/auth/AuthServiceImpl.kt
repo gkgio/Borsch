@@ -1,5 +1,7 @@
 package com.gkgio.data.auth
 
+import com.gkgio.data.base.BaseService
+import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.auth.AuthService
 import com.gkgio.domain.auth.GetSmsCode
 import com.gkgio.domain.auth.ValidateSmsCode
@@ -14,22 +16,25 @@ import javax.inject.Inject
 class AuthServiceImpl @Inject constructor(
     private val authServiceApi: AuthServiceApi,
     private val getSmsCodeResponseTransformer: GetSmsCodeResponseTransformer,
-    private val validateSmsCodeResponseTransformer: ValidateSmsCodeResponseTransformer
-) : AuthService {
+    private val validateSmsCodeResponseTransformer: ValidateSmsCodeResponseTransformer,
+    serverExceptionTransformer: ServerExceptionTransformer
+) : BaseService(serverExceptionTransformer), AuthService {
 
-    override fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode> =
+    override fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode> = executeRequest(
         authServiceApi.getSmsCodeByPhone(GetSmsCodeRequest(inputPhone)).map {
             getSmsCodeResponseTransformer.transform(
                 it
             )
         }
+    )
 
     override fun validateSmsCode(token: String, code: String): Single<ValidateSmsCode> =
-        authServiceApi.validateSmsCode(
-            token,
-            ValidateSmsCodeRequest(code.toInt())
-        ).map { validateSmsCodeResponseTransformer.transform(it) }
-
+        executeRequest(
+            authServiceApi.validateSmsCode(
+                token,
+                ValidateSmsCodeRequest(code.toInt())
+            ).map { validateSmsCodeResponseTransformer.transform(it) }
+        )
 
     interface AuthServiceApi {
         @POST("auth/client")

@@ -1,5 +1,7 @@
 package com.gkgio.data.basket
 
+import com.gkgio.data.base.BaseService
+import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.basket.BasketOrderRequest
 import com.gkgio.domain.basket.BasketService
 import com.gkgio.domain.basket.OrderData
@@ -14,21 +16,23 @@ import javax.inject.Inject
 class BasketServiceImpl @Inject constructor(
     private val basketOrderDataRequestTransformer: BasketOrderDataRequestTransformer,
     private val basketServiceApi: BasketServiceApi,
-    private val orderDataResponseTransformer: OrderDataResponseTransformer
-) : BasketService {
+    private val orderDataResponseTransformer: OrderDataResponseTransformer,
+    serverExceptionTransformer: ServerExceptionTransformer
+) : BaseService(serverExceptionTransformer), BasketService {
+
     override fun createOrder(
         basketOrderRequest: BasketOrderRequest,
         cookerId: String
-    ): Single<OrderData> =
+    ): Single<OrderData> = executeRequest(
         basketServiceApi.createBasketOrder(
             basketOrderDataRequestTransformer.transform(
                 basketOrderRequest
             ),
             cookerId
         ).map { orderData -> orderDataResponseTransformer.transform(orderData.order) }
+    )
 
-
-    override fun getBasketOrder(): Single<List<OrderData>> =
+    override fun getBasketOrder(): Single<List<OrderData>> = executeRequest(
         basketServiceApi.getBasketOrder()
             .map { orderData ->
                 orderData.orders.map {
@@ -37,6 +41,7 @@ class BasketServiceImpl @Inject constructor(
                     )
                 }
             }
+    )
 
     interface BasketServiceApi {
         @POST("client/orders/cookers/{cookerId}")

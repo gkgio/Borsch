@@ -1,7 +1,9 @@
 package com.gkgio.data.cookers
 
+import com.gkgio.data.base.BaseService
 import com.gkgio.data.cookers.detail.CookerDetailDataResponse
 import com.gkgio.data.cookers.detail.CookerDetailTransformer
+import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.cookers.*
 import com.gkgio.domain.cookers.detail.CookerDetail
 import io.reactivex.Single
@@ -18,43 +20,52 @@ class CookersServiceImpl @Inject constructor(
     private val cookersDataWithoutAuthRequestTransformer: CookersDataWithoutAuthRequestTransformer,
     private val cookerDetailTransformer: CookerDetailTransformer,
     private val lunchResponseTransformer: LunchResponseTransformer,
-    private val mealResponseTransformer: MealResponseTransformer
-) : CookersService {
+    private val mealResponseTransformer: MealResponseTransformer,
+    serverExceptionTransformer: ServerExceptionTransformer
+) : BaseService(serverExceptionTransformer), CookersService {
 
     override fun loadCookersList(cookersRequest: CookersRequest): Single<List<Cooker>> =
-        cookersServiceApi.loadCookersList(
-            cookersDataRequestTransformer.transform(
-                cookersRequest
-            )
-        ).map { cookersData ->
-            cookersData.cookers.map { cookerResponseTransformer.transform(it) }
-        }
+        executeRequest(
+            cookersServiceApi.loadCookersList(
+                cookersDataRequestTransformer.transform(
+                    cookersRequest
+                )
+            ).map { cookersData ->
+                cookersData.cookers.map { cookerResponseTransformer.transform(it) }
+            }
+        )
 
     override fun loadCookersListWithoutAuth(cookersRequest: CookersWithoutAuthRequest): Single<List<Cooker>> =
-        cookersServiceApi.loadCookersListWithoutAuth(
-            cookersDataWithoutAuthRequestTransformer.transform(
-                cookersRequest
-            )
-        ).map { cookersData ->
-            cookersData.cookers.map { cookerResponseTransformer.transform(it) }
-        }
+        executeRequest(
+            cookersServiceApi.loadCookersListWithoutAuth(
+                cookersDataWithoutAuthRequestTransformer.transform(
+                    cookersRequest
+                )
+            ).map { cookersData ->
+                cookersData.cookers.map { cookerResponseTransformer.transform(it) }
+            }
+        )
 
-    override fun loadCookerDetail(cookerId: String): Single<CookerDetail> =
+    override fun loadCookerDetail(cookerId: String): Single<CookerDetail> = executeRequest(
         cookersServiceApi.loadCookerDetail(cookerId)
             .map { cookerDetailTransformer.transform(it.cooker) }
+    )
 
     override fun loadCookerDetailWithoutAuth(cookerId: String): Single<CookerDetail> =
-        cookersServiceApi.loadCookerDetailWithoutAuth(cookerId)
-            .map { cookerDetailTransformer.transform(it.cooker) }
+        executeRequest(
+            cookersServiceApi.loadCookerDetailWithoutAuth(cookerId)
+                .map { cookerDetailTransformer.transform(it.cooker) }
+        )
 
-    override fun loadLunch(cookerId: String, lunchId: String): Single<Lunch> =
+    override fun loadLunch(cookerId: String, lunchId: String): Single<Lunch> = executeRequest(
         cookersServiceApi.loadLunch(cookerId, lunchId)
             .map { lunchResponseTransformer.transform(it.lunch) }
+    )
 
-    override fun loadMeal(cookerId: String, mealId: String): Single<Meal> =
+    override fun loadMeal(cookerId: String, mealId: String): Single<Meal> = executeRequest(
         cookersServiceApi.loadMeal(cookerId, mealId)
             .map { mealResponseTransformer.transform(it.meal) }
-
+    )
 
     interface CookersServiceApi {
         @POST("client/cookers")
