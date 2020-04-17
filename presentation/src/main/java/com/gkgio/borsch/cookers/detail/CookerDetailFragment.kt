@@ -116,6 +116,9 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
                 countTv.text = it.count.toString()
                 sumTv.text = it.sum
             }
+            basketView.setDebounceOnClickListener {
+                viewModel.onBasketViewClick()
+            }
         }
 
         viewModel.openFoodItem.observeValue(this) {

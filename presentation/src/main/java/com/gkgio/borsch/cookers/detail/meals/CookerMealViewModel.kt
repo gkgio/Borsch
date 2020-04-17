@@ -26,10 +26,10 @@ class CookerMealViewModel @Inject constructor(
 ) : BaseViewModel(baseScreensNavigator) {
 
     val showClearBasketWarning = SingleLiveEvent<Unit>()
-    var savedFoodId: String? = null
-    var savedPrice: BigDecimal? = null
-    var savedName: String? = null
-    var savedType: Int? = null
+    private var savedFoodId: String? = null
+    private var savedPrice: BigDecimal? = null
+    private var savedName: String? = null
+    private var savedType: Int? = null
 
     fun addToBasketClick(
         id: String,
@@ -37,6 +37,7 @@ class CookerMealViewModel @Inject constructor(
         price: BigDecimal,
         cookerId: String,
         cookerAddressUi: CookerAddressUi?,
+        portions: Int,
         type: Int
     ) {
         val basketCountAndSum = basketRepository.loadBasketCountAndSum()
@@ -52,7 +53,7 @@ class CookerMealViewModel @Inject constructor(
                 showClearBasketWarning.call()
             }
             else -> {
-                checkBasket(id, name, price, cookerId, cookerAddressUi, type)
+                checkBasket(id, name, price, cookerId, cookerAddressUi, portions, type)
             }
         }
     }
@@ -86,13 +87,16 @@ class CookerMealViewModel @Inject constructor(
         price: BigDecimal,
         cookerId: String,
         cookerAddressUi: CookerAddressUi?,
+        portions: Int,
         type: Int
     ) {
         basketUseCase
             .loadBasketItem(foodId)
             .applySchedulers()
             .subscribe({
-                updateItemCount(foodId, price, cookerId, cookerAddressUi)
+                if (it.count + 1 <= portions) {
+                    updateItemCount(foodId, price, cookerId, cookerAddressUi)
+                }
             }, {
                 addToBasket(foodId, name, price, cookerId, cookerAddressUi, type)
             }).addDisposable()

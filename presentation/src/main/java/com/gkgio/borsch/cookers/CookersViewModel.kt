@@ -78,7 +78,8 @@ class CookersViewModel @Inject constructor(
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
-                state.value = state.nonNullValue.copy(isLoading = false, cookers = it)
+                state.value =
+                    state.nonNullValue.copy(isLoading = false, cookers = it, isInitialError = false)
             }, {
                 state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
                 processThrowable(it)

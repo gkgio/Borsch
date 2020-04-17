@@ -27,7 +27,7 @@ class SettingsViewModel @Inject constructor(
 
     val state = MutableLiveData<State>()
 
-    fun init() {
+     init {
         if (state.isNonInitialized()) {
             state.value = State()
 

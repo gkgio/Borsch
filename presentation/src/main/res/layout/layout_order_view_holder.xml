@@ -133,6 +133,7 @@
             android:id="@+id/detailOrderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -176,9 +177,7 @@
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/tt_norms_medium"
                 android:paddingStart="20dp"
                 android:paddingTop="12dp"
@@ -186,7 +185,7 @@
                 android:paddingBottom="12dp"
                 android:text="Детали заказа"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:backgroundTint="@color/blue"
                 app:cornerRadius="16dp" />
 

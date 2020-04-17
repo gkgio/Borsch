@@ -16,8 +16,17 @@ import kotlinx.android.synthetic.main.fragment_basket.*
 class BasketFragment : BaseFragment<BasketViewModel>() {
 
     companion object {
+        private const val ARG_IS_INSIDE_PAGE = "isInsidePage"
         val TAG = CookersFragment::class.java.simpleName
+
+        fun newInstance(isInsidePage: Boolean = false) = BasketFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(ARG_IS_INSIDE_PAGE, isInsidePage)
+            }
+        }
     }
+
+    private var isInsidePage: Boolean? = null
 
     private var basketItemRecyclerAdapter: BasketItemRecyclerAdapter? = null
 
@@ -27,9 +36,23 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
         AppInjector.appComponent.basketViewModel
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            isInsidePage = it.getBoolean(ARG_IS_INSIDE_PAGE)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBasketRv()
+
+        if (isInsidePage == true) {
+            toolbar.setLeftIcon(context?.getDrawableCompat(R.drawable.ic_back))
+            toolbar.setLeftIconClickListener {
+                viewModel.onBackClick()
+            }
+        }
 
         viewModel.state.observeValue(this) { state ->
             progress.isVisible = state.isLoading
@@ -53,7 +76,7 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
         }
 
         confirmButton.setDebounceOnClickListener {
-            viewModel.onOrderConfirmBtnClick()
+            viewModel.onOrderConfirmBtnClick(isInsidePage)
         }
     }
 

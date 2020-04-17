@@ -74,10 +74,13 @@ class FoodItemFragment : BaseFragment<FoodItemViewModel>(), ClickDialogCallBack 
             emptyErrorView.isVisible = state.isInitialError
 
             state.lunchUi?.let {
+                changeCountContainer.isVisible = it.available == true && state.currentPriceFormatted != null
                 foodItemsRecyclerAdapter?.setMealsList(it.meals)
             }
 
             state.mealUi?.let {
+                changeCountContainer.isVisible =
+                    it.available == true && it.portions > 0 && state.currentPriceFormatted != null
                 foodItemsRecyclerAdapter?.setMealsList(listOf(it))
             }
 
@@ -89,7 +92,6 @@ class FoodItemFragment : BaseFragment<FoodItemViewModel>(), ClickDialogCallBack 
                 addToBasketButton.text =
                     getString(R.string.basket_add_filter, state.currentPriceFormatted)
             }
-            changeCountContainer.isVisible = state.currentPriceFormatted != null
         }
 
         viewModel.showClearBasketWarning.observeValue(this) {

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:titleText="@string/basket_page_title" />
+            app:titleText="Заказы" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

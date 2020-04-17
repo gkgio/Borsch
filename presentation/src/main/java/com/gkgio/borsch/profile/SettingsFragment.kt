@@ -40,7 +40,6 @@ class SettingsFragment : BaseFragment<SettingsViewModel>() {
         arguments?.let {
             isInsidePage = it.getBoolean(ARG_IS_INSIDE_PAGE)
         }
-        viewModel.init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

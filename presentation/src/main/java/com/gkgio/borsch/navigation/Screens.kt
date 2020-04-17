@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.gkgio.borsch.auth.InputPhoneFragment
 import com.gkgio.borsch.auth.ValidatePhoneFragment
+import com.gkgio.borsch.basket.BasketFragment
 import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.cookers.detail.CookerDetailFragment
 import com.gkgio.borsch.location.FindAddressFragment
@@ -78,5 +79,12 @@ object Screens {
     ) : SupportAppScreen() {
         override fun getFragment() =
             SettingsFragment.newInstance(isInsidePage)
+    }
+
+    class BasketFragmentScreen(
+        private val isInsidePage: Boolean
+    ) : SupportAppScreen() {
+        override fun getFragment() =
+            BasketFragment.newInstance(isInsidePage)
     }
 }

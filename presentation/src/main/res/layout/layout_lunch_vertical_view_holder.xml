@@ -89,4 +89,28 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/notAvailableLunchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_not_available_meal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_yelow_round"
+            android:fontFamily="@font/tt_norms_bold"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp"
+            android:text="НЕДОТУПНО ДЛЯ ЗАКАЗА"
+            android:textColor="#3e4757"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
 </androidx.cardview.widget.CardView>

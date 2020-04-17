@@ -8,6 +8,7 @@ import com.gkgio.borsch.cookers.CookersViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
@@ -89,6 +90,10 @@ class CookerDetailViewModel @Inject constructor(
         state.nonNullValue.cookerDetail?.let {
             openFoodItem.value = FoodItemRequest(it.id, foodId, type, it.cookerAddress)
         }
+    }
+
+    fun onBasketViewClick() {
+        router.navigateTo(Screens.BasketFragmentScreen(true))
     }
 
     data class State(

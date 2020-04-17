@@ -3,6 +3,8 @@ package com.gkgio.borsch.cookers.detail.meals
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,7 +24,7 @@ class MealsVerticalRecyclerAdapter(
     private val mealsList: List<MealUi>,
     private val lunchesList: List<LunchUi>,
     val itemClick: (String, Int) -> Unit,
-    val addToBasketClick: (String, String, BigDecimal, Int) -> Unit
+    val addToBasketClick: (String, String, BigDecimal, Int, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -75,8 +77,10 @@ class MealsVerticalRecyclerAdapter(
                     itemClick(lunch.id, LUNCH_TYPE)
                 }
 
+                notAvailableLunchContainer.isVisible = !lunch.available
+                addToBasketLunchIv.isInvisible = !lunch.available
                 addToBasketLunchIv.setDebounceOnClickListener {
-                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, LUNCH_TYPE)
+                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, 1, LUNCH_TYPE)
                 }
             }
         } else if (holder is MealsViewHolder) {
@@ -96,8 +100,10 @@ class MealsVerticalRecyclerAdapter(
                     itemClick(meal.id, MEAL_TYPE)
                 }
 
+                notAvailableMealContainer.isVisible = meal.available == false || meal.portions == 0
+                addToBasketMealIv.isInvisible = meal.available == false || meal.portions == 0
                 addToBasketMealIv.setDebounceOnClickListener {
-                    addToBasketClick(meal.id, meal.name, meal.purePrice, MEAL_TYPE)
+                    addToBasketClick(meal.id, meal.name, meal.purePrice, meal.portions, MEAL_TYPE)
                 }
             }
         }

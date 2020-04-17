@@ -149,7 +149,7 @@ class BasketViewModel @Inject constructor(
         state.value = state.nonNullValue.copy(basketCountAndSumUi = basketCountAndSumUi)
     }
 
-    fun onOrderConfirmBtnClick() {
+    fun onOrderConfirmBtnClick(isInsidePage: Boolean? = null) {
         if (authRepository.getAuthToken() != null) {
             state.nonNullValue.basketDataList?.let { basketDataList ->
                 val mealsIds = mutableListOf<String>()
@@ -175,6 +175,9 @@ class BasketViewModel @Inject constructor(
                         state.value = state.nonNullValue.copy(isLoading = false)
                         basketChangeEvent.onComplete("")
                         showSuccessDialog.call()
+                        if (isInsidePage == true) {
+                            router.backTo(Screens.MainFragmentScreen)
+                        }
                     }, {
                         state.value = state.nonNullValue.copy(isLoading = false)
                         processThrowable(it)
