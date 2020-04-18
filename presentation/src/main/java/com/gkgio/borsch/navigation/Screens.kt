@@ -11,6 +11,7 @@ import com.gkgio.borsch.location.FindAddressFragment
 import com.gkgio.borsch.location.LocationFragment
 import com.gkgio.borsch.main.MainFragment
 import com.gkgio.borsch.onboarding.OnboardingFragment
+import com.gkgio.borsch.orders.chat.OrderChatFragment
 import com.gkgio.borsch.profile.SettingsFragment
 import com.gkgio.borsch.profile.about.AboutUsFragment
 import com.gkgio.borsch.utils.IntentUtils
@@ -86,5 +87,13 @@ object Screens {
     ) : SupportAppScreen() {
         override fun getFragment() =
             BasketFragment.newInstance(isInsidePage)
+    }
+
+    class OrderChatFragmentScreen(
+        private val orderId: String,
+        private val userId: String
+    ) : SupportAppScreen() {
+        override fun getFragment() =
+            OrderChatFragment.newInstance(orderId, userId)
     }
 }

@@ -6,6 +6,7 @@ import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.navigation.Screens
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
@@ -45,6 +46,13 @@ class OrdersViewModel @Inject constructor(
                     state.value = state.nonNullValue.copy(isLoading = false)
                     processThrowable(it)
                 }).addDisposable()
+        }
+    }
+
+    fun onOpenChatClick(orderId: String) {
+        val user = authRepository.loadUserProfile()
+        if (user != null) {
+            router.navigateTo(Screens.OrderChatFragmentScreen(orderId, user.id))
         }
     }
 

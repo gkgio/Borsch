@@ -1,7 +1,7 @@
-package com.gkgio.data.support
+package com.gkgio.data.chats
 
 import com.gkgio.data.BaseTransformer
-import com.gkgio.domain.support.MessageChat
+import com.gkgio.domain.chats.MessageChat
 import javax.inject.Inject
 
 class MessagesChatResponseTransformer @Inject constructor() :

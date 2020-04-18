@@ -1,4 +1,4 @@
-package com.gkgio.domain.support
+package com.gkgio.domain.chats
 
 import com.gkgio.domain.auth.User
 

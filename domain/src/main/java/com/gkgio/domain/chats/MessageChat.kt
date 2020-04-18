@@ -1,4 +1,4 @@
-package com.gkgio.domain.support
+package com.gkgio.domain.chats
 
 data class MessageChat(
     val from: String?,

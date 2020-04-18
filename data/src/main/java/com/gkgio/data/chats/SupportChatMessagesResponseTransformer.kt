@@ -1,11 +1,8 @@
-package com.gkgio.data.support
+package com.gkgio.data.chats
 
 import com.gkgio.data.BaseTransformer
 import com.gkgio.data.auth.UserResponseTransformer
-import com.gkgio.data.cookers.LunchResponse
-import com.gkgio.data.cookers.MealResponseTransformer
-import com.gkgio.domain.cookers.Lunch
-import com.gkgio.domain.support.SupportChatMessages
+import com.gkgio.domain.chats.SupportChatMessages
 import javax.inject.Inject
 
 class SupportChatMessagesResponseTransformer @Inject constructor(

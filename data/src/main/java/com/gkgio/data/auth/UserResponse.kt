@@ -13,5 +13,7 @@ data class UserResponse(
     @Json(name = "phone")
     val phone: String?,
     @Json(name = "avatar_url")
-    val avatarUrl: String?
+    val avatarUrl: String?,
+    @Json(name = "id")
+    val id: String
 )

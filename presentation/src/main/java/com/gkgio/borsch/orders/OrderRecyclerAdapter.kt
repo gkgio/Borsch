@@ -12,7 +12,8 @@ import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_order_view_holder.view.*
 
 class OrderRecyclerAdapter(
-    private val itemClick: () -> Unit
+    private val openDetailClick: () -> Unit,
+    private val openChatClick: (String) -> Unit
 ) : RecyclerView.Adapter<SyntheticViewHolder>() {
 
     private val ordersList = mutableListOf<OrderDataUi>()
@@ -60,6 +61,10 @@ class OrderRecyclerAdapter(
                         || orderUi.status == OrderStatus.COOKING.type
                         || orderUi.status == OrderStatus.CREATED.type
 
+            orderChatContainer.setDebounceOnClickListener {
+                openChatClick(orderUi.orderId)
+            }
+
             when (orderUi.status) {
                 OrderStatus.ACCEPTED.type -> {
                     statusTv.setBackgroundResource(R.drawable.bg_status_green)
@@ -91,15 +96,11 @@ class OrderRecyclerAdapter(
             if (mealOtherCount > 0) {
                 detailOrderContainer.isVisible = true
                 detailOrderBtn.setDebounceOnClickListener {
-
+                    openDetailClick()
                 }
                 countOtherMeal.text = String.format("+ %d", mealOtherCount)
             } else {
                 detailOrderContainer.isVisible = false
-            }
-
-            setDebounceOnClickListener {
-                itemClick()
             }
         }
     }

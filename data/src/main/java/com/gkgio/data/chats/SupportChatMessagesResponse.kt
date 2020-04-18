@@ -1,4 +1,4 @@
-package com.gkgio.data.support
+package com.gkgio.data.chats
 
 import com.gkgio.data.auth.UserResponse
 import com.squareup.moshi.Json

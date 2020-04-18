@@ -12,7 +12,8 @@ class UserResponseToTransformer @Inject constructor() :
             banned,
             firstName,
             phone,
-            avatarUrl
+            avatarUrl,
+            id
         )
     }
 }

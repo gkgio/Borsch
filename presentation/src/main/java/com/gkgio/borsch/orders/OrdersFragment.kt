@@ -40,9 +40,15 @@ class OrdersFragment : BaseFragment<OrdersViewModel>() {
     }
 
     private fun initOrderRv() {
-        orderRecyclerAdapter = OrderRecyclerAdapter {
+        orderRecyclerAdapter = OrderRecyclerAdapter(
+            {
 
-        }
+            },
+            { orderId ->
+                viewModel.onOpenChatClick(orderId)
+            }
+        )
+
         rvOrders.adapter = orderRecyclerAdapter
         rvOrders.layoutManager = LinearLayoutManager(context)
     }

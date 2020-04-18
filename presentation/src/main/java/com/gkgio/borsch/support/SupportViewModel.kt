@@ -7,8 +7,8 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.domain.auth.AuthRepository
-import com.gkgio.domain.support.SupportChatMessages
-import com.gkgio.domain.support.SupportChatUseCase
+import com.gkgio.domain.chats.SupportChatMessages
+import com.gkgio.domain.chats.SupportChatUseCase
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
@@ -59,7 +59,7 @@ class SupportViewModel @Inject constructor(
             .subscribe({
 
             }, {
-                Timber.e(it)
+                processThrowable(it)
             })
             .addDisposable()
     }
