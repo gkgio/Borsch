@@ -14,16 +14,18 @@ import com.gkgio.borsch.ext.createViewModel
 import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.orders.OrdersFragment
 import com.gkgio.borsch.profile.SettingsFragment
+import com.gkgio.borsch.support.SupportFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
 
     private companion object {
-        private const val PAGE_CACHE_SIZE = 4
+        private const val PAGE_CACHE_SIZE = 5
         private const val PAGE_COOKERS = 0
         private const val PAGE_BASKET = 1
         private const val PAGE_ORDERS = 2
-        private const val PAGE_PROFILE = 3
+        private const val PAGE_SUPPORT = 3
+        private const val PAGE_PROFILE = 4
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main
@@ -47,7 +49,11 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
         viewModel.openFirstTab.observeValue(this) {
             childFragmentManager.beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fragmentContainer, getFragment(R.id.tab_cookers), getFragmentTag(R.id.tab_cookers))
+                .replace(
+                    R.id.fragmentContainer,
+                    getFragment(R.id.tab_cookers),
+                    getFragmentTag(R.id.tab_cookers)
+                )
                 .commit()
         }
 
@@ -71,6 +77,7 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
         R.id.tab_cookers -> CookersFragment()
         R.id.tab_basket -> BasketFragment()
         R.id.tab_orders -> OrdersFragment()
+        R.id.tab_support -> SupportFragment()
         R.id.tab_profile -> SettingsFragment()
         else -> throw IllegalArgumentException("Unsupported tab")
     }
@@ -79,6 +86,7 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
         R.id.tab_cookers -> PAGE_COOKERS.toString()
         R.id.tab_basket -> PAGE_BASKET.toString()
         R.id.tab_orders -> PAGE_ORDERS.toString()
+        R.id.tab_support -> PAGE_SUPPORT.toString()
         R.id.tab_profile -> PAGE_PROFILE.toString()
         else -> throw IllegalArgumentException("Unsupported tab")
     }

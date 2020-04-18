@@ -25,6 +25,7 @@ class LunchUiTransformer @Inject constructor(
             priceFormatter.format(price),
             calories,
             weightFormatter.formatToOnePotion(weight),
+            portions,
             price
         )
     }

@@ -1,6 +1,7 @@
 package com.gkgio.borsch.basket
 
 import androidx.lifecycle.MutableLiveData
+import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.cookers.CookersFragment.Companion.MEAL_TYPE
@@ -19,12 +20,7 @@ import com.gkgio.domain.basket.BasketRepository
 import com.gkgio.domain.basket.BasketUseCase
 import com.gkgio.domain.cookers.detail.CookerAddress
 import com.gkgio.domain.location.Coordinates
-import io.reactivex.Scheduler
-import io.reactivex.Single
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
-import timber.log.Timber
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -156,9 +152,13 @@ class BasketViewModel @Inject constructor(
                 val lunchesIds = mutableListOf<String>()
                 basketDataList.forEach {
                     if (it.type == MEAL_TYPE) {
-                        mealsIds.add(it.id)
+                        for (count in 0 until it.count) {
+                            mealsIds.add(it.id)
+                        }
                     } else {
-                        lunchesIds.add(it.id)
+                        for (count in 0 until it.count) {
+                            lunchesIds.add(it.id)
+                        }
                     }
                 }
                 basketUseCase
@@ -177,6 +177,9 @@ class BasketViewModel @Inject constructor(
                         showSuccessDialog.call()
                         if (isInsidePage == true) {
                             router.backTo(Screens.MainFragmentScreen)
+                            router.switchTo(R.id.tab_orders)
+                        } else {
+                            router.switchTo(R.id.tab_orders)
                         }
                     }, {
                         state.value = state.nonNullValue.copy(isLoading = false)

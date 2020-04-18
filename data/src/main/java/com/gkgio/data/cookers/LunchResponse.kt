@@ -26,5 +26,7 @@ data class LunchResponse(
     @Json(name = "calories")
     val calories: String?,
     @Json(name = "weight")
-    val weight: Int
+    val weight: Int,
+    @Json(name = "portions")
+    val portions: Int//Amount of available portions
 )

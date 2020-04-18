@@ -53,7 +53,8 @@ import javax.inject.Singleton
         OnboardingModule::class,
         CookersModule::class,
         LocationModule::class,
-        BasketModule::class
+        BasketModule::class,
+        ChatModule::class
     ]
 )
 interface AppComponent {

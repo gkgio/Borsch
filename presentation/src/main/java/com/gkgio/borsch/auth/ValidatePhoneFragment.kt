@@ -62,6 +62,7 @@ class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
 
         validateSmsBtn.setDebounceOnClickListener {
             viewModel.onResendSmsClick()
+            smsCodeView.cleanInputCode()
         }
 
         smsCodeView.addCodeCompleteWatcher(object :

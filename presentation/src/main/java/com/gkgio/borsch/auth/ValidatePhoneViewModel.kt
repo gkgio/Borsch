@@ -21,7 +21,6 @@ class ValidatePhoneViewModel @Inject constructor(
     private val router: Router,
     private val authUseCase: AuthUseCase,
     private val userProfileChanged: UserProfileChanged,
-    private val addressesUseCase: LoadAddressesUseCase,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 

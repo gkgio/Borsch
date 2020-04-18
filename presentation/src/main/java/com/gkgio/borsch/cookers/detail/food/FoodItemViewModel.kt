@@ -209,13 +209,16 @@ class FoodItemViewModel @Inject constructor(
     }
 
     fun onPlusCountClick() {
-        val newPrice =
-            state.nonNullValue.currentPricePure!! + state.nonNullValue.currentPriceOneItem!!
-        state.value = state.nonNullValue.copy(
-            currentCount = state.nonNullValue.currentCount + 1,
-            currentPricePure = newPrice,
-            currentPriceFormatted = priceFormatter.format(newPrice)
-        )
+        val portions = state.nonNullValue.mealUi?.portions ?: state.nonNullValue.lunchUi?.portions
+        if (portions != null && state.nonNullValue.currentCount + 1 <= portions) {
+            val newPrice =
+                state.nonNullValue.currentPricePure!! + state.nonNullValue.currentPriceOneItem!!
+            state.value = state.nonNullValue.copy(
+                currentCount = state.nonNullValue.currentCount + 1,
+                currentPricePure = newPrice,
+                currentPriceFormatted = priceFormatter.format(newPrice)
+            )
+        }
     }
 
     fun onMinusCountClick() {

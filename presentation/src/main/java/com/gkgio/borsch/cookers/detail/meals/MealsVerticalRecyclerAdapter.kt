@@ -77,10 +77,10 @@ class MealsVerticalRecyclerAdapter(
                     itemClick(lunch.id, LUNCH_TYPE)
                 }
 
-                notAvailableLunchContainer.isVisible = !lunch.available
-                addToBasketLunchIv.isInvisible = !lunch.available
+                notAvailableLunchContainer.isVisible = !lunch.available || lunch.portions == 0
+                addToBasketLunchIv.isInvisible = !lunch.available || lunch.portions == 0
                 addToBasketLunchIv.setDebounceOnClickListener {
-                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, 1, LUNCH_TYPE)
+                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, lunch.portions, LUNCH_TYPE)
                 }
             }
         } else if (holder is MealsViewHolder) {

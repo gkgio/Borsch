@@ -6,6 +6,7 @@
     <string name="tab_name_cookers">Повара</string>
     <string name="tab_name_basket">Корзина</string>
     <string name="tab_name_orders">Заказы</string>
+    <string name="tab_name_support">Поддержка</string>
     <string name="tab_name_profile">Профиль</string>
 
     <string name="theme_dark">Тёмная тема</string>

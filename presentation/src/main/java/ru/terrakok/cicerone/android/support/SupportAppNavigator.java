@@ -85,7 +85,17 @@ public class SupportAppNavigator implements Navigator {
     }
 
     private void fragmentForwardTo(SwitchTo command) {
-        BottomBarTabsSwitcher fragment = (BottomBarTabsSwitcher) fragmentManager.getFragments().get(0);
+        BottomBarTabsSwitcher fragment = null;
+        for (Fragment f : fragmentManager.getFragments()) {
+            if (f instanceof BottomBarTabsSwitcher) {
+                fragment = (BottomBarTabsSwitcher) f;
+            }
+        }
+
+        if (fragment == null) {
+            throw new RuntimeException("No BottomBarSwitcher found in stack");
+        }
+
         if (command.getId() == R.id.tab_cookers) {
             fragment.switchToCookersTab();
         } else if (command.getId() == R.id.tab_basket) {

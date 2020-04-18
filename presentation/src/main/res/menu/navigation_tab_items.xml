@@ -17,6 +17,11 @@
         android:title="@string/tab_name_orders" />
 
     <item
+        android:id="@+id/tab_support"
+        android:icon="@drawable/ic_tab_support"
+        android:title="@string/tab_name_support" />
+
+    <item
         android:id="@+id/tab_profile"
         android:icon="@drawable/ic_tab_profile"
         android:title="@string/tab_name_profile" />

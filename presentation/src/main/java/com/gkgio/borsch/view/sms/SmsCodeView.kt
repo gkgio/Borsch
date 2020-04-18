@@ -57,6 +57,15 @@ class SmsCodeView @JvmOverloads constructor(
         }
     }
 
+    fun cleanInputCode() {
+        txtNumber1.setText("")
+        txtNumber2.setText("")
+        txtNumber3.setText("")
+        txtNumber4.setText("")
+        codeLength = 0
+        codeComplete = false
+    }
+
     private fun setCodeFromString(code: String) {
         txtNumber1.setText(code[0].toString())
         txtNumber2.setText(code[1].toString())

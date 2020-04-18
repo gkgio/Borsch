@@ -22,7 +22,8 @@ class LunchResponseTransformer @Inject constructor(
             name,
             BigDecimal(price),
             calories,
-            weight
+            weight,
+            portions
         )
     }
 }

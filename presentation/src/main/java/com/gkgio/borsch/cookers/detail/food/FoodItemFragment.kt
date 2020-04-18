@@ -74,7 +74,8 @@ class FoodItemFragment : BaseFragment<FoodItemViewModel>(), ClickDialogCallBack 
             emptyErrorView.isVisible = state.isInitialError
 
             state.lunchUi?.let {
-                changeCountContainer.isVisible = it.available == true && state.currentPriceFormatted != null
+                changeCountContainer.isVisible =
+                    it.available == true && it.portions > 0 && state.currentPriceFormatted != null
                 foodItemsRecyclerAdapter?.setMealsList(it.meals)
             }
 
