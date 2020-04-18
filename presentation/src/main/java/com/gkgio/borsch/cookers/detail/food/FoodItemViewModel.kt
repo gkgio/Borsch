@@ -223,8 +223,8 @@ class FoodItemViewModel @Inject constructor(
 
     fun onMinusCountClick() {
         if (state.nonNullValue.currentCount > 1) {
-            val newPrice = (state.nonNullValue.currentPricePure!!
-                .divide(BigDecimal(2)))
+            val newPrice =
+                state.nonNullValue.currentPricePure!! - state.nonNullValue.currentPriceOneItem!!
             state.value = state.nonNullValue.copy(
                 currentCount = state.nonNullValue.currentCount - 1,
                 currentPricePure = newPrice,
