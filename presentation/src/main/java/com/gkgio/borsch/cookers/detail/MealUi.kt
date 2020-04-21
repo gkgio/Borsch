@@ -18,6 +18,6 @@ data class MealUi(
     val price: String,
     val tags: List<String>?,
     val type: String?,
-    val weight: String,
+    val weight: String?,
     val purePrice: BigDecimal
 ) : Parcelable

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
 import com.gkgio.borsch.cookers.detail.MealUi
+import com.gkgio.borsch.ext.setTextOrHide
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_item_food_view_holder.view.*
@@ -32,7 +33,7 @@ class FoodItemsRecyclerAdapter : RecyclerView.Adapter<SyntheticViewHolder>() {
                 .into(foodIv)
 
             mealTitleTv.text = meal.name
-            portionWeightTv.text = meal.weight
+            portionWeightTv.setTextOrHide(meal.weight)
             descriptionTv.text = meal.description
 
             if (!meal.ingredients.isNullOrEmpty()) {

@@ -90,7 +90,7 @@ class BasketViewModel @Inject constructor(
                 }).addDisposable()
         } else {
             val newPrice =
-                (basketDataUi.priceOneItem.multiply(basketDataUi.count.toBigDecimal()) + basketDataUi.priceOneItem)
+                (basketDataUi.priceOneItem.multiply(basketDataUi.count.toBigDecimal()) - basketDataUi.priceOneItem)
             updateBasketCount(basketDataUi.id, newCount, newPrice)
         }
     }

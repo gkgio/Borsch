@@ -23,7 +23,7 @@ class OrderDataUiTransformer @Inject constructor(
             meals,
             lunches,
             orderId,
-            id,
+            slug,
             priceFormatter.format(orderPrice),
             status,
             getStatusEnum(type)

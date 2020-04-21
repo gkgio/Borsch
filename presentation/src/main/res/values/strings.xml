@@ -61,7 +61,7 @@
 
     <string name="basket_page_title">Корзина</string>
 
-    <string name="order_number_format">Заказ № %s</string>
+    <string name="order_number_format">Заказ: %s</string>
     <string name="order_price_filter">Итого: %s</string>
 
     <string-array name="months_s">

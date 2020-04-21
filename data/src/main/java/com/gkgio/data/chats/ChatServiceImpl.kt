@@ -1,5 +1,7 @@
 package com.gkgio.data.chats
 
+import com.gkgio.data.base.BaseService
+import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.chats.SupportChatMessages
 import com.gkgio.domain.chats.ChatService
 import com.gkgio.domain.chats.MessageChat
@@ -13,18 +15,21 @@ import javax.inject.Inject
 class ChatServiceImpl @Inject constructor(
     private val chatServiceApi: ChatServiceApi,
     private val supportChatMessagesResponseTransformer: SupportChatMessagesResponseTransformer,
-    private val messagesChatResponseTransformer: MessagesChatResponseTransformer
-) : ChatService {
+    private val messagesChatResponseTransformer: MessagesChatResponseTransformer,
+    serverExceptionTransformer: ServerExceptionTransformer
+) : BaseService(serverExceptionTransformer), ChatService {
 
-    override fun loadSupportMessages(): Single<SupportChatMessages> =
+    override fun loadSupportMessages(): Single<SupportChatMessages> = executeRequest(
         chatServiceApi.loadSupportMessages()
             .map { supportChatMessagesResponseTransformer.transform(it) }
+    )
 
-    override fun sendSupportMessage(text: String): Single<MessageChat> =
+    override fun sendSupportMessage(text: String): Single<MessageChat> = executeRequest(
         chatServiceApi.sendSupportMessage(MessageChatRequest(text))
             .map { messagesChatResponseTransformer.transform(it.message) }
+    )
 
-    override fun loadOrderChatMessages(orderId: String): Single<List<MessageChat>> =
+    override fun loadOrderChatMessages(orderId: String): Single<List<MessageChat>> = executeRequest(
         chatServiceApi.loadOrderChatMessages(orderId).map { orderChatResponse ->
             if (orderChatResponse.messageList == null) {
                 listOf()
@@ -34,10 +39,13 @@ class ChatServiceImpl @Inject constructor(
                 }
             }
         }
+    )
 
     override fun sendOrderChatMessage(text: String, orderId: String): Single<MessageChat> =
-        chatServiceApi.sendOrderChatMessage(MessageChatRequest(text), orderId)
-            .map { messagesChatResponseTransformer.transform(it.message) }
+        executeRequest(
+            chatServiceApi.sendOrderChatMessage(MessageChatRequest(text), orderId)
+                .map { messagesChatResponseTransformer.transform(it.message) }
+        )
 
     interface ChatServiceApi {
         @GET("support/messages")

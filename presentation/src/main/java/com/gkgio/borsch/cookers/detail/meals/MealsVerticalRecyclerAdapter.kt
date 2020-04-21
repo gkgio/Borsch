@@ -14,6 +14,7 @@ import com.gkgio.borsch.cookers.CookersFragment.Companion.MEAL_TYPE
 import com.gkgio.borsch.cookers.detail.LunchUi
 import com.gkgio.borsch.cookers.detail.MealUi
 import com.gkgio.borsch.ext.setDebounceOnClickListener
+import com.gkgio.borsch.ext.setTextOrHide
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_lunch_vertical_view_holder.view.*
@@ -80,7 +81,13 @@ class MealsVerticalRecyclerAdapter(
                 notAvailableLunchContainer.isVisible = !lunch.available || lunch.portions == 0
                 addToBasketLunchIv.isInvisible = !lunch.available || lunch.portions == 0
                 addToBasketLunchIv.setDebounceOnClickListener {
-                    addToBasketClick(lunch.id, lunch.name, lunch.pricePure, lunch.portions, LUNCH_TYPE)
+                    addToBasketClick(
+                        lunch.id,
+                        lunch.name,
+                        lunch.pricePure,
+                        lunch.portions,
+                        LUNCH_TYPE
+                    )
                 }
             }
         } else if (holder is MealsViewHolder) {
@@ -94,7 +101,7 @@ class MealsVerticalRecyclerAdapter(
 
                 mealNameTv.text = meal.name
                 mealPriceTv.text = meal.price
-                mealPortionTv.text = meal.weight
+                mealPortionTv.setTextOrHide(meal.weight)
 
                 setDebounceOnClickListener {
                     itemClick(meal.id, MEAL_TYPE)

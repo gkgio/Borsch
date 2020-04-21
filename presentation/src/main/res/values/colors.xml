@@ -7,7 +7,7 @@
 
     <color name="toolbar">#FFFFFF</color>
     <color name="search_hint_color">#a0a0a7</color>
-    <color name="snack_bar">#D0CBCB</color>
+    <color name="snack_bar">#F8F8F8</color>
     <color name="search_view_background">#FCFCFF</color>
 
     <color name="blue">#595bd4</color>

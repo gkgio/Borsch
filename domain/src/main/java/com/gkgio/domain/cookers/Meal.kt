@@ -15,5 +15,5 @@ data class Meal(
     val price: BigDecimal,
     val tags: List<String>,
     val type: String?,
-    val weight: Int
+    val weight: Int?
 )

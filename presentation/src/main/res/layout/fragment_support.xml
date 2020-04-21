@@ -28,6 +28,7 @@
         android:id="@+id/chatView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:date_separator_font_size="16sp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:message_font_size="20sp"
@@ -40,27 +41,56 @@
         android:id="@+id/errorViewSupport"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
         tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_support_not_avaiable"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/tt_norms_regular"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="Авторизуйтесь, чтобы\nнаписать в поддержку"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_support_not_avaiable"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/tt_norms_regular"
+                android:gravity="center"
+                android:text="Здесь можно решить все вопросы с в чате поддержки🚀"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/authBtn"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="48dp"
+            android:fontFamily="@font/tt_norms_medium"
+            android:paddingStart="20dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="12dp"
+            android:text="Авторизоваться и написать"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="16dp" />
 
     </LinearLayout>
 

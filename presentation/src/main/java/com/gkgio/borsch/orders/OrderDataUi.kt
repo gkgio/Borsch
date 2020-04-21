@@ -18,7 +18,7 @@ data class OrderDataUi(
     val meals: List<BasketMeal>?,
     val lunches: List<BasketLunch>?,
     val orderId: String,
-    val id: String?,
+    val slug: String?,
     val orderPrice: String,
     val status: String,
     val type: OrderStatus // pickup, delivery

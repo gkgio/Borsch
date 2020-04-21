@@ -18,7 +18,7 @@ data class OrderData(
     val meals: List<BasketMeal>?,
     val lunches: List<BasketLunch>?,
     val orderId: String,
-    val id: String?,
+    val slug: String?,
     val orderPrice: BigDecimal,
     val status: String,
     val type: String // pickup, delivery

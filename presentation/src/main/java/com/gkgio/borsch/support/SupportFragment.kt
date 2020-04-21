@@ -12,6 +12,7 @@ import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.createViewModel
 import com.gkgio.borsch.ext.getColorCompat
 import com.gkgio.borsch.ext.observeValue
+import com.gkgio.borsch.ext.setDebounceOnClickListener
 import kotlinx.android.synthetic.main.fragment_support.*
 import org.joda.time.DateTime
 import java.util.*
@@ -57,6 +58,10 @@ class SupportFragment : BaseFragment<SupportViewModel>() {
                 messageView.init(listMessages)
                 messageView.setSelection(messageView.count - 1)
             }
+        }
+
+        authBtn.setDebounceOnClickListener {
+            viewModel.onAuthBtnClick()
         }
 
         chatView.setOnClickSendButtonListener(View.OnClickListener {

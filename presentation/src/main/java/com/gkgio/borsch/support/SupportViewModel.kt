@@ -6,11 +6,13 @@ import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
+import com.gkgio.borsch.navigation.Screens
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.chats.SupportChatMessages
 import com.gkgio.domain.chats.SupportChatUseCase
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -18,6 +20,7 @@ import javax.inject.Inject
 class SupportViewModel @Inject constructor(
     private val supportChatUseCase: SupportChatUseCase,
     private val authRepository: AuthRepository,
+    private val router: Router,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -68,6 +71,9 @@ class SupportViewModel @Inject constructor(
         disposable?.dispose()
     }
 
+    fun onAuthBtnClick() {
+        router.navigateTo(Screens.InputPhoneFragmentScreen)
+    }
 
     data class State(
         val isInitialError: Boolean = false,

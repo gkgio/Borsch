@@ -30,5 +30,5 @@ data class MealResponse(
     @Json(name = "type")
     val type: String?,
     @Json(name = "weight")
-    val weight: Int
+    val weight: Int?
 )

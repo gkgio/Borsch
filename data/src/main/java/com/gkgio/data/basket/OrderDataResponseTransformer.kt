@@ -38,7 +38,7 @@ class OrderDataResponseTransformer @Inject constructor(
                 } else null
             },
             orderId,
-            id,
+            slug,
             BigDecimal(orderPrice),
             status,
             type
