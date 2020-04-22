@@ -36,6 +36,10 @@ class AuthServiceImpl @Inject constructor(
             ).map { validateSmsCodeResponseTransformer.transform(it) }
         )
 
+    override fun sendPushToken(pushToken: String): Completable =
+        authServiceApi.sendPushTokenToServer(PushTokenRequest(pushToken))
+
+
     interface AuthServiceApi {
         @POST("auth/client")
         fun getSmsCodeByPhone(@Body getSmsCodeRequest: GetSmsCodeRequest): Single<GetSmsCodeResponse>
@@ -45,5 +49,8 @@ class AuthServiceImpl @Inject constructor(
             @Header("authorization") token: String,
             @Body validateSmsCodeRequest: ValidateSmsCodeRequest
         ): Single<ValidateSmsCodeResponse>
+
+        @POST("misc/device_tokens/gcm")
+        fun sendPushTokenToServer(@Body pushTokenRequest: PushTokenRequest): Completable
     }
 }

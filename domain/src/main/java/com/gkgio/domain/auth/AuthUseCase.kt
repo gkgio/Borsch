@@ -5,16 +5,20 @@ import com.gkgio.domain.address.AddressesRepository
 import com.gkgio.domain.address.AddressesService
 import com.gkgio.domain.address.LoadAddressesUseCase
 import io.reactivex.Completable
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 interface AuthUseCase {
     fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode>
-    fun validateSmsCode(token: String, code: String): Single<ValidateSmsCode>
+    fun validateSmsCode(token: String, code: String): Completable
     fun getAuthToken(): String?
     fun saveAuthToken(token: String)
     fun saveUserProfile(user: User)
     fun loadUserProfile(): User?
+    fun savePushToken(pushToken: String): Completable
+    fun sendPushToken(pushToken: String): Completable
 }
 
 class AuthUseCaseImpl @Inject constructor(
@@ -27,16 +31,19 @@ class AuthUseCaseImpl @Inject constructor(
     override fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode> =
         authService.getSmsCodeByPhone(inputPhone)
 
-    override fun validateSmsCode(token: String, code: String): Single<ValidateSmsCode> =
+    override fun validateSmsCode(token: String, code: String): Completable =
         authService.validateSmsCode(token, code)
-            .flatMap { validateSmsCode ->
+            .flatMapCompletable { validateSmsCode ->
                 saveAuthToken(validateSmsCode.token)
                 saveUserProfile(validateSmsCode.user)
                 saveLastAddressAfterAuth()
-                    .andThen(
-                        Single.fromCallable { validateSmsCode }
-                    )
+            }.doOnComplete {
+                val pushToken = authRepository.getPushToken()
+                if (pushToken != null) {
+                    sendPushToken(pushToken)
+                }
             }
+
 
     override fun getAuthToken(): String? =
         authRepository.getAuthToken()
@@ -49,6 +56,18 @@ class AuthUseCaseImpl @Inject constructor(
 
     override fun loadUserProfile(): User? =
         authRepository.loadUserProfile()
+
+    override fun savePushToken(pushToken: String): Completable =
+        authRepository.savePushToken(pushToken)
+            .doOnComplete {
+                if (authRepository.getAuthToken() != null) {
+                    authService.sendPushToken(pushToken)
+                        .subscribeOn(Schedulers.io())
+                }
+            }
+
+    override fun sendPushToken(pushToken: String): Completable =
+        authService.sendPushToken(pushToken)
 
     private fun saveLastAddressAfterAuth(): Completable =
         addressesRepository.getSavedAddresses()

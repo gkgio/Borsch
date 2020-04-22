@@ -17,8 +17,8 @@ class AuthRepositoryImpl @Inject constructor(
 
     private companion object {
         private const val AUTH_TOKEN = "auth_token"
-
         private const val USER_PROFILE = "user_profile"
+        private const val PUSH_TOKEN = "push_token"
     }
 
     override fun getAuthToken(): String? =
@@ -55,5 +55,12 @@ class AuthRepositoryImpl @Inject constructor(
         prefs.edit().remove(AUTH_TOKEN).apply()
         prefs.edit().remove(USER_PROFILE).apply()
     }
+
+    override fun savePushToken(pushToken: String): Completable = Completable.fromCallable {
+        prefs.edit().putString(PUSH_TOKEN, pushToken).apply()
+    }
+
+    override fun getPushToken(): String? =
+        prefs.getString(PUSH_TOKEN, null)
 
 }

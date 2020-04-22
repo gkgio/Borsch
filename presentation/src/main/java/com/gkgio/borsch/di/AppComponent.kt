@@ -24,6 +24,7 @@ import com.gkgio.borsch.location.saved.SavedAddressesViewModel
 import com.gkgio.borsch.main.LaunchActivity
 import com.gkgio.borsch.main.LaunchViewModel
 import com.gkgio.borsch.main.MainViewModel
+import com.gkgio.borsch.notification.NotificationService
 import com.gkgio.borsch.onboarding.OnboardingViewModel
 import com.gkgio.borsch.orders.chat.OrderChatFragment
 import com.gkgio.borsch.orders.chat.OrderChatViewModel
@@ -63,6 +64,7 @@ interface AppComponent {
     fun inject(launchActivity: LaunchActivity)
     fun inject(baseFragment: BaseFragment<BaseViewModel>)
     fun inject(baseBottomSheetDialog: BaseBottomSheetDialog)
+    fun inject(notificationService: NotificationService)
 
     val launchViewModel: LaunchViewModel
     val mainViewModel: MainViewModel

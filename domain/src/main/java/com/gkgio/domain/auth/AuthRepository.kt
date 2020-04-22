@@ -9,4 +9,6 @@ interface AuthRepository {
     fun saveUserProfile(user: User)
     fun loadUserProfile(): User?
     fun removeAccountData(): Completable
+    fun savePushToken(pushToken: String): Completable
+    fun getPushToken(): String?
 }

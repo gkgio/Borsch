@@ -1,18 +1,38 @@
 package com.gkgio.borsch.notification
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
+import com.gkgio.borsch.di.AppComponent
+import com.gkgio.borsch.di.AppInjector
+import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.main.LaunchActivity
+import com.gkgio.domain.auth.AuthUseCase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import timber.log.Timber
+import javax.inject.Inject
 
 class NotificationService : FirebaseMessagingService() {
-    private val TAG = NotificationService::class.java.simpleName
 
+    @Inject
+    lateinit var authUseCase: AuthUseCase
+
+    override fun onCreate() {
+        super.onCreate()
+        AppInjector.appComponent.inject(this)
+    }
+
+    @SuppressLint("CheckResult")
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        authUseCase.savePushToken(token)
+            .applySchedulers()
+            .subscribe({
 
-        //send registration to Server
+            }, {
+                Timber.e(it)
+            })
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
