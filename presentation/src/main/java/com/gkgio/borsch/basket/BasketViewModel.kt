@@ -13,6 +13,7 @@ import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
+import com.gkgio.borsch.utils.events.OrderChangeEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketOrderRequest
@@ -32,12 +33,12 @@ class BasketViewModel @Inject constructor(
     private val basketDataUiTransformer: BasketDataUiTransformer,
     private val basketCountAndSumUiTransformer: BasketCountAndSumUiTransformer,
     private val basketChangeEvent: BasketChangeEvent,
+    private val orderChangeEvent: OrderChangeEvent,
     private val authRepository: AuthRepository,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
     val state = MutableLiveData<State>()
-    val showSuccessDialog = SingleLiveEvent<Unit>()
 
     init {
         if (state.isNonInitialized()) {
@@ -172,9 +173,12 @@ class BasketViewModel @Inject constructor(
                     .applySchedulers()
                     .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
                     .subscribe({
-                        state.value = state.nonNullValue.copy(isLoading = false)
-                        basketChangeEvent.onComplete("")
-                        showSuccessDialog.call()
+                        orderChangeEvent.onComplete("")
+                        state.value = state.nonNullValue.copy(
+                            isLoading = false,
+                            basketDataList = null,
+                            basketCountAndSumUi = null
+                        )
                         if (isInsidePage == true) {
                             router.backTo(Screens.MainFragmentScreen)
                             router.switchTo(R.id.tab_orders)

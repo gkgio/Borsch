@@ -34,6 +34,7 @@ import com.gkgio.borsch.profile.about.AboutUsViewModel
 import com.gkgio.borsch.support.SupportViewModel
 import com.gkgio.borsch.utils.events.AddressChangedEvent
 import com.gkgio.borsch.utils.events.BasketChangeEvent
+import com.gkgio.borsch.utils.events.OrderChangeEvent
 import com.gkgio.borsch.utils.events.UserProfileChanged
 import com.gkgio.domain.errorreporter.ErrorReporter
 import com.squareup.moshi.Moshi
@@ -104,6 +105,7 @@ interface AppComponent {
     val addressChangedEvent: AddressChangedEvent
     val basketChangeEvent: BasketChangeEvent
     val userProfileChanged: UserProfileChanged
+    val orderChangeEvent: OrderChangeEvent
 
     //Cicerone
     val router: Router
