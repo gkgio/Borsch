@@ -15,6 +15,7 @@ import com.gkgio.borsch.orders.OrderStatus
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.view.RecyclerViewVerticalLineDivider
 import kotlinx.android.synthetic.main.fragment_order_detail.*
+import java.lang.StringBuilder
 
 interface OrderDetailDialogListener {
     fun onCollapseClick()
@@ -109,12 +110,23 @@ class OrderDetailFragment : BaseFragment<OrderDetailViewModel>() {
                                 || status == OrderStatus.COOKING.type
                                 || status == OrderStatus.CREATED.type
 
-                    cookerAddressTv.text =
-                        String.format(
-                            "%s, %s",
-                            cookerAddress?.street,
-                            cookerAddress?.house
-                        )
+                    val address = StringBuilder()
+                    cookerAddress?.street?.let {
+                        address.append(cookerAddress.street)
+                    }
+                    cookerAddress?.house?.let {
+                        address.append(", ")
+                        address.append(cookerAddress.house)
+                    }
+                    cookerAddress?.flat?.let {
+                        address.append(", кв. ")
+                        address.append(cookerAddress.flat)
+                    }
+                    cookerAddress?.block?.let {
+                        address.append(", корп. ")
+                        address.append(cookerAddress.block)
+                    }
+                    cookerAddressTv.text = address
                 }
             }
         }

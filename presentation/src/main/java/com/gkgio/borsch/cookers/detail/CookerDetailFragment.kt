@@ -86,7 +86,7 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
                     .load(cooker.avatarUrl)
                     .withFade()
                     .withCenterCropOval()
-                    .placeholder(R.drawable.ic_chef_place_holder)
+                    .placeholderByDrawable(R.drawable.ic_chef_place_holder)
                     .apply(RequestOptions.circleCropTransform())
                     .into(cookerAvatarIv)
 

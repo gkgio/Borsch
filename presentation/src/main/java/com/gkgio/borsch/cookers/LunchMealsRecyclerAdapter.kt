@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
 import com.gkgio.borsch.cookers.detail.MealUi
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
@@ -26,8 +27,8 @@ class LunchMealsRecyclerAdapter(
 
             Glide.with(mealIv)
                 .load(meal.imageUrl)
+                .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                 .withCenterCropRoundedCorners(context, 18)
-                .placeholder(R.drawable.ic_dish_place_holder)
                 .into(mealIv)
 
             setDebounceOnClickListener {

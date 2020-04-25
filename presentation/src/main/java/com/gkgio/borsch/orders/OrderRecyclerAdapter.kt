@@ -2,10 +2,12 @@ package com.gkgio.borsch.orders
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
@@ -46,8 +48,8 @@ class OrderRecyclerAdapter(
             if (mealUrl != null) {
                 Glide.with(mealIv)
                     .load(mealUrl)
+                    .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                     .withCenterCropRoundedCorners(context, 18)
-                    .placeholder(R.drawable.ic_dish_place_holder)
                     .into(mealIv)
             } else {
                 mealIv.setImageResource(R.drawable.ic_chef_place_holder)
@@ -94,13 +96,13 @@ class OrderRecyclerAdapter(
 
             val mealOtherCount = (orderUi.lunches?.size ?: 0) + (orderUi.meals?.size ?: 0) - 1
             if (mealOtherCount > 0) {
-                detailOrderContainer.isVisible = true
-                detailOrderBtn.setDebounceOnClickListener {
-                    openDetailClick(orderUi.orderId)
-                }
+                countOtherMealContainer.isInvisible = false
                 countOtherMeal.text = String.format("+ %d", mealOtherCount)
             } else {
-                detailOrderContainer.isVisible = false
+                countOtherMealContainer.isInvisible = true
+            }
+            detailOrderBtn.setDebounceOnClickListener {
+                openDetailClick(orderUi.orderId)
             }
         }
     }

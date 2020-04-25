@@ -12,10 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.gkgio.borsch.R
 import com.gkgio.borsch.cookers.detail.CookerAddressUi
 import com.gkgio.borsch.cookers.detail.CookerUi
-import com.gkgio.borsch.ext.dpToPx
-import com.gkgio.borsch.ext.setDebounceOnClickListener
-import com.gkgio.borsch.ext.withCenterCropOval
-import com.gkgio.borsch.ext.withFade
+import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.location.saved.AddressUi
 import com.gkgio.borsch.view.SyntheticViewHolder
 import com.gkgio.domain.cookers.Cooker
@@ -74,7 +71,7 @@ class CookersRecyclerAdapter(
                 .load(cooker.avatarUrl)
                 .withFade()
                 .withCenterCropOval()
-                .placeholder(R.drawable.ic_chef_place_holder)
+                .placeholderByDrawable(R.drawable.ic_chef_place_holder)
                 .apply(RequestOptions.circleCropTransform())
                 .into(cookerAvatarIv)
 

@@ -52,10 +52,10 @@ class OrdersFragment : BaseFragment<OrdersViewModel>(), OrderDetailDialogListene
         viewModel.state.observeValue(this) { state ->
             swipeToRefreshLayout.isRefreshing = state.isLoading
             emptyErrorView.isVisible = state.isInitialError && state.orderDataList == null
+            ordersEmptyView.isVisible = state.orderDataList.isNullOrEmpty() && !state.isInitialError
 
             state.orderDataList?.let {
                 orderRecyclerAdapter?.setOrdersList(it)
-                ordersEmptyView.isVisible = state.orderDataList.isEmpty()
             }
         }
 

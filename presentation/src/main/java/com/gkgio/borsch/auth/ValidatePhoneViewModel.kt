@@ -9,6 +9,7 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
+import com.gkgio.borsch.utils.events.OrderChangeEvent
 import com.gkgio.borsch.utils.events.UserProfileChanged
 import com.gkgio.domain.address.LoadAddressesUseCase
 import com.gkgio.domain.auth.AuthUseCase

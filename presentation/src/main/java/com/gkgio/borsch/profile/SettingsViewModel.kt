@@ -27,7 +27,7 @@ class SettingsViewModel @Inject constructor(
 
     val state = MutableLiveData<State>()
 
-     init {
+    init {
         if (state.isNonInitialized()) {
             state.value = State()
 
@@ -54,6 +54,7 @@ class SettingsViewModel @Inject constructor(
             .removeAccountData()
             .applySchedulers()
             .subscribe({
+                userProfileChanged.onComplete("")
                 state.value = state.nonNullValue.copy(user = null)
             }, {
                 Timber.e(it)

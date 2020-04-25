@@ -9,6 +9,7 @@ import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
 import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.OrderChangeEvent
+import com.gkgio.borsch.utils.events.UserProfileChanged
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
@@ -22,7 +23,8 @@ class OrdersViewModel @Inject constructor(
     private val basketUseCase: BasketUseCase,
     private val authRepository: AuthRepository,
     private val orderDataUiTransformer: OrderDataUiTransformer,
-    private val orderChangeEvent: OrderChangeEvent,
+    orderChangeEvent: OrderChangeEvent,
+    userProfileChanged: UserProfileChanged,
     baseScreensNavigator: BaseScreensNavigator
 ) : BaseViewModel(baseScreensNavigator) {
 
@@ -44,6 +46,14 @@ class OrdersViewModel @Inject constructor(
                     //
                 }).addDisposable()
 
+            userProfileChanged
+                .getEventResult()
+                .applySchedulers()
+                .subscribe({
+                    loadOrderData()
+                }, {
+                    //
+                }).addDisposable()
         }
     }
 
@@ -60,6 +70,8 @@ class OrdersViewModel @Inject constructor(
                     state.value = state.nonNullValue.copy(isLoading = false)
                     processThrowable(it)
                 }).addDisposable()
+        } else {
+            state.value = state.nonNullValue.copy(isLoading = false, orderDataList = null)
         }
     }
 

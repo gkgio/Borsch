@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setTextOrHide
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.orders.OrderDataUi
@@ -33,7 +34,7 @@ class OrderDetailRecyclerAdapter() : RecyclerView.Adapter<SyntheticViewHolder>()
 
             Glide.with(mealIv)
                 .load(orderDetailFood.imageUrl)
-                .placeholder(R.drawable.ic_dish_place_holder)
+                .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                 .withCenterCropRoundedCorners(context, 18)
                 .into(mealIv)
 

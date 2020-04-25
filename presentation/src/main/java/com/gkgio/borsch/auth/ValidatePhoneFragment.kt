@@ -61,8 +61,10 @@ class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
         }
 
         validateSmsBtn.setDebounceOnClickListener {
-            viewModel.onResendSmsClick()
-            smsCodeView.cleanInputCode()
+            if (timeAgainRequestTitle.isInvisible) {
+                viewModel.onResendSmsClick()
+                smsCodeView.cleanInputCode()
+            }
         }
 
         smsCodeView.addCodeCompleteWatcher(object :

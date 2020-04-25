@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
 import com.gkgio.borsch.cookers.detail.MealUi
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setTextOrHide
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
@@ -28,7 +29,7 @@ class FoodItemsRecyclerAdapter : RecyclerView.Adapter<SyntheticViewHolder>() {
 
             Glide.with(foodIv)
                 .load(meal.imageUrl)
-                .placeholder(R.drawable.ic_dish_place_holder)
+                .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                 .withCenterCropRoundedCorners(context, 18)
                 .into(foodIv)
 

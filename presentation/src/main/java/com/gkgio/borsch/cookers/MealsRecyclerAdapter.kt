@@ -11,6 +11,7 @@ import com.gkgio.borsch.cookers.CookersFragment.Companion.LUNCH_TYPE
 import com.gkgio.borsch.cookers.CookersFragment.Companion.MEAL_TYPE
 import com.gkgio.borsch.cookers.detail.LunchUi
 import com.gkgio.borsch.cookers.detail.MealUi
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
@@ -79,8 +80,8 @@ class MealsRecyclerAdapter(
                 val meal = mealsList[position - lunchesList.size]
                 Glide.with(mealIv)
                     .load(meal.imageUrl)
+                    .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                     .withCenterCropRoundedCorners(context, 18)
-                    .placeholder(R.drawable.ic_dish_place_holder)
                     .into(mealIv)
 
                 setDebounceOnClickListener {
