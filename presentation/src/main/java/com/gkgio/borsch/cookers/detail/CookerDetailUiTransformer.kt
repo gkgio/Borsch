@@ -2,6 +2,7 @@ package com.gkgio.borsch.cookers.detail
 
 import com.gkgio.data.BaseTransformer
 import com.gkgio.domain.cookers.detail.CookerDetail
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class CookerDetailUiTransformer @Inject constructor(
@@ -21,7 +22,7 @@ class CookerDetailUiTransformer @Inject constructor(
             name,
             paid,
             phone,
-            rating,
+            getRating(rating),
             suspended,
             verified,
             avatarUrl,
@@ -31,5 +32,11 @@ class CookerDetailUiTransformer @Inject constructor(
             onDuty,
             cookerAddress?.let { cookerAddressUiTransformer.transform(it) }
         )
+    }
+
+    private fun getRating(rating: Double): String {
+        if (rating < 0) return "мало оценок"
+        val decimalFormat = DecimalFormat("###.#");
+        return decimalFormat.format(rating)
     }
 }

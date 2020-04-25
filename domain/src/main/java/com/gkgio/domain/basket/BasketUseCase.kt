@@ -34,6 +34,7 @@ interface BasketUseCase {
 
     fun clearBasket(): Completable
     fun getBasketOrder(): Single<List<OrderData>>
+    fun getBasketOrderDetail(id: String): Single<OrderDetailData>
 }
 
 class BasketUseCaseImpl @Inject constructor(
@@ -169,4 +170,7 @@ class BasketUseCaseImpl @Inject constructor(
 
     override fun getBasketOrder(): Single<List<OrderData>> =
         basketService.getBasketOrder()
+
+    override fun getBasketOrderDetail(id: String): Single<OrderDetailData> =
+        basketService.getBasketOrderDetail(id)
 }

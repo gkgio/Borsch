@@ -50,11 +50,11 @@
 
     <string name="cookers_popular_meals">Популярные блюда</string>
     <string name="cooker_is_online">Онлайн</string>
-    <string name="cooker_is_not_online">Не доступен</string>
+    <string name="cooker_is_not_online">Неактивен</string>
     <string name="cooker_page_meals">Блюда</string>
     <string name="cooker_page_information">Информация</string>
 
-    <string name="food_ingredients_title">Ингридиенты</string>
+    <string name="food_ingredients_title">Ингредиенты</string>
     <string name="food_description_title">Описание</string>
     <string name="food_combo_lunch_title">Комбо обед</string>
     <string name="food_meal_title">Блюдо</string>
@@ -105,4 +105,5 @@
 
     <string name="place_distance_metres_format">~%s м</string>
     <string name="place_distance_km_format">~%.1f км</string>
+    <string name="discount_percent_format">%d%% скидка</string>
 </resources>

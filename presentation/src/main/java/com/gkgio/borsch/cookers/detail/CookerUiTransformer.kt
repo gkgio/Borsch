@@ -4,6 +4,7 @@ import android.content.Context
 import com.gkgio.borsch.R
 import com.gkgio.data.BaseTransformer
 import com.gkgio.domain.cookers.Cooker
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 
@@ -27,7 +28,7 @@ class CookerUiTransformer @Inject constructor(
             lunches?.map { lunchUiTransformer.transform(it) },
             name,
             phone,
-            rating,
+            getRating(rating),
             suspended,
             verified,
             avatarUrl,
@@ -47,5 +48,11 @@ class CookerUiTransformer @Inject constructor(
             if (isKm) R.string.place_distance_km_format else R.string.place_distance_metres_format,
             if (isKm) distance / METRES_IN_KM else distance
         )
+    }
+
+    private fun getRating(rating: Double): String {
+        if (rating < 0) return "мало оценок"
+        val decimalFormat = DecimalFormat("###.#");
+        return decimalFormat.format(rating)
     }
 }

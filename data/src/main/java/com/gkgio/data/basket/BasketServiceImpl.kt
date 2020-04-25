@@ -5,6 +5,7 @@ import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.basket.BasketOrderRequest
 import com.gkgio.domain.basket.BasketService
 import com.gkgio.domain.basket.OrderData
+import com.gkgio.domain.basket.OrderDetailData
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -17,6 +18,7 @@ class BasketServiceImpl @Inject constructor(
     private val basketOrderDataRequestTransformer: BasketOrderDataRequestTransformer,
     private val basketServiceApi: BasketServiceApi,
     private val orderDataResponseTransformer: OrderDataResponseTransformer,
+    private val orderDetailDataResponseTransformer: OrderDetailDataResponseTransformer,
     serverExceptionTransformer: ServerExceptionTransformer
 ) : BaseService(serverExceptionTransformer), BasketService {
 
@@ -43,6 +45,10 @@ class BasketServiceImpl @Inject constructor(
             }
     )
 
+    override fun getBasketOrderDetail(id: String): Single<OrderDetailData> =
+        basketServiceApi.getBasketOrderDetail(id)
+            .map { orderDetailDataResponseTransformer.transform(it) }
+
     interface BasketServiceApi {
         @POST("client/orders/cookers/{cookerId}")
         fun createBasketOrder(
@@ -52,5 +58,8 @@ class BasketServiceImpl @Inject constructor(
 
         @GET("client/orders")
         fun getBasketOrder(): Single<OrderDataListObjectResponse>
+
+        @GET("client/orders/{id}")
+        fun getBasketOrderDetail(id: String): Single<OrderDetailDataResponse>
     }
 }

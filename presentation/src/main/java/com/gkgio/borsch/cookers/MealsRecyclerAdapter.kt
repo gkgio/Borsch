@@ -55,7 +55,11 @@ class MealsRecyclerAdapter(
         if (holder is LunchViewHolder) {
             with(holder.itemView) {
                 val lunches = lunchesList[position]
-                val lunchMealsRecyclerAdapter = LunchMealsRecyclerAdapter(lunches.meals){
+
+                discountPercentTv.text =
+                    context.getString(R.string.discount_percent_format, lunches.discountPercent)
+
+                val lunchMealsRecyclerAdapter = LunchMealsRecyclerAdapter(lunches.meals) {
                     itemClick(lunches.id, LUNCH_TYPE)
                 }
                 rvLunchMeals.adapter = lunchMealsRecyclerAdapter

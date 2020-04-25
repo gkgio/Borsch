@@ -13,7 +13,7 @@ data class CookerDetail(
     val name: String?,
     val paid: String?,
     val phone: String?,
-    val rating: String,
+    val rating: Double,
     val suspended: Boolean?,
     val verified: Boolean?,
     val avatarUrl: String?,

@@ -10,7 +10,7 @@ data class Cooker(
     val lunches: List<Lunch>?,
     val name: String?,
     val phone: String?,
-    val rating: String,
+    val rating: Double,
     val suspended: Boolean?,
     val verified: Boolean?,
     val avatarUrl: String?,

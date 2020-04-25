@@ -26,7 +26,7 @@ class CookerDetailResponse(
     @Json(name = "phone")
     val phone: String?,
     @Json(name = "rating")
-    val rating: String,
+    val rating: Double,
     @Json(name = "suspended")
     val suspended: Boolean?,
     @Json(name = "verified")

@@ -39,24 +39,29 @@
         </FrameLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/cookersSwipeToRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.gkgio.borsch.view.ScrollOverrideRecyclerView
-            android:id="@+id/cookersRv"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/filtersRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <com.gkgio.borsch.view.ScrollOverrideRecyclerView
+                android:id="@+id/cookersRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-    </LinearLayout>
+            <include
+                android:id="@+id/noCookersView"
+                layout="@layout/no_cookers_view"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/emptyErrorView"

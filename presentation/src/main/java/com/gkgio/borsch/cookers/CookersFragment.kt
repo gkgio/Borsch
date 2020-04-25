@@ -46,8 +46,13 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
             viewModel.onCurrentAddressContainerClick()
         }
 
+        cookersSwipeToRefreshLayout.setOnRefreshListener {
+            viewModel.loadCookers()
+        }
+
         viewModel.state.observeValue(this) { state ->
             progress.isVisible = state.isLoading
+            cookersSwipeToRefreshLayout.isRefreshing = state.isLoading
             emptyErrorView.isVisible = state.isInitialError
 
             addressClientTv.text = state.lastAddedAddress
@@ -55,6 +60,7 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
 
             state.cookers?.let {
                 cookersRecyclerAdapter?.setCookersList(it)
+                noCookersView.isVisible = it.isEmpty()
             }
         }
 
@@ -78,9 +84,5 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
             })
         cookersRv.adapter = cookersRecyclerAdapter
         cookersRv.layoutManager = LinearLayoutManager(context)
-    }
-
-    private fun initFiltersRv() {
-        filtersRv
     }
 }
