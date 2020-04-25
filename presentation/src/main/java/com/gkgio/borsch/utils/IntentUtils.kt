@@ -2,6 +2,7 @@ package com.gkgio.borsch.utils
 
 import android.content.Intent
 import android.net.Uri
+import com.gkgio.domain.location.Coordinates
 
 object IntentUtils {
 
@@ -19,4 +20,9 @@ object IntentUtils {
 
     fun createMarketIntent(appPackageName: String) =
         Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+
+    fun createRouteIntent(coordinates: Coordinates): Intent = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("geo:${coordinates.latitude},${coordinates.longitude}?q=${Uri.encode("${coordinates.latitude},${coordinates.longitude}")}")
+    )
 }

@@ -13,6 +13,6 @@ data class Lunch(
     val name: String,
     val price: BigDecimal,
     val calories: String?,
-    val weight: Int,
+    val weight: Int?,
     val portions: Int
 )

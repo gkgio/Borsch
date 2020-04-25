@@ -7,6 +7,7 @@ import com.gkgio.borsch.ext.applySchedulers
 import com.gkgio.borsch.ext.isNonInitialized
 import com.gkgio.borsch.ext.nonNullValue
 import com.gkgio.borsch.navigation.Screens
+import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
@@ -24,6 +25,7 @@ class OrdersViewModel @Inject constructor(
 ) : BaseViewModel(baseScreensNavigator) {
 
     val state = MutableLiveData<State>()
+    val openOrderDetailSheet = SingleLiveEvent<String>()
 
     init {
         if (state.isNonInitialized()) {
@@ -54,6 +56,10 @@ class OrdersViewModel @Inject constructor(
         if (user != null) {
             router.navigateTo(Screens.OrderChatFragmentScreen(orderId, user.id))
         }
+    }
+
+    fun onOrderDetailOpenClick(orderId: String) {
+        openOrderDetailSheet.value = orderId
     }
 
     data class State(

@@ -12,7 +12,7 @@ import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_order_view_holder.view.*
 
 class OrderRecyclerAdapter(
-    private val openDetailClick: () -> Unit,
+    private val openDetailClick: (String) -> Unit,
     private val openChatClick: (String) -> Unit
 ) : RecyclerView.Adapter<SyntheticViewHolder>() {
 
@@ -96,7 +96,7 @@ class OrderRecyclerAdapter(
             if (mealOtherCount > 0) {
                 detailOrderContainer.isVisible = true
                 detailOrderBtn.setDebounceOnClickListener {
-                    openDetailClick()
+                    openDetailClick(orderUi.orderId)
                 }
                 countOtherMeal.text = String.format("+ %d", mealOtherCount)
             } else {

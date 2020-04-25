@@ -60,6 +60,6 @@ class BasketServiceImpl @Inject constructor(
         fun getBasketOrder(): Single<OrderDataListObjectResponse>
 
         @GET("client/orders/{id}")
-        fun getBasketOrderDetail(id: String): Single<OrderDetailDataResponse>
+        fun getBasketOrderDetail(@Path("id") id: String): Single<OrderDetailDataResponse>
     }
 }

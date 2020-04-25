@@ -28,6 +28,7 @@ import com.gkgio.borsch.notification.NotificationService
 import com.gkgio.borsch.onboarding.OnboardingViewModel
 import com.gkgio.borsch.orders.chat.OrderChatFragment
 import com.gkgio.borsch.orders.chat.OrderChatViewModel
+import com.gkgio.borsch.orders.detail.OrderDetailViewModel
 import com.gkgio.borsch.profile.SettingsViewModel
 import com.gkgio.borsch.profile.about.AboutUsViewModel
 import com.gkgio.borsch.support.SupportViewModel
@@ -85,6 +86,7 @@ interface AppComponent {
     val foodItemViewModel: FoodItemViewModel
     val orderChatViewModel: OrderChatViewModel
     val supportViewModel: SupportViewModel
+    val orderDetailViewModel: OrderDetailViewModel
 
     val context: Context
     val moshi: Moshi

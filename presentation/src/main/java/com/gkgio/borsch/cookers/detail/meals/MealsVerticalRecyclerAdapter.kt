@@ -72,7 +72,7 @@ class MealsVerticalRecyclerAdapter(
 
                 lunchNameTv.text = lunch.name
                 lunchPriceTv.text = lunch.price
-                portionWeightTv.text = lunch.weight
+                portionWeightTv.setTextOrHide(lunch.weight)
 
                 setDebounceOnClickListener {
                     itemClick(lunch.id, LUNCH_TYPE)

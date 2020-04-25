@@ -121,6 +121,10 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
             }
         }
 
+        cookerAddressContainer.setDebounceOnClickListener {
+            viewModel.onCookerAddressClick()
+        }
+
         viewModel.openFoodItem.observeValue(this) {
             addFragmentToContainerBottomSheet(FoodItemFragment.newInstance(it))
         }
@@ -176,7 +180,6 @@ class CookerDetailFragment : BaseFragment<CookerDetailViewModel>(), FoodItemDial
     }
 
     private fun setupLockListeners() {
-
         alphaView.setOnTouchListener { _, _ ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED

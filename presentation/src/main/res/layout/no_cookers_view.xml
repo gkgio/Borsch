@@ -1,70 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:srcCompat="@drawable/ic_no_cookers"
-        tools:ignore="ContentDescription" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
-        android:fontFamily="@font/tt_norms_medium"
-        android:gravity="center"
-        android:text="Ни одного повара в вашем районе"
-        android:textColor="@color/black"
-        android:textSize="28sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:srcCompat="@drawable/ic_no_cookers"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="48dp"
-        android:fontFamily="@font/tt_norms_regular"
-        android:gravity="center"
-        android:text="Станьте поваром и начните зарабатывать"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/tt_norms_medium"
+            android:gravity="center"
+            android:text="Ни одного повара в вашем районе"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
-        android:fontFamily="@font/tt_norms_bold"
-        android:gravity="center"
-        android:text="от 700 ₽/день"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/tt_norms_regular"
+            android:gravity="center"
+            android:text="Станьте поваром и начните зарабатывать"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/becomeCookerBtn"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/tt_norms_medium"
-        android:paddingStart="20dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="12dp"
-        android:text="Подробнее"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/blue"
-        app:cornerRadius="8dp" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/tt_norms_bold"
+            android:gravity="center"
+            android:text="от 700 ₽/день"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/becomeCookerBtn"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/tt_norms_medium"
+            android:paddingStart="20dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="12dp"
+            android:text="Подробнее"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+
+</ScrollView>

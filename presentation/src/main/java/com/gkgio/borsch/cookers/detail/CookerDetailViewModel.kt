@@ -17,6 +17,7 @@ import com.gkgio.domain.basket.BasketRepository
 import com.gkgio.domain.cookers.Cooker
 import com.gkgio.domain.cookers.LoadCookersUseCase
 import com.gkgio.domain.cookers.detail.CookerDetail
+import com.gkgio.domain.location.Coordinates
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -89,6 +90,19 @@ class CookerDetailViewModel @Inject constructor(
     fun onMealClick(foodId: String, type: Int) {
         state.nonNullValue.cookerDetail?.let {
             openFoodItem.value = FoodItemRequest(it.id, foodId, type, it.cookerAddress)
+        }
+    }
+
+    fun onCookerAddressClick() {
+        state.nonNullValue.cookerDetail?.cookerAddress?.let { cookerAddress ->
+            router.navigateTo(
+                Screens.RoutScreen(
+                    Coordinates(
+                        cookerAddress.coordinates.latitude,
+                        cookerAddress.coordinates.longitude
+                    )
+                )
+            )
         }
     }
 

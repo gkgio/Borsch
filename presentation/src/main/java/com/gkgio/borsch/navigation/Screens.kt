@@ -12,9 +12,11 @@ import com.gkgio.borsch.location.LocationFragment
 import com.gkgio.borsch.main.MainFragment
 import com.gkgio.borsch.onboarding.OnboardingFragment
 import com.gkgio.borsch.orders.chat.OrderChatFragment
+import com.gkgio.borsch.orders.detail.OrderDetailFragment
 import com.gkgio.borsch.profile.SettingsFragment
 import com.gkgio.borsch.profile.about.AboutUsFragment
 import com.gkgio.borsch.utils.IntentUtils
+import com.gkgio.domain.location.Coordinates
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
@@ -95,5 +97,12 @@ object Screens {
     ) : SupportAppScreen() {
         override fun getFragment() =
             OrderChatFragment.newInstance(orderId, userId)
+    }
+
+    class RoutScreen(
+        private val coordinates: Coordinates
+    ) : SupportAppScreen() {
+        override fun getActivityIntent(context: Context?) =
+            IntentUtils.createRouteIntent(coordinates)
     }
 }
