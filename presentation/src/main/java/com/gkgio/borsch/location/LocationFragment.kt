@@ -1,5 +1,7 @@
 package com.gkgio.borsch.location
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -9,6 +11,7 @@ import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.utils.GpsUtils
+import com.gkgio.borsch.utils.GpsUtils.Companion.GPS_REQUEST
 import com.google.android.gms.maps.*
 import kotlinx.android.synthetic.main.fragment_location.*
 
@@ -115,6 +118,15 @@ class LocationFragment : BaseFragment<LocationViewModel>(), OnMapReadyCallback {
         }
 
         this@LocationFragment.googleMap = this
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == GPS_REQUEST) {
+                viewModel.onGpsGranted()
+            }
+        }
     }
 
     private fun checkLocationPermission() {
