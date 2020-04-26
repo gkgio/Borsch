@@ -106,4 +106,7 @@
     <string name="place_distance_metres_format">~%s м</string>
     <string name="place_distance_km_format">~%.1f км</string>
     <string name="discount_percent_format">%d%% скидка</string>
+    <string name="profile_name_not_added">Необязательно</string>
+    <string name="profile_change_name">Изменить</string>
+    <string name="profile_save_name">Сохранить</string>
 </resources>

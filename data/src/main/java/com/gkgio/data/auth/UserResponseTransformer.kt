@@ -13,7 +13,10 @@ class UserResponseTransformer @Inject constructor() : BaseTransformer<UserRespon
             banned,
             firstName,
             phone,
-            avatarUrl
+            avatarUrl,
+            verified,
+            suspended,
+            attempts
         )
     }
 }

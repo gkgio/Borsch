@@ -4,19 +4,18 @@ import com.gkgio.data.base.BaseService
 import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.auth.AuthService
 import com.gkgio.domain.auth.GetSmsCode
+import com.gkgio.domain.auth.User
 import com.gkgio.domain.auth.ValidateSmsCode
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 import javax.inject.Inject
 
 class AuthServiceImpl @Inject constructor(
     private val authServiceApi: AuthServiceApi,
     private val getSmsCodeResponseTransformer: GetSmsCodeResponseTransformer,
     private val validateSmsCodeResponseTransformer: ValidateSmsCodeResponseTransformer,
+    private val userResponseTransformer: UserResponseTransformer,
     serverExceptionTransformer: ServerExceptionTransformer
 ) : BaseService(serverExceptionTransformer), AuthService {
 
@@ -39,6 +38,10 @@ class AuthServiceImpl @Inject constructor(
     override fun sendPushToken(pushToken: String): Completable =
         authServiceApi.sendPushTokenToServer(PushTokenRequest(pushToken))
 
+    override fun updateUserName(name: String): Single<User> =
+        authServiceApi.updateUserName(UpdateNameRequest(name))
+            .map { userResponseTransformer.transform(it.user) }
+
 
     interface AuthServiceApi {
         @POST("auth/client")
@@ -52,5 +55,8 @@ class AuthServiceImpl @Inject constructor(
 
         @POST("misc/device_tokens/gcm")
         fun sendPushTokenToServer(@Body pushTokenRequest: PushTokenRequest): Completable
+
+        @PUT("client")
+        fun updateUserName(@Body updateNameRequest: UpdateNameRequest): Single<UpdateNameResponse>
     }
 }

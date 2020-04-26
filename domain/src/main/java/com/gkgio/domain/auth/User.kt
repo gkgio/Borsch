@@ -6,5 +6,8 @@ data class User(
     val banned: Boolean,
     val firstName: String?,
     val phone: String?,
-    val avatarUrl: String?
+    val avatarUrl: String?,
+    val verified: Boolean,
+    val suspended: Boolean,
+    val attempts: Long
 )

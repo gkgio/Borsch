@@ -13,7 +13,10 @@ class UserResponseToTransformer @Inject constructor() :
             firstName,
             phone,
             avatarUrl,
-            id
+            id,
+            verified,
+            suspended,
+            attempts
         )
     }
 }

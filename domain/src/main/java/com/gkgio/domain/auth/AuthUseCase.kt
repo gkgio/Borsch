@@ -19,6 +19,7 @@ interface AuthUseCase {
     fun loadUserProfile(): User?
     fun savePushToken(pushToken: String): Completable
     fun sendPushToken(pushToken: String): Completable
+    fun updateUserName(name: String): Single<User>
 }
 
 class AuthUseCaseImpl @Inject constructor(
@@ -87,4 +88,12 @@ class AuthUseCaseImpl @Inject constructor(
                     addressesRepository.saveLastKnownAddress(it)
                 }
             }
+
+    override fun updateUserName(name: String): Single<User> =
+        authService.updateUserName(name)
+            .flatMap {
+                saveUserProfile(it)
+                Single.fromCallable { it }
+            }
+
 }

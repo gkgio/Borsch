@@ -29,7 +29,7 @@ class SettingsViewModel @Inject constructor(
 
     init {
         if (state.isNonInitialized()) {
-            state.value = State()
+            state.value = State(false)
 
             loadUser()
 
@@ -65,7 +65,21 @@ class SettingsViewModel @Inject constructor(
         router.navigateTo(Screens.InputPhoneFragmentScreen)
     }
 
+    fun onNameChanged(name: String) {
+        authUseCase
+            .updateUserName(name)
+            .applySchedulers()
+            .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
+            .subscribe({
+                state.value = state.nonNullValue.copy(isLoading = false, user = it)
+            }, {
+                state.value = state.nonNullValue.copy(isLoading = false)
+                processThrowable(it)
+            }).addDisposable()
+    }
+
     data class State(
+        val isLoading: Boolean,
         val user: User? = null
     )
 }
