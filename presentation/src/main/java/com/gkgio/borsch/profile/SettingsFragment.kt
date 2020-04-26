@@ -87,6 +87,10 @@ class SettingsFragment : BaseFragment<SettingsViewModel>() {
                 nameTv.setTextColor(requireContext().getColorCompat(R.color.black))
             }
         }
+
+        clientMarketContainer.setDebounceOnClickListener {
+            viewModel.onOpenMarketClientClick()
+        }
     }
 
     override fun onStop() {

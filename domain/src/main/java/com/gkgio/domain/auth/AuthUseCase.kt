@@ -38,11 +38,7 @@ class AuthUseCaseImpl @Inject constructor(
                 saveAuthToken(validateSmsCode.token)
                 saveUserProfile(validateSmsCode.user)
                 saveLastAddressAfterAuth()
-            }.doOnComplete {
-                val pushToken = authRepository.getPushToken()
-                if (pushToken != null) {
-                    sendPushToken(pushToken)
-                }
+                    .andThen(authService.sendPushToken(authRepository.getPushToken()!!))
             }
 
 

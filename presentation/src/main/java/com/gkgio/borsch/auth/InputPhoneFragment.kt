@@ -8,10 +8,7 @@ import androidx.core.content.ContextCompat
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
-import com.gkgio.borsch.ext.createViewModel
-import com.gkgio.borsch.ext.getColorCompat
-import com.gkgio.borsch.ext.getDrawableCompat
-import com.gkgio.borsch.ext.setDebounceOnClickListener
+import com.gkgio.borsch.ext.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 import kotlinx.android.synthetic.main.fragment_input_phone.*
@@ -71,6 +68,12 @@ class InputPhoneFragment : BaseFragment<InputPhoneViewModel>() {
         )
 
         phoneEditText.requestFocus()
+        openKeyBoard()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        closeKeyboard()
     }
 
 }

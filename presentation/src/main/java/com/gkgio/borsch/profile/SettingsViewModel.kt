@@ -78,6 +78,10 @@ class SettingsViewModel @Inject constructor(
             }).addDisposable()
     }
 
+    fun onOpenMarketClientClick() {
+
+    }
+
     data class State(
         val isLoading: Boolean,
         val user: User? = null

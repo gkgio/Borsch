@@ -23,6 +23,7 @@
         tools:targetApi="n">
         <activity
             android:name=".main.LaunchActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustPan">

@@ -67,6 +67,8 @@ class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
             }
         }
 
+        smsCodeView.requestFirstNumberFocus()
+
         smsCodeView.addCodeCompleteWatcher(object :
             SmsCodeCompleteWatcher {
             override fun codeCompleteChanged(complete: Boolean) {

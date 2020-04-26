@@ -50,6 +50,10 @@ class OrderChatFragment : BaseFragment<OrderChatViewModel>() {
 
         setChatViewStyle()
 
+        toolbar.setLeftIconClickListener {
+            viewModel.onBackClick()
+        }
+
         viewModel.state.observeValue(this) { state ->
 
             state.chatMessages?.let { loadedMessageList ->

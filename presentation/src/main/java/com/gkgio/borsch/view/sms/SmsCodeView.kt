@@ -66,6 +66,10 @@ class SmsCodeView @JvmOverloads constructor(
         codeComplete = false
     }
 
+    fun requestFirstNumberFocus() {
+        txtNumber1.requestFocus()
+    }
+
     private fun setCodeFromString(code: String) {
         txtNumber1.setText(code[0].toString())
         txtNumber2.setText(code[1].toString())
