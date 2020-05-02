@@ -27,11 +27,23 @@
             android:paddingEnd="16dp"
             android:paddingBottom="8dp">
 
-            <ImageView
-                android:id="@+id/cookerAvatarIv"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                tools:ignore="ContentDescription" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/cookerAvatarIv"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/icOnline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    tools:srcCompat="@drawable/ic_online" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -57,8 +57,14 @@ class MealsRecyclerAdapter(
             with(holder.itemView) {
                 val lunches = lunchesList[position]
 
-                discountPercentTv.text =
-                    context.getString(R.string.discount_percent_format, lunches.discountPercent)
+                icActiveLunch.setImageResource(
+                    if (lunches.available) {
+                        R.drawable.ic_active
+                    } else {
+                        R.drawable.ic_inactive
+                    }
+                )
+                discountPercentTv.text = String.format("%d%% скидка", lunches.discountPercent)
 
                 val lunchMealsRecyclerAdapter = LunchMealsRecyclerAdapter(lunches.meals) {
                     itemClick(lunches.id, LUNCH_TYPE)
@@ -83,6 +89,14 @@ class MealsRecyclerAdapter(
                     .placeholderByDrawable(R.drawable.ic_dish_place_holder)
                     .withCenterCropRoundedCorners(context, 18)
                     .into(mealIv)
+
+                icActiveMeal.setImageResource(
+                    if (meal.available == true) {
+                        R.drawable.ic_active
+                    } else {
+                        R.drawable.ic_inactive
+                    }
+                )
 
                 setDebounceOnClickListener {
                     itemClick(meal.id, MEAL_TYPE)

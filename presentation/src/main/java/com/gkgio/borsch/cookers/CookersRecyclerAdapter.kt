@@ -67,6 +67,14 @@ class CookersRecyclerAdapter(
             distanceContainer.isVisible = cooker.distance != null
             distanceTv.text = cooker.distance
 
+            icOnline.setImageResource(
+                if (cooker.onDuty) {
+                    R.drawable.ic_online
+                } else {
+                    R.drawable.ic_offline
+                }
+            )
+
             Glide.with(cookerAvatarIv)
                 .load(cooker.avatarUrl)
                 .withFade()
