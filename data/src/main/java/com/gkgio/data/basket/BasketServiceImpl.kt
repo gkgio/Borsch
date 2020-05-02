@@ -45,9 +45,17 @@ class BasketServiceImpl @Inject constructor(
             }
     )
 
-    override fun getBasketOrderDetail(id: String): Single<OrderDetailData> =
+    override fun getBasketOrderDetail(id: String): Single<OrderDetailData> = executeRequest(
         basketServiceApi.getBasketOrderDetail(id)
             .map { orderDetailDataResponseTransformer.transform(it) }
+    )
+
+    override fun cancelOrder(id: String): Completable = executeRequest(
+        basketServiceApi.cancelOrder(id)
+            .flatMapCompletable {
+                Completable.complete()
+            }
+    )
 
     interface BasketServiceApi {
         @POST("client/orders/cookers/{cookerId}")
@@ -61,5 +69,8 @@ class BasketServiceImpl @Inject constructor(
 
         @GET("client/orders/{id}")
         fun getBasketOrderDetail(@Path("id") id: String): Single<OrderDetailDataResponse>
+
+        @POST("client/orders/{id}/cancel")
+        fun cancelOrder(@Path("id") id: String): Single<OrderCancelResponse>
     }
 }

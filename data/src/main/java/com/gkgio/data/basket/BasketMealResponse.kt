@@ -8,7 +8,7 @@ data class BasketMealResponse(
     @Json(name = "id")
     val id: String,
     @Json(name = "image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @Json(name = "name")
     val name: String//Meal name
 )

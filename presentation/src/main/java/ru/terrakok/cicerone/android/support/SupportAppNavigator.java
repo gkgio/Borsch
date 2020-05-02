@@ -102,6 +102,8 @@ public class SupportAppNavigator implements Navigator {
             fragment.switchToBasketTab();
         } else if (command.getId() == R.id.tab_orders) {
             fragment.switchToFavoritesTab();
+        } else if (command.getId() == R.id.tab_support) {
+            fragment.switchToSupportTab();
         } else if (command.getId() == R.id.tab_profile) {
             fragment.switchToProfileTab();
         } else {

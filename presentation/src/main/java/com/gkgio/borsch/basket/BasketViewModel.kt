@@ -195,6 +195,10 @@ class BasketViewModel @Inject constructor(
         }
     }
 
+    fun onFindCookerButtonClick() {
+        router.switchTo(R.id.tab_cookers)
+    }
+
     data class State(
         val isLoading: Boolean,
         val isInitialError: Boolean = false,

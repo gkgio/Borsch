@@ -38,12 +38,21 @@ class NotificationService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        showNotification(remoteMessage.notification?.title, remoteMessage.notification?.body)
+        showNotification(
+            remoteMessage.notification?.title,
+            remoteMessage.notification?.body,
+            remoteMessage.data
+        )
     }
 
-    private fun showNotification(title: String?, message: String?) {
+    private fun showNotification(title: String?, message: String?, dataMap: Map<String, String>?) {
         val notificationId = NotificationID.id
         val intent = Intent(this, LaunchActivity::class.java)
+
+        dataMap?.let {
+            intent.putExtra("order_id", it["order_id"])
+            intent.putExtra("type", it["type"])
+        }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         val pendingIntent = PendingIntent.getActivity(

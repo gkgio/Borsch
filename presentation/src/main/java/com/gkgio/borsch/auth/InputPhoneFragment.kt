@@ -73,7 +73,7 @@ class InputPhoneFragment : BaseFragment<InputPhoneViewModel>() {
 
     override fun onStop() {
         super.onStop()
-        closeKeyboard()
+        closeKeyboard(phoneEditText)
     }
 
 }

@@ -1,6 +1,7 @@
 package com.gkgio.borsch.orders
 
 import androidx.lifecycle.MutableLiveData
+import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseScreensNavigator
 import com.gkgio.borsch.base.BaseViewModel
 import com.gkgio.borsch.ext.applySchedulers
@@ -84,6 +85,10 @@ class OrdersViewModel @Inject constructor(
 
     fun onOrderDetailOpenClick(orderId: String) {
         openOrderDetailSheet.value = orderId
+    }
+
+    fun onFindCookerButtonClick() {
+        router.switchTo(R.id.tab_cookers)
     }
 
     data class State(

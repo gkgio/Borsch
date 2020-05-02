@@ -9,9 +9,12 @@ import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.createViewModel
+import com.gkgio.borsch.ext.getDrawableCompat
 import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.orders.OrderStatus
+import com.gkgio.borsch.utils.ClickDialogCallBack
+import com.gkgio.borsch.utils.DialogUtils
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.view.RecyclerViewVerticalLineDivider
 import kotlinx.android.synthetic.main.fragment_order_detail.*
@@ -21,9 +24,11 @@ interface OrderDetailDialogListener {
     fun onCollapseClick()
 }
 
-class OrderDetailFragment : BaseFragment<OrderDetailViewModel>() {
+class OrderDetailFragment : BaseFragment<OrderDetailViewModel>(), ClickDialogCallBack {
 
     companion object {
+        private val TAG = OrderDetailFragment::class.java.simpleName
+
         fun newInstance(orderId: String) =
             OrderDetailFragment().apply {
                 this.orderId = orderId
@@ -65,6 +70,23 @@ class OrderDetailFragment : BaseFragment<OrderDetailViewModel>() {
 
         initFoodRv()
 
+        viewModel.showOrderDeleteDialog.observeValue(this) {
+            DialogUtils
+                .showDialog(
+                    TAG,
+                    childFragmentManager,
+                    "Если Вы отмените заказ, то\nповар потеряет ингридиенты и время.",
+                    "Отменить",
+                    0,
+                    null,
+                    "Оставить"
+                )
+        }
+
+        viewModel.closeFragmentEvent.observeValue(this) {
+            listener?.onCollapseClick()
+        }
+
         viewModel.state.observeValue(this) { state ->
             progress.isVisible = state.isLoading
             emptyErrorView.isVisible = state.isInitialError
@@ -72,6 +94,16 @@ class OrderDetailFragment : BaseFragment<OrderDetailViewModel>() {
             state.orderDetailDataUi?.let { orderData ->
                 with(orderData.order) {
                     toolbar.setTitle(getString(R.string.order_number_format, slug))
+                    if (status != OrderStatus.COMPLETED.type
+                        && status != OrderStatus.CANCELED.type
+                        && status != OrderStatus.CREATED.type
+                        && status != OrderStatus.REJECTED.type
+                    ) {
+                        toolbar.setFirstRightIcon(requireContext().getDrawableCompat(R.drawable.ic_delete))
+                        toolbar.setFirstRightIconClickListener {
+                            viewModel.onDeleteOrderClick()
+                        }
+                    }
 
                     foods?.let {
                         orderDetailRecyclerAdapter?.setOrdersList(it)
@@ -142,6 +174,10 @@ class OrderDetailFragment : BaseFragment<OrderDetailViewModel>() {
 
     override fun onBackClick() {
         listener?.onCollapseClick()
+    }
+
+    override fun onRightButtonClick(fragmentTag: String) {
+        viewModel.onCancelOrderConfirm()
     }
 
     private fun initFoodRv() {

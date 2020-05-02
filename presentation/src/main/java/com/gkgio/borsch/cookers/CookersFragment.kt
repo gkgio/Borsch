@@ -53,7 +53,7 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
         viewModel.state.observeValue(this) { state ->
             progress.isVisible = state.isLoading
             cookersSwipeToRefreshLayout.isRefreshing = state.isLoading
-            emptyErrorView.isVisible = state.isInitialError
+            emptyErrorView.isVisible = state.isInitialError && state.cookers == null
 
             addressClientTv.text = state.lastAddedAddress
             addressContainer.isVisible = state.lastAddedAddress != null

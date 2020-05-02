@@ -31,7 +31,7 @@ class LunchMealsVerticalRecyclerAdapter(
             Glide.with(mealIv)
                 .load(meal.imageUrl)
                 .placeholderByDrawable(R.drawable.ic_dish_place_holder)
-                .withCenterCropRoundedCorners(context, 18)
+                .withCenterCropRoundedCorners(context, 8)
                 .into(mealIv)
 
             setDebounceOnClickListener {

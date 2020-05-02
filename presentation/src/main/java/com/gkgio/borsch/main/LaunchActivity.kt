@@ -36,7 +36,11 @@ class LaunchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
 
-        viewModel.init()
+        viewModel.init(intent)
+
+        viewModel.checkDeepLing.observeValue(this) {
+            checkIntentParams(it)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(containerRoot) { view, insets ->
             var consumed = false
@@ -58,6 +62,32 @@ class LaunchActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         navigatorHolder.removeNavigator()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        checkIntentParams(intent)
+    }
+
+    private fun checkIntentParams(intent: Intent?) {
+        intent?.let {
+            val orderId = it.getStringExtra("order_id")
+            val type = it.getStringExtra("type")
+            checkDeepLink(type, orderId)
+        }
+    }
+
+    private fun checkDeepLink(type: String?, orderId: String?) {
+        when (type) {
+            PushTypes.ORDER_MESSAGE.type -> {
+                if (orderId != null) {
+                    viewModel.onOpenOrderChatDeepLink(orderId)
+                }
+            }
+            PushTypes.SUPPORT_MESSAGE.type -> {
+                viewModel.onOpenSupportChatDeepLink()
+            }
+        }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {

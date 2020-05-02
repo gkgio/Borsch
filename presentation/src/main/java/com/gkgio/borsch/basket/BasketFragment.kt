@@ -54,6 +54,10 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
             }
         }
 
+        findCookerButton.setDebounceOnClickListener {
+            viewModel.onFindCookerButtonClick()
+        }
+
         viewModel.state.observeValue(this) { state ->
             progress.isVisible = state.isLoading
 

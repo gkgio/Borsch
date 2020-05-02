@@ -106,6 +106,10 @@ class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
     override fun switchToProfileTab() {
         bottomNavigation.selectedItemId = R.id.tab_profile
     }
+
+    override fun switchToSupportTab() {
+        bottomNavigation.selectedItemId = R.id.tab_support
+    }
 }
 
 interface BottomBarTabsSwitcher {
@@ -113,4 +117,5 @@ interface BottomBarTabsSwitcher {
     fun switchToBasketTab()
     fun switchToFavoritesTab()
     fun switchToProfileTab()
+    fun switchToSupportTab()
 }

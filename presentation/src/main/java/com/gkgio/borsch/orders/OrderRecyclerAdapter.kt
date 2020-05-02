@@ -101,6 +101,10 @@ class OrderRecyclerAdapter(
             } else {
                 countOtherMealContainer.isInvisible = true
             }
+
+            detailOrderBtn.isVisible =
+                orderUi.status != OrderStatus.REJECTED.type && orderUi.status != OrderStatus.CANCELED.type
+
             detailOrderBtn.setDebounceOnClickListener {
                 openDetailClick(orderUi.orderId)
             }

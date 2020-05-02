@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Borsch</string>
+    <string name="app_name">Борщ</string>
 
     <string name="settings_fragment_title">Настройки</string>
 
@@ -92,8 +92,8 @@
 
     <string name="price_format">%1$s ₽</string>
     <string name="min_price_format">от %1$s ₽</string>
-    <string name="weight_format">%d мл</string>
-    <string name="weight_1_portion">1 порция: ~ %d мл</string>
+    <string name="weight_format">%d гр</string>
+    <string name="weight_1_portion">1 порция: ~ %d гр</string>
 
     <string name="error_empty_text">Что-то пошло не так</string>
     <string name="error_btn_text">Обновить</string>

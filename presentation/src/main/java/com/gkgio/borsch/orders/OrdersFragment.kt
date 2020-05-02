@@ -49,6 +49,10 @@ class OrdersFragment : BaseFragment<OrdersViewModel>(), OrderDetailDialogListene
             viewModel.loadOrderData()
         }
 
+        findCookerButton.setDebounceOnClickListener {
+            viewModel.onFindCookerButtonClick()
+        }
+
         viewModel.state.observeValue(this) { state ->
             swipeToRefreshLayout.isRefreshing = state.isLoading
             emptyErrorView.isVisible = state.isInitialError && state.orderDataList == null
