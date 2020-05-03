@@ -14,6 +14,7 @@ class BasketDataUiTransformer @Inject constructor(
             name,
             id,
             count,
+            imageUrl,
             priceFormatter.format(price),
             priceOneItem,
             type

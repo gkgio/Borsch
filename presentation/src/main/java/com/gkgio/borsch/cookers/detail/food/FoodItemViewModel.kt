@@ -72,6 +72,7 @@ class FoodItemViewModel @Inject constructor(
                     isLoading = false,
                     currentPricePure = it.pricePure,
                     currentPriceOneItem = it.pricePure,
+                    imageUrl = it.imageUrl,
                     currentPriceFormatted = priceFormatter.format(it.pricePure),
                     nameFood = it.name
                 )
@@ -95,6 +96,7 @@ class FoodItemViewModel @Inject constructor(
                         isLoading = false,
                         currentPricePure = it.purePrice,
                         currentPriceOneItem = it.purePrice,
+                        imageUrl = it.imageUrl,
                         currentPriceFormatted = priceFormatter.format(it.purePrice),
                         nameFood = it.name
                     )
@@ -152,6 +154,7 @@ class FoodItemViewModel @Inject constructor(
             .addToBasket(
                 foodItemRequest.foodId,
                 state.nonNullValue.nameFood!!,
+                state.nonNullValue?.imageUrl,
                 state.nonNullValue.currentPricePure!!,
                 state.nonNullValue.currentPricePure!!,
                 foodItemRequest.cookerId,
@@ -282,6 +285,7 @@ class FoodItemViewModel @Inject constructor(
         val currentPriceFormatted: String? = null,
         val currentPricePure: BigDecimal? = null,
         val currentPriceOneItem: BigDecimal? = null,
+        val imageUrl: String? = null,
         val currentCount: Int = 1,
         val goodsWasInBasket: Boolean = false
     )

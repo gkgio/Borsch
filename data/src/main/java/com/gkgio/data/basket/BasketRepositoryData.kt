@@ -11,6 +11,8 @@ data class BasketRepositoryData(
     val id: String,
     @Json(name = "count")
     var count: Int,
+    @Json(name = "imageUrl")
+    val imageUrl: String?,
     @Json(name = "price")
     val price: String,
     @Json(name = "priceOneItem")

@@ -30,11 +30,13 @@ class CookerMealViewModel @Inject constructor(
     private var savedPrice: BigDecimal? = null
     private var savedName: String? = null
     private var savedType: Int? = null
+    private var savedImageUrl: String? = null
 
     fun addToBasketClick(
         id: String,
         name: String,
         price: BigDecimal,
+        imageUrl: String?,
         cookerId: String,
         cookerAddressUi: CookerAddressUi?,
         portions: Int,
@@ -43,17 +45,18 @@ class CookerMealViewModel @Inject constructor(
         val basketCountAndSum = basketRepository.loadBasketCountAndSum()
         when {
             basketCountAndSum == null -> {
-                addToBasket(id, name, price, cookerId, cookerAddressUi, type)
+                addToBasket(id, name, price, imageUrl, cookerId, cookerAddressUi, type)
             }
             basketCountAndSum.cookerId != cookerId -> {
                 savedFoodId = id
                 savedName = name
                 savedPrice = price
                 savedType = type
+                savedImageUrl = imageUrl
                 showClearBasketWarning.call()
             }
             else -> {
-                checkBasket(id, name, price, cookerId, cookerAddressUi, portions, type)
+                checkBasket(id, name, price, imageUrl, cookerId, cookerAddressUi, portions, type)
             }
         }
     }
@@ -68,6 +71,7 @@ class CookerMealViewModel @Inject constructor(
                         savedFoodId!!,
                         savedName!!,
                         savedPrice!!,
+                        savedImageUrl,
                         cookerId,
                         cookerAddressUi,
                         savedType!!
@@ -85,6 +89,7 @@ class CookerMealViewModel @Inject constructor(
         foodId: String,
         name: String,
         price: BigDecimal,
+        imageUrl: String?,
         cookerId: String,
         cookerAddressUi: CookerAddressUi?,
         portions: Int,
@@ -98,7 +103,7 @@ class CookerMealViewModel @Inject constructor(
                     updateItemCount(foodId, price, cookerId, cookerAddressUi)
                 }
             }, {
-                addToBasket(foodId, name, price, cookerId, cookerAddressUi, type)
+                addToBasket(foodId, name, price, imageUrl, cookerId, cookerAddressUi, type)
             }).addDisposable()
     }
 
@@ -138,6 +143,7 @@ class CookerMealViewModel @Inject constructor(
         foodId: String,
         name: String,
         price: BigDecimal,
+        imageUrl: String?,
         cookerId: String,
         cookerAddressUi: CookerAddressUi?,
         type: Int
@@ -146,6 +152,7 @@ class CookerMealViewModel @Inject constructor(
             .addToBasket(
                 foodId,
                 name,
+                imageUrl,
                 price,
                 price,
                 cookerId,

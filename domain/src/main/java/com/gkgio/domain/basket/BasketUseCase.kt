@@ -12,6 +12,7 @@ interface BasketUseCase {
     fun addToBasket(
         id: String,
         name: String,
+        imageUrl: String?,
         price: BigDecimal,
         priceOneItem: BigDecimal,
         cookerId: String,
@@ -46,6 +47,7 @@ class BasketUseCaseImpl @Inject constructor(
     override fun addToBasket(
         id: String,
         name: String,
+        imageUrl: String?,
         price: BigDecimal,
         priceOneItem: BigDecimal,
         cookerId: String,
@@ -62,6 +64,7 @@ class BasketUseCaseImpl @Inject constructor(
                         name = name,
                         id = id,
                         price = price,
+                        imageUrl = imageUrl,
                         count = count,
                         priceOneItem = priceOneItem,
                         type = type

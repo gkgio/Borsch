@@ -2,8 +2,11 @@ package com.gkgio.borsch.basket
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gkgio.borsch.R
+import com.gkgio.borsch.ext.placeholderByDrawable
 import com.gkgio.borsch.ext.setDebounceOnClickListener
+import com.gkgio.borsch.ext.withCenterCropRoundedCorners
 import com.gkgio.borsch.view.SyntheticViewHolder
 import kotlinx.android.synthetic.main.layout_basket_data_view_holder.view.*
 
@@ -34,6 +37,12 @@ class BasketItemRecyclerAdapter(
             removeBtn.setDebounceOnClickListener {
                 minusClick.invoke(basketData, position)
             }
+
+            Glide.with(ivDishBasket)
+                .load(basketData.imageUrl)
+                .placeholderByDrawable(R.drawable.ic_dish_place_holder)
+                .withCenterCropRoundedCorners(context, 18)
+                .into(ivDishBasket)
 
             addBtn.setDebounceOnClickListener {
                 plusClick.invoke(basketData, position)
