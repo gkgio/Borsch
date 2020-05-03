@@ -1,8 +1,8 @@
 package com.gkgio.domain.cookers
 
 data class CookersWithoutAuthRequest(
-    val lat: Int,
-    val lon: Int,
+    val lat: Double,
+    val lon: Double,
     val distance: String? = null,
     val targets: List<String>? = null
 )

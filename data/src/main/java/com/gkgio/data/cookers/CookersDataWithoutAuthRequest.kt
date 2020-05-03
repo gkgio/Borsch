@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CookersDataWithoutAuthRequest(
     @Json(name = "lat")
-    val lat: Int,
+    val lat: Double,
     @Json(name = "lon")
-    val lon: Int,
+    val lon: Double,
     @Json(name = "distance")
     val distance: String?,
     @Json(name = "targets")
