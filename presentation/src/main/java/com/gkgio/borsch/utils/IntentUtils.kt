@@ -25,4 +25,7 @@ object IntentUtils {
         Intent.ACTION_VIEW,
         Uri.parse("geo:${coordinates.latitude},${coordinates.longitude}?q=${Uri.encode("${coordinates.latitude},${coordinates.longitude}")}")
     )
+
+    fun createWebUrlIntent(url: String) =
+        Intent(Intent.ACTION_VIEW, Uri.parse(url))
 }

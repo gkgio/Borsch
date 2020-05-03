@@ -9,6 +9,7 @@ import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.utils.FragmentNullableArgumentDelegate
+import com.gkgio.borsch.utils.IntentUtils
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
@@ -90,6 +91,27 @@ class SettingsFragment : BaseFragment<SettingsViewModel>() {
 
         clientMarketContainer.setDebounceOnClickListener {
             viewModel.onOpenMarketClientClick()
+        }
+
+        odnoklasnikiContainer.setDebounceOnClickListener {
+            val intent = IntentUtils.createWebUrlIntent("https://ok.ru/group/56873794928781")
+            startActivity(intent)
+        }
+
+        facebookContainer.setDebounceOnClickListener {
+            val intent =
+                IntentUtils.createWebUrlIntent("https://www.facebook.com/%D0%91%D0%BE%D1%80%D1%89-114369426925932")
+            startActivity(intent)
+        }
+
+        vkontakteContainer.setDebounceOnClickListener {
+            val intent = IntentUtils.createWebUrlIntent("https://vk.com/public194925714")
+            startActivity(intent)
+        }
+
+        instagramContainer.setDebounceOnClickListener {
+            val intent = IntentUtils.createWebUrlIntent("https://www.instagram.com/borsch.app/")
+            startActivity(intent)
         }
     }
 
