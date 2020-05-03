@@ -9,10 +9,12 @@ import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
 import com.gkgio.borsch.location.saved.SavedAddressesSheet
+import com.gkgio.borsch.utils.IntentUtils
 import kotlinx.android.synthetic.main.empty_error_view.*
 import kotlinx.android.synthetic.main.fragment_cookers.*
 import kotlinx.android.synthetic.main.fragment_cookers.emptyErrorView
 import kotlinx.android.synthetic.main.fragment_cookers.progress
+import kotlinx.android.synthetic.main.no_cookers_view.*
 
 
 class CookersFragment : BaseFragment<CookersViewModel>() {
@@ -70,6 +72,12 @@ class CookersFragment : BaseFragment<CookersViewModel>() {
 
         updateEmptyBtn.setDebounceOnClickListener {
             viewModel.loadCookers()
+        }
+
+        becomeCookerBtn.setDebounceOnClickListener {
+            val intent =
+                IntentUtils.createWebUrlIntent("https://play.google.com/store/apps/details?id=com.borsch.cook")
+            startActivity(intent)
         }
 
     }

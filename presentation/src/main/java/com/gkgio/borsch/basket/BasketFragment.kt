@@ -71,6 +71,10 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
                 state.basketCountAndSumUi?.cookerAddressUi?.house
             )
 
+            cookerAddressContainer.setDebounceOnClickListener {
+                viewModel.onCookerAddressClick()
+            }
+
             state.basketDataList?.let {
                 basketItemRecyclerAdapter?.setBasketDataList(it)
             }

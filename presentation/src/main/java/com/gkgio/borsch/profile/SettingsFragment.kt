@@ -113,6 +113,12 @@ class SettingsFragment : BaseFragment<SettingsViewModel>() {
             val intent = IntentUtils.createWebUrlIntent("https://www.instagram.com/borsch.app/")
             startActivity(intent)
         }
+
+        becomeCookerBtn.setDebounceOnClickListener {
+            val intent =
+                IntentUtils.createWebUrlIntent("https://play.google.com/store/apps/details?id=com.borsch.cook")
+            startActivity(intent)
+        }
     }
 
     override fun onStop() {

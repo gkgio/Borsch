@@ -199,6 +199,19 @@ class BasketViewModel @Inject constructor(
         router.switchTo(R.id.tab_cookers)
     }
 
+    fun onCookerAddressClick() {
+        state.nonNullValue.basketCountAndSumUi?.cookerAddressUi?.let { cookerAddress ->
+            router.navigateTo(
+                Screens.RoutScreen(
+                    Coordinates(
+                        cookerAddress.coordinates.latitude,
+                        cookerAddress.coordinates.longitude
+                    )
+                )
+            )
+        }
+    }
+
     data class State(
         val isLoading: Boolean,
         val isInitialError: Boolean = false,
