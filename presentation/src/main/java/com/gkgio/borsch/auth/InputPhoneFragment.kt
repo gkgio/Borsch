@@ -2,16 +2,24 @@ package com.gkgio.borsch.auth
 
 import android.os.Bundle
 import android.text.InputType
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.method.DigitsKeyListener
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
+import com.gkgio.borsch.utils.IntentUtils
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
 import kotlinx.android.synthetic.main.fragment_input_phone.*
+
 
 class InputPhoneFragment : BaseFragment<InputPhoneViewModel>() {
 
@@ -69,6 +77,8 @@ class InputPhoneFragment : BaseFragment<InputPhoneViewModel>() {
 
         phoneEditText.requestFocus()
         openKeyBoard()
+
+        createLegacyText()
     }
 
     override fun onStop() {
@@ -76,4 +86,57 @@ class InputPhoneFragment : BaseFragment<InputPhoneViewModel>() {
         closeKeyboard(phoneEditText)
     }
 
+    private fun createLegacyText() {
+        val spanTxt = SpannableStringBuilder(
+            "Подтверждая номер телефона, вы принимаете\n"
+        )
+        spanTxt.append("Условия использования")
+        spanTxt.setSpan(
+            object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    openLegacyText()
+                }
+            },
+            spanTxt.length - "Условия использования".length,
+            spanTxt.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spanTxt.setSpan(
+            ForegroundColorSpan(requireContext().getColorCompat(R.color.blue)),
+            spanTxt.length - "Условия использования".length, spanTxt.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spanTxt.append(" и Политику конфидециальности")
+        spanTxt.setSpan(
+            object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    openPrivateText()
+                }
+            },
+            spanTxt.length - "Политику конфидециальности".length,
+            spanTxt.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spanTxt.setSpan(
+            ForegroundColorSpan(requireContext().getColorCompat(R.color.blue)),
+            spanTxt.length - "Политику конфидециальности".length, spanTxt.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spanTxt.append(".")
+
+        legacyTv.text = spanTxt
+        legacyTv.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun openLegacyText() {
+        val intent = IntentUtils.createWebUrlIntent("https://borsch.app/terms-and-conditions/")
+        startActivity(intent)
+    }
+
+    private fun openPrivateText() {
+        val intent = IntentUtils.createWebUrlIntent("https://borsch.app/confidentiality-agreement/")
+        startActivity(intent)
+    }
 }

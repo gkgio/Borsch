@@ -30,6 +30,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -157,7 +158,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginBottom="4dp"
                             android:fontFamily="@font/tt_norms_bold"
-                            android:text="Договаритесь с поваром"
+                            android:text="Договоритесь с поваром"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 

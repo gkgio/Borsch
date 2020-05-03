@@ -62,6 +62,7 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
             progress.isVisible = state.isLoading
 
             basketEmptyView.isVisible = state.basketDataList.isNullOrEmpty()
+            contentContainer.isVisible = !state.basketDataList.isNullOrEmpty()
 
             cookerAddressTitle.isVisible = state.basketCountAndSumUi?.cookerAddressUi != null
             cookerAddressContainer.isVisible = state.basketCountAndSumUi?.cookerAddressUi != null

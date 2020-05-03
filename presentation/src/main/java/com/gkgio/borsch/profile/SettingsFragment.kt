@@ -7,8 +7,6 @@ import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
 import com.gkgio.borsch.di.AppInjector
 import com.gkgio.borsch.ext.*
-import com.gkgio.borsch.utils.FragmentArgumentDelegate
-import com.gkgio.borsch.utils.FragmentNullableArgumentDelegate
 import com.gkgio.borsch.utils.IntentUtils
 import kotlinx.android.synthetic.main.fragment_settings.*
 
