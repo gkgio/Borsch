@@ -31,11 +31,6 @@ dependencies {
     //firebase analytics
     api deps.firebaseAnalitics
 
-    //room
-    kapt deps.room.compiler
-    api deps.room.runtime
-    api deps.room.rxJava2
-
     //retrofit
     api deps.retrofit.retrofit
     api deps.retrofit.converterMoshi

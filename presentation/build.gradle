@@ -98,9 +98,6 @@ dependencies {
     //drawableToolbox
     implementation deps.drawableToolbox
 
-    //room
-    kapt deps.room.compiler
-
     //circleLayoutManager
     implementation deps.circleLayoutManager
 

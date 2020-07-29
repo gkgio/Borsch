@@ -58,7 +58,7 @@ ext.versions = [
 
         //plugins
         kotlin                   : '1.3.71',
-        android                  : '3.6.2',
+        android                  : '4.0.1',
         gms                      : '4.3.3',
         crashlyticsPlugin        : '2.0.0-beta04',
         chatView                 : '2.0.0'

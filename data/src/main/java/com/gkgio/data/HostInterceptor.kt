@@ -14,7 +14,7 @@ class HostInterceptor @Inject constructor(
         val request = chain.request()
 
         val newUrl = request.url.newBuilder()
-            .host("cs-go.monster")
+            .host("80.249.146.240")
             .build()
 
         val response = chain.proceed(

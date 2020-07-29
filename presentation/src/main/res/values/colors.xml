@@ -3,7 +3,7 @@
     <color name="primary">#1b1b1d</color>
     <color name="accent">#333333</color>
     <color name="primary_dark">#000000</color>
-    <color name="window_background">#846666</color>
+    <color name="window_background">#F2F2F6</color>
 
     <color name="toolbar">#FFFFFF</color>
     <color name="search_hint_color">#a0a0a7</color>
