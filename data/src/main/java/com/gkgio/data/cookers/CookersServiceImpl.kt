@@ -7,10 +7,7 @@ import com.gkgio.data.exception.ServerExceptionTransformer
 import com.gkgio.domain.cookers.*
 import com.gkgio.domain.cookers.detail.CookerDetail
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 import javax.inject.Inject
 
 class CookersServiceImpl @Inject constructor(
@@ -38,9 +35,7 @@ class CookersServiceImpl @Inject constructor(
     override fun loadCookersListWithoutAuth(cookersRequest: CookersWithoutAuthRequest): Single<List<Cooker>> =
         executeRequest(
             cookersServiceApi.loadCookersListWithoutAuth(
-                cookersDataWithoutAuthRequestTransformer.transform(
-                    cookersRequest
-                )
+                cookersRequest.lat, cookersRequest.lon
             ).map { cookersData ->
                 cookersData.cookers.map { cookerResponseTransformer.transform(it) }
             }
@@ -71,8 +66,11 @@ class CookersServiceImpl @Inject constructor(
         @POST("client/cookers")
         fun loadCookersList(@Body cookersRequest: CookersDataRequest): Single<CookersDataResponse>
 
-        @POST("map/cookers")
-        fun loadCookersListWithoutAuth(@Body cookersRequest: CookersDataWithoutAuthRequest): Single<CookersDataResponse>
+        @GET("client/cookers")
+        fun loadCookersListWithoutAuth(
+            @Query("lat") lat: Double,
+            @Query("lon") lon: Double
+        ): Single<CookersDataResponse>
 
         @GET("client/cookers/{cookerId}")
         fun loadCookerDetail(@Path("cookerId") cookerId: String): Single<CookerDetailDataResponse>

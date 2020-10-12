@@ -27,25 +27,14 @@ class LoadCookersUseCaseImpl @Inject constructor(
         addressesUseCase
             .getLastSavedAddress()
             .flatMap {
-                val token = authUseCase.getAuthToken()
-                if (token != null) {
-                    cookersService.loadCookersList(
-                        CookersRequest(
-                            it.id,
-                            distance,
-                            targets
-                        )
+                cookersService.loadCookersListWithoutAuth(
+                    CookersWithoutAuthRequest(
+                        it.location.latitude,
+                        it.location.longitude,
+                        distance,
+                        targets
                     )
-                } else {
-                    cookersService.loadCookersListWithoutAuth(
-                        CookersWithoutAuthRequest(
-                            it.location.latitude,
-                            it.location.longitude,
-                            distance,
-                            targets
-                        )
-                    )
-                }
+                )
             }
 
     override fun loadCookerDetail(cookerId: String): Single<CookerDetail> {

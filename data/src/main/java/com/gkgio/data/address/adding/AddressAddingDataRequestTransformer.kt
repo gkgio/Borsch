@@ -10,13 +10,16 @@ class AddressAddingDataRequestTransformer @Inject constructor(
 
     override fun transform(data: AddressAddingRequest) = with(data) {
         AddressAddingDataRequest(
-            city,
-            country,
-            flat,
-            house,
-            coordinatesRequestTransformer.transform(location),
-            street,
-            block
+            city = city,
+            country = country,
+            flat = flat,
+            house = house,
+            street = street,
+            location = coordinatesRequestTransformer.transform(location),
+            block = block,
+            cityArea = cityArea,
+            region = region,
+            cityDistrict = cityDistrict
         )
     }
 }

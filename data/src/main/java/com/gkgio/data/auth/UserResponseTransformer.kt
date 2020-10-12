@@ -15,8 +15,7 @@ class UserResponseTransformer @Inject constructor() : BaseTransformer<UserRespon
             phone,
             avatarUrl,
             verified,
-            suspended,
-            attempts
+            suspended
         )
     }
 }

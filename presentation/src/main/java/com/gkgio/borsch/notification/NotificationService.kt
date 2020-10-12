@@ -26,7 +26,7 @@ class NotificationService : FirebaseMessagingService() {
     @SuppressLint("CheckResult")
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        authUseCase.savePushToken(token)
+        authUseCase.sendPushToken(token)
             .applySchedulers()
             .subscribe({
 

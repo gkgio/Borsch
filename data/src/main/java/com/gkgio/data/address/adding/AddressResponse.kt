@@ -20,5 +20,11 @@ data class AddressResponse(
     @Json(name = "street")
     val street: String,
     @Json(name = "block")
-    val block: String?
+    val block: String?,
+    @Json(name = "area")
+    val cityArea: String?,
+    @Json(name = "region")
+    val region: String?,
+    @Json(name = "city_district")
+    val cityDistrict: String?
 )

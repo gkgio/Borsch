@@ -5,7 +5,6 @@ import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.auth.User
 import com.squareup.moshi.Moshi
 import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(

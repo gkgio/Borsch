@@ -23,14 +23,12 @@ class BasketServiceImpl @Inject constructor(
 ) : BaseService(serverExceptionTransformer), BasketService {
 
     override fun createOrder(
-        basketOrderRequest: BasketOrderRequest,
-        cookerId: String
+        basketOrderRequest: BasketOrderRequest
     ): Single<OrderData> = executeRequest(
         basketServiceApi.createBasketOrder(
             basketOrderDataRequestTransformer.transform(
                 basketOrderRequest
-            ),
-            cookerId
+            )
         ).map { orderData -> orderDataResponseTransformer.transform(orderData.order) }
     )
 
@@ -58,10 +56,9 @@ class BasketServiceImpl @Inject constructor(
     )
 
     interface BasketServiceApi {
-        @POST("client/orders/cookers/{cookerId}")
+        @POST("client/orders")
         fun createBasketOrder(
-            @Body basketOrderDataRequest: BasketOrderDataRequest,
-            @Path("cookerId") cookerId: String
+            @Body basketOrderDataRequest: BasketOrderDataRequest
         ): Single<OrderDataObjectResponse>
 
         @GET("client/orders")
@@ -70,7 +67,7 @@ class BasketServiceImpl @Inject constructor(
         @GET("client/orders/{id}")
         fun getBasketOrderDetail(@Path("id") id: String): Single<OrderDetailDataResponse>
 
-        @POST("client/orders/{id}/cancel")
-        fun cancelOrder(@Path("id") id: String): Single<OrderCancelResponse>
+        @POST("client/orders/cancel/{order_id}")
+        fun cancelOrder(@Path("order_id") id: String): Single<OrderCancelResponse>
     }
 }

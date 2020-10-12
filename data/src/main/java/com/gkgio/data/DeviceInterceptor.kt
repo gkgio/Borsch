@@ -7,7 +7,6 @@ import com.gkgio.domain.auth.AuthRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 

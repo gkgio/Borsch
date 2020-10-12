@@ -58,18 +58,23 @@ class FindAddressViewModel @Inject constructor(
             ).flatMapCompletable { geoSuggestionList ->
                 loadAddressesUseCase
                     .addNewClientAddress(
-                        AddressAddingRequest(
-                            geoSuggestionList.suggestions[0].data.city,
-                            geoSuggestionList.suggestions[0].data.country,
-                            null,
-                            geoSuggestionList.suggestions[0].data.house,
-                            Coordinates(
-                                geoSuggestionList.suggestions[0].data.geo_lat!!.toDouble(),
-                                geoSuggestionList.suggestions[0].data.geo_lon!!.toDouble()
-                            ),
-                            geoSuggestionList.suggestions[0].data.streetWithType,
-                            geoSuggestionList.suggestions[0].data.block
-                        )
+                        with(geoSuggestionList.suggestions[0].data) {
+                            AddressAddingRequest(
+                                city = city,
+                                country = country,
+                                flat = null,
+                                house = house,
+                                location = Coordinates(
+                                    geo_lat!!.toDouble(),
+                                    geo_lon!!.toDouble()
+                                ),
+                                street = streetWithType,
+                                block = block,
+                                region = region,
+                                cityArea = city_area,
+                                cityDistrict = city_district
+                            )
+                        }
                     )
             }
             .applySchedulers()

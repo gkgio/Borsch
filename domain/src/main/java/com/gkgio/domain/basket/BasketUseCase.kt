@@ -8,7 +8,7 @@ import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 interface BasketUseCase {
-    fun createOrder(basketOrderRequest: BasketOrderRequest, cookerId: String): Completable
+    fun createOrder(basketOrderRequest: BasketOrderRequest): Completable
     fun addToBasket(
         id: String,
         name: String,
@@ -164,10 +164,9 @@ class BasketUseCaseImpl @Inject constructor(
         basketRepository.clearBasket()
 
     override fun createOrder(
-        basketOrderRequest: BasketOrderRequest,
-        cookerId: String
+        basketOrderRequest: BasketOrderRequest
     ): Completable =
-        basketService.createOrder(basketOrderRequest, cookerId)
+        basketService.createOrder(basketOrderRequest)
             .flatMapCompletable {
                 clearBasket()
             }

@@ -14,17 +14,20 @@ import com.gkgio.borsch.ext.observeValue
 import com.gkgio.borsch.ext.setDebounceOnClickListener
 import com.gkgio.borsch.utils.FragmentArgumentDelegate
 import com.gkgio.borsch.view.sms.SmsCodeCompleteWatcher
+import kotlinx.android.synthetic.main.empty_error_view.*
 import kotlinx.android.synthetic.main.fragment_validate_phone.*
 
 class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
 
     companion object {
-        fun newInstance(phone: String) = ValidatePhoneFragment().apply {
+        fun newInstance(tmpToken: String, phone: String) = ValidatePhoneFragment().apply {
+            this.tmpToken = tmpToken
             this.phone = phone
         }
     }
 
-    var phone: String by FragmentArgumentDelegate()
+    private var tmpToken: String by FragmentArgumentDelegate()
+    private var phone: String by FragmentArgumentDelegate()
 
     override fun getLayoutId(): Int = R.layout.fragment_validate_phone
 
@@ -34,12 +37,17 @@ class ValidatePhoneFragment : BaseFragment<ValidatePhoneViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.init(phone)
+        viewModel.init(tmpToken, phone)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.state.observeValue(this) {
             progress.isVisible = it.isProgress
+            emptyView.isVisible = it.isInitialError
+        }
+
+        updateEmptyBtn.setDebounceOnClickListener {
+            viewModel.onUpdateAfterErrorClick()
         }
 
         toolbar.setLeftIconClickListener {

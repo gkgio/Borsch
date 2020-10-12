@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class UpdateNameRequest(
-    @Json(name = "first_name")
+    @Json(name = "name")
     val name: String
 )

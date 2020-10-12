@@ -97,6 +97,8 @@
         </FrameLayout>
     </LinearLayout>
 
+    <include layout="@layout/empty_error_view" />
+
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"

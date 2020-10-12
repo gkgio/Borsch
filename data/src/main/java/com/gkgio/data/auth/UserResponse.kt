@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UserResponse(
     @Json(name = "banned")
-    val banned: Boolean,
+    val banned: Boolean?,
     @Json(name = "first_name")
     val firstName: String?,
     @Json(name = "phone")
@@ -17,10 +17,7 @@ data class UserResponse(
     @Json(name = "id")
     val id: String,
     @Json(name = "verified")
-    val verified: Boolean,
+    val verified: Boolean?,
     @Json(name = "suspended")
-    val suspended: Boolean,
-    @Json(name = "attempts")
-    val attempts: Long
-
+    val suspended: Boolean?
 )

@@ -37,7 +37,7 @@ class AddressesServiceImpl @Inject constructor(
                     addressAddingRequest
                 )
             ).map {
-                addressResponseTransformer.transform(it.address)
+                addressResponseTransformer.transform(it)
             }
         )
 
@@ -46,7 +46,7 @@ class AddressesServiceImpl @Inject constructor(
         fun getGeoSuggestions(@Body geoSuggestionsDataRequest: GeoSuggestionsDataRequest): Single<GeoSuggestionsListResponse>
 
         @POST("client/addresses/add")
-        fun addSelectedAddress(@Body addressAddingDataRequest: AddressAddingDataRequest): Single<AddressDataResponse>
+        fun addSelectedAddress(@Body addressAddingDataRequest: AddressAddingDataRequest): Single<AddressResponse>
     }
 
 }

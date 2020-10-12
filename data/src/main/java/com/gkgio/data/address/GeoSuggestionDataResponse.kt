@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 data class GeoSuggestionDataResponse(
     @Json(name = "city")
     val city: String?,
-    @Json(name = "city_area")
+    @Json(name = "area")
     val cityArea: String?,
     @Json(name = "city_district")
     val cityDistrict: String?,
@@ -25,7 +25,7 @@ data class GeoSuggestionDataResponse(
     val house: String?,
     @Json(name = "region")
     val region: String?,
-    @Json(name = "street_with_type")
+    @Json(name = "street")
     val streetWithType: String?,
     @Json(name = "block")
     val block: String?

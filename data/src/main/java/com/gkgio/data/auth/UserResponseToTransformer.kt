@@ -15,8 +15,7 @@ class UserResponseToTransformer @Inject constructor() :
             avatarUrl,
             id,
             verified,
-            suspended,
-            attempts
+            suspended
         )
     }
 }

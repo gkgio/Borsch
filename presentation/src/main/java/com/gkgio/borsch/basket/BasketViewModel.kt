@@ -166,9 +166,9 @@ class BasketViewModel @Inject constructor(
                     .createOrder(
                         BasketOrderRequest(
                             mealsIds,
-                            lunchesIds
-                        ),
-                        state.nonNullValue.basketCountAndSumUi!!.cookerId
+                            lunchesIds,
+                            state.nonNullValue.basketCountAndSumUi!!.cookerId
+                        )
                     )
                     .applySchedulers()
                     .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }

@@ -10,14 +10,17 @@ class AddressRepositoryDataResponseTransformer @Inject constructor(
 
     override fun transform(data: AddressRepositoryRequest) = with(data) {
         Address(
-            id,
-            city,
-            country,
-            flat,
-            house,
-            coordinatesRepositoryDataResponseTransformer.transform(location),
-            street,
-            block
+            id = id,
+            city = city,
+            country = country,
+            flat = flat,
+            house = house,
+            location = coordinatesRepositoryDataResponseTransformer.transform(location),
+            street = street,
+            block = block,
+            region = region,
+            cityArea = cityArea,
+            cityDistrict = cityDistrict
         )
     }
 }

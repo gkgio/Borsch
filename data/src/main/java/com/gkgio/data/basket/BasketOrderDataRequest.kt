@@ -5,10 +5,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class BasketOrderDataRequest(
-    @Json(name = "meals")
-    val mealsIds: List<BasketFoodIdRequest>?,
-    @Json(name = "lunches")
-    val lunchesIds: List<BasketFoodIdRequest>?,
-    @Json(name = "type")
-    val type: String
+    @Json(name = "meal_ids")
+    val mealsIds: List<String>?,
+    @Json(name = "lunche_ids")
+    val lunchesIds: List<String>?,
+    @Json(name = "cooker_id")
+    val cookerId: String
 )

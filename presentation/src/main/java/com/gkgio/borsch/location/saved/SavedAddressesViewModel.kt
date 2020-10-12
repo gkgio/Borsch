@@ -58,15 +58,20 @@ class SavedAddressesViewModel @Inject constructor(
         if (state.nonNullValue.addressesList != null && state.nonNullValue.currentSelectedAddress != null) {
             addressesUseCase
                 .addNewClientAddress(
-                    AddressAddingRequest(
-                        state.nonNullValue.currentSelectedAddress!!.address.city,
-                        state.nonNullValue.currentSelectedAddress!!.address.country,
-                        state.nonNullValue.currentSelectedAddress!!.address.flat,
-                        state.nonNullValue.currentSelectedAddress!!.address.house,
-                        state.nonNullValue.currentSelectedAddress!!.address.location,
-                        state.nonNullValue.currentSelectedAddress!!.address.street,
-                        state.nonNullValue.currentSelectedAddress!!.address.block
-                    )
+                    with(state.nonNullValue.currentSelectedAddress!!.address) {
+                        AddressAddingRequest(
+                            city = city,
+                            country = country,
+                            flat = flat,
+                            house = house,
+                            location = location,
+                            street = street,
+                            block = block,
+                            cityArea = cityArea,
+                            cityDistrict = cityDistrict,
+                            region = region
+                        )
+                    }
                 )
                 .applySchedulers()
                 .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }

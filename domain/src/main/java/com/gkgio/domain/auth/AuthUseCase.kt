@@ -3,15 +3,13 @@ package com.gkgio.domain.auth
 import com.gkgio.domain.address.AddressAddingRequest
 import com.gkgio.domain.address.AddressesRepository
 import com.gkgio.domain.address.AddressesService
-import com.gkgio.domain.address.LoadAddressesUseCase
 import io.reactivex.Completable
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 interface AuthUseCase {
-    fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode>
+    fun getSmsCodeByPhone(inputPhone: String): Single<String>
     fun validateSmsCode(token: String, code: String): Completable
     fun getAuthToken(): String?
     fun saveAuthToken(token: String)
@@ -29,7 +27,7 @@ class AuthUseCaseImpl @Inject constructor(
     private val addressesService: AddressesService
 ) : AuthUseCase {
 
-    override fun getSmsCodeByPhone(inputPhone: String): Single<GetSmsCode> =
+    override fun getSmsCodeByPhone(inputPhone: String): Single<String> =
         authService.getSmsCodeByPhone(inputPhone)
 
     override fun validateSmsCode(token: String, code: String): Completable =
@@ -72,13 +70,17 @@ class AuthUseCaseImpl @Inject constructor(
                 val lastAddedAddress = listAddresses[0]
                 addressesService.addSelectedAddress(
                     AddressAddingRequest(
-                        lastAddedAddress.city,
-                        lastAddedAddress.country,
-                        lastAddedAddress.flat,
-                        lastAddedAddress.house,
-                        lastAddedAddress.location,
-                        lastAddedAddress.street,
-                        lastAddedAddress.block
+                        city = lastAddedAddress.city,
+                        country = lastAddedAddress.country,
+                        flat = lastAddedAddress.flat,
+                        house = lastAddedAddress.house,
+                        location = lastAddedAddress.location,
+                        street = lastAddedAddress.street,
+                        block = lastAddedAddress.block,
+                        cityArea = lastAddedAddress.cityArea,
+                        region = lastAddedAddress.region,
+                        cityDistrict = lastAddedAddress.cityDistrict
+
                     )
                 ).flatMapCompletable {
                     addressesRepository.saveLastKnownAddress(it)

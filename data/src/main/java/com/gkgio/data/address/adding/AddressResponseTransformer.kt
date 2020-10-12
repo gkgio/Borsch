@@ -17,7 +17,10 @@ class AddressResponseTransformer @Inject constructor(
             house,
             coordinatesResponseTransformer.transform(location),
             street,
-            block
+            block,
+            cityArea,
+            region,
+            cityDistrict
         )
     }
 }

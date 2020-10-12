@@ -9,9 +9,9 @@ class BasketOrderDataRequestTransformer @Inject constructor() :
 
     override fun transform(data: BasketOrderRequest) = with(data) {
         BasketOrderDataRequest(
-            mealsIds?.let { mealsIdsList -> mealsIdsList.map { BasketFoodIdRequest(it) } },
-            lunchesIds?.let { lunchesIdsList -> lunchesIdsList.map { BasketFoodIdRequest(it) } },
-            type
+            mealsIds = mealsIds,
+            lunchesIds = lunchesIds,
+            cookerId = cookerId
         )
     }
 }

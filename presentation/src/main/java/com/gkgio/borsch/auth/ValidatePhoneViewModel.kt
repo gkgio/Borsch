@@ -30,13 +30,15 @@ class ValidatePhoneViewModel @Inject constructor(
 
     private var countDownTimer: CountDownTimer? = null
     private lateinit var phone: String
+    private lateinit var tmpToken: String
 
-    fun init(phone: String) {
+    fun init(tmpToken: String, phone: String) {
         if (state.isNonInitialized()) {
-            state.value = State(isInitialError = false)
+            state.value = State()
 
+            this.tmpToken = tmpToken
             this.phone = phone
-            requestSmsCode()
+            startTimer()
         }
     }
 
@@ -46,7 +48,8 @@ class ValidatePhoneViewModel @Inject constructor(
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
             .subscribe({
-                state.value = state.nonNullValue.copy(isProgress = false, tmpToken = it.token)
+                state.value = state.nonNullValue.copy(isProgress = false)
+                tmpToken = it
                 startTimer()
             }, {
                 state.value = state.nonNullValue.copy(isProgress = false, isInitialError = true)
@@ -55,21 +58,24 @@ class ValidatePhoneViewModel @Inject constructor(
     }
 
     fun onSmsCodeFullInput(smsCode: String) {
-        state.nonNullValue.tmpToken?.let {
-            authUseCase
-                .validateSmsCode(it, smsCode)
-                .applySchedulers()
-                .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
-                .subscribe({
-                    state.value = state.nonNullValue.copy(isProgress = false)
-                    userProfileChanged.onComplete("")
-                    router.backTo(Screens.MainFragmentScreen)
-                }, { throwable ->
-                    state.value = state.nonNullValue.copy(isProgress = false)
-                    processThrowable(throwable)
-                }).addDisposable()
+        authUseCase
+            .validateSmsCode(tmpToken, smsCode)
+            .applySchedulers()
+            .doOnSubscribe { state.value = state.nonNullValue.copy(isProgress = true) }
+            .subscribe({
+                state.value = state.nonNullValue.copy(isProgress = false)
+                userProfileChanged.onComplete("")
+                router.backTo(Screens.MainFragmentScreen)
+            }, { throwable ->
+                state.value = state.nonNullValue.copy(isProgress = false)
+                processThrowable(throwable)
+            }).addDisposable()
 
-        }
+    }
+
+    fun onUpdateAfterErrorClick() {
+        countDownTimer?.cancel()
+        requestSmsCode()
     }
 
     fun onResendSmsClick() {
@@ -93,9 +99,7 @@ class ValidatePhoneViewModel @Inject constructor(
     }
 
     data class State(
-        val isSmsSend: Boolean = false,
         val isProgress: Boolean = false,
-        val isInitialError: Boolean,
-        val tmpToken: String? = null
+        val isInitialError: Boolean = false
     )
 }

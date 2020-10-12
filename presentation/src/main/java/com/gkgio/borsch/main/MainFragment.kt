@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : BaseFragment<MainViewModel>(), BottomBarTabsSwitcher {
 
     private companion object {
-        private const val PAGE_CACHE_SIZE = 5
         private const val PAGE_COOKERS = 0
         private const val PAGE_BASKET = 1
         private const val PAGE_ORDERS = 2

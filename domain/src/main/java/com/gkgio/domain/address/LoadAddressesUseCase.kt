@@ -29,14 +29,17 @@ class LoadAddressesUseCaseImpl @Inject constructor(
         } else {
             addressesRepository.saveLastKnownAddress(
                 Address(
-                    null,
-                    addressesAddingRequest.city,
-                    addressesAddingRequest.country,
-                    addressesAddingRequest.flat,
-                    addressesAddingRequest.house,
-                    addressesAddingRequest.location,
-                    addressesAddingRequest.street,
-                    addressesAddingRequest.block
+                    id = null,
+                    city = addressesAddingRequest.city,
+                    country = addressesAddingRequest.country,
+                    flat = addressesAddingRequest.flat,
+                    house = addressesAddingRequest.house,
+                    location = addressesAddingRequest.location,
+                    street = addressesAddingRequest.street,
+                    block = addressesAddingRequest.block,
+                    cityArea = addressesAddingRequest.cityArea,
+                    region = addressesAddingRequest.region,
+                    cityDistrict = addressesAddingRequest.cityDistrict
                 )
             )
         }

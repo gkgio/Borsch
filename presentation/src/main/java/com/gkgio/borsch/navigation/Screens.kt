@@ -44,8 +44,11 @@ object Screens {
         override fun getFragment() = InputPhoneFragment()
     }
 
-    class ValidatePhoneFragmentScreen(private val phone: String) : SupportAppScreen() {
-        override fun getFragment() = ValidatePhoneFragment.newInstance(phone)
+    class ValidatePhoneFragmentScreen(
+        private val tmpToken: String,
+        private val phone: String
+    ) : SupportAppScreen() {
+        override fun getFragment() = ValidatePhoneFragment.newInstance(tmpToken, phone)
     }
 
     class LocationFragmentScreen(

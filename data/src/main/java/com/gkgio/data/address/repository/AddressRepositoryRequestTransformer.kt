@@ -13,13 +13,16 @@ class AddressRepositoryRequestTransformer @Inject constructor(
 
     override fun transform(data: Address) = with(data) {
         val addressRequest = AddressRepositoryRequest(
-            city,
-            country,
-            flat,
-            house,
-            coordinatesRequestTransformer.transform(location),
-            street,
-            block
+            city = city,
+            country = country,
+            flat = flat,
+            house = house,
+            location = coordinatesRequestTransformer.transform(location),
+            street = street,
+            block = block,
+            region = region,
+            cityArea = cityArea,
+            cityDistrict = cityDistrict
         )
         addressRequest.id = id
         addressRequest

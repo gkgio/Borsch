@@ -121,7 +121,10 @@ class LocationViewModel @Inject constructor(
                                 it.geo_lon!!.toDouble()
                             ),
                             it.streetWithType,
-                            it.block
+                            it.block,
+                            it.city_area,
+                            it.region,
+                            it.city_district
                         )
                     )
                     .applySchedulers()

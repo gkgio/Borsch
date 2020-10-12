@@ -6,8 +6,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ValidateSmsCodeResponse(
-    @Json(name = "token")
+    @Json(name = "jwt_token")
     val token: String,
-    @Json(name = "user")
+    @Json(name = "client")
     val user: UserResponse
 )
