@@ -22,7 +22,7 @@ class CookerDetailUiTransformer @Inject constructor(
             name,
             paid,
             phone,
-            getRating(rating),
+            rating?.let { getRating(it) },
             suspended,
             verified,
             avatarUrl,

@@ -26,7 +26,7 @@ class OrderDataUiTransformer @Inject constructor(
             slug,
             priceFormatter.format(orderPrice),
             status,
-            getStatusEnum(type)
+            type?.let { getStatusEnum(it) }
         )
     }
 

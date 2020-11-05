@@ -28,7 +28,7 @@ class CookerUiTransformer @Inject constructor(
             lunches?.map { lunchUiTransformer.transform(it) },
             name,
             phone,
-            getRating(rating),
+            rating?.let { getRating(it) },
             suspended,
             verified,
             avatarUrl,

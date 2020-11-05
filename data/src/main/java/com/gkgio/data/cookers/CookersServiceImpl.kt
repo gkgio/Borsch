@@ -68,8 +68,8 @@ class CookersServiceImpl @Inject constructor(
 
         @GET("client/cookers")
         fun loadCookersListWithoutAuth(
-            @Query("lat") lat: Double,
-            @Query("lon") lon: Double
+            @Header("lat") lat: Double,
+            @Header("lon") lon: Double
         ): Single<CookersDataResponse>
 
         @GET("client/cookers/{cookerId}")

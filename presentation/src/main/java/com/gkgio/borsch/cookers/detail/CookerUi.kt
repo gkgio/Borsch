@@ -8,7 +8,7 @@ data class CookerUi(
     val lunches: List<LunchUi>?,
     val name: String?,
     val phone: String?,
-    val rating: String,
+    val rating: String?,
     val suspended: Boolean?,
     val verified: Boolean?,
     val avatarUrl: String?,

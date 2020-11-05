@@ -10,4 +10,4 @@ data class CookerAddressUi(
     val flat: String?,
     val floor: String?,
     val coordinates: CoordinatesUi
-):Parcelable
+) : Parcelable

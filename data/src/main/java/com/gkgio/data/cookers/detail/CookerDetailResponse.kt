@@ -22,11 +22,11 @@ class CookerDetailResponse(
     @Json(name = "name")
     val name: String?,
     @Json(name = "paid")
-    val paid: String?,
+    val paid: Boolean?,
     @Json(name = "phone")
     val phone: String?,
     @Json(name = "rating")
-    val rating: Double,
+    val rating: Double?,
     @Json(name = "suspended")
     val suspended: Boolean?,
     @Json(name = "verified")

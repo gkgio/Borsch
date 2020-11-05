@@ -13,7 +13,7 @@ data class OrderDetail(
     val completedAt: String?,
     val cookerAddress: Address?,
     val cookerId: String,
-    val createdAt: String,
+    val createdAt: String?,
     val estimatedCookTime: Long?,
     val meals: List<Meal>?,
     val lunches: List<Lunch>?,
@@ -21,5 +21,5 @@ data class OrderDetail(
     val slug: String?,
     val orderPrice: BigDecimal,
     val status: String,
-    val type: String // pickup, delivery
+    val type: String? // pickup, delivery
 )

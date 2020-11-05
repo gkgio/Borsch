@@ -11,12 +11,12 @@ data class OrderDetailUi(
     val completedAt: String?,
     val cookerAddress: Address?,
     val cookerId: String,
-    val createdAt: String,
+    val createdAt: String?,
     val estimatedCookTime: Long?,
     val foods: List<OrderFoodUi>?,
     val orderId: String,
     val slug: String?,
     val orderPrice: String,
     val status: String,
-    val type: OrderStatus // pickup, delivery
+    val type: OrderStatus? // pickup, delivery
 )

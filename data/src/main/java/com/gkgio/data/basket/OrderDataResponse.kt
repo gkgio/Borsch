@@ -23,7 +23,7 @@ data class OrderDataResponse(
     @Json(name = "cooker_id")
     val cookerId: String,
     @Json(name = "created_at")
-    val createdAt: String,
+    val createdAt: String?,
     @Json(name = "estimated_cook_time")
     val estimatedCookTime: Long?,
     @Json(name = "meals")
@@ -39,5 +39,5 @@ data class OrderDataResponse(
     @Json(name = "status")
     val status: String,
     @Json(name = "type")
-    val type: String // pickup, delivery
+    val type: String? // pickup, delivery
 )

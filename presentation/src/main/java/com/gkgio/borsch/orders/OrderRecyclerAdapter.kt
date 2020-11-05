@@ -1,6 +1,5 @@
 package com.gkgio.borsch.orders
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -38,8 +37,10 @@ class OrderRecyclerAdapter(
             var mealName: String? = null
 
             if (!orderUi.lunches.isNullOrEmpty()) {
-                mealUrl = orderUi.lunches[0].meals[0].imageUrl
-                mealName = orderUi.lunches[0].meals[0].name
+                if (orderUi.lunches[0].meals.isNotEmpty()) {
+                    mealUrl = orderUi.lunches[0].meals[0].imageUrl
+                    mealName = orderUi.lunches[0].meals[0].name
+                }
             } else if (!orderUi.meals.isNullOrEmpty()) {
                 mealUrl = orderUi.meals[0].imageUrl
                 mealName = orderUi.meals[0].name

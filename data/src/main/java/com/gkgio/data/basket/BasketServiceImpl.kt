@@ -29,7 +29,7 @@ class BasketServiceImpl @Inject constructor(
             basketOrderDataRequestTransformer.transform(
                 basketOrderRequest
             )
-        ).map { orderData -> orderDataResponseTransformer.transform(orderData.order) }
+        ).map { orderData -> orderDataResponseTransformer.transform(orderData) }
     )
 
     override fun getBasketOrder(): Single<List<OrderData>> = executeRequest(
@@ -59,7 +59,7 @@ class BasketServiceImpl @Inject constructor(
         @POST("client/orders")
         fun createBasketOrder(
             @Body basketOrderDataRequest: BasketOrderDataRequest
-        ): Single<OrderDataObjectResponse>
+        ): Single<OrderDataResponse>
 
         @GET("client/orders")
         fun getBasketOrder(): Single<OrderDataListObjectResponse>

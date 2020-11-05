@@ -32,7 +32,7 @@ class OrderDetailUiTransformer @Inject constructor(
             slug,
             priceFormatter.format(orderPrice),
             status,
-            getStatusEnum(type)
+            type?.let { getStatusEnum(it) }
         )
     }
 
