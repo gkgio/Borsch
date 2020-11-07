@@ -10,7 +10,7 @@ data class AddressResponse(
     @Json(name = "city")
     val city: String,
     @Json(name = "country")
-    val country: String,
+    val country: String?,
     @Json(name = "flat")
     val flat: String?,
     @Json(name = "house")

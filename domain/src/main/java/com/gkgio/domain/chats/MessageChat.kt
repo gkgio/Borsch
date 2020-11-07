@@ -8,9 +8,9 @@ data class MessageChat(
     val orderId: String?,
     val sentAt: String,
     val system: Boolean,
-    val systemStatus: String?,
+    val systemStatus: Boolean?,
     val text: String,
-    val timestamp: Long,
+    val timestamp: Long?,
     val title: String?,
     val to: String?,
     val toSupport: Boolean

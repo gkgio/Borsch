@@ -11,7 +11,6 @@ import com.gkgio.borsch.utils.SingleLiveEvent
 import com.gkgio.borsch.utils.events.OrderChangeEvent
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
-import com.gkgio.domain.basket.OrderDetailData
 import com.gkgio.domain.location.Coordinates
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class OrderDetailViewModel @Inject constructor(
     private val router: Router,
     private val basketUseCase: BasketUseCase,
-    private val orderDetailDataUiTransformer: OrderDetailDataUiTransformer,
+    private val orderDetailUiTransformer: OrderDetailUiTransformer,
     private val authRepository: AuthRepository,
     private val orderChangeEvent: OrderChangeEvent,
     baseScreensNavigator: BaseScreensNavigator
@@ -41,10 +40,10 @@ class OrderDetailViewModel @Inject constructor(
         }
     }
 
-    fun loadOrderDetailData(orderId: String) {
+    private fun loadOrderDetailData(orderId: String) {
         basketUseCase
             .getBasketOrderDetail(orderId)
-            .map { orderDetailDataUiTransformer.transform(it) }
+            .map { orderDetailUiTransformer.transform(it) }
             .applySchedulers()
             .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
             .subscribe({
@@ -60,12 +59,12 @@ class OrderDetailViewModel @Inject constructor(
     }
 
     fun onCookerAddressClick() {
-        state.nonNullValue.orderDetailDataUi?.cooker?.cookerAddress?.let { cookerAddress ->
+        state.nonNullValue.orderDetailDataUi?.cookerAddress?.let { cookerAddress ->
             router.navigateTo(
                 Screens.RoutScreen(
                     Coordinates(
-                        cookerAddress.coordinates.latitude,
-                        cookerAddress.coordinates.longitude
+                        cookerAddress.location.latitude,
+                        cookerAddress.location.longitude
                     )
                 )
             )
@@ -74,10 +73,10 @@ class OrderDetailViewModel @Inject constructor(
 
     fun onOpenChatClick() {
         val user = authRepository.loadUserProfile()
-        if (user != null && state.nonNullValue.orderDetailDataUi?.order?.orderId != null) {
+        if (user != null && state.nonNullValue.orderDetailDataUi?.orderId != null) {
             router.navigateTo(
                 Screens.OrderChatFragmentScreen(
-                    state.nonNullValue.orderDetailDataUi?.order?.orderId!!,
+                    state.nonNullValue.orderDetailDataUi?.orderId!!,
                     user.id
                 )
             )
@@ -106,6 +105,6 @@ class OrderDetailViewModel @Inject constructor(
     data class State(
         val isLoading: Boolean,
         val isInitialError: Boolean = false,
-        val orderDetailDataUi: OrderDetailDataUi? = null
+        val orderDetailDataUi: OrderDetailUi? = null
     )
 }

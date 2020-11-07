@@ -92,8 +92,9 @@ class OrderDetailFragment : BaseFragment<OrderDetailViewModel>(), ClickDialogCal
             emptyErrorView.isVisible = state.isInitialError
 
             state.orderDetailDataUi?.let { orderData ->
-                with(orderData.order) {
-                    toolbar.setTitle(getString(R.string.order_number_format, slug))
+                with(orderData) {
+                    cookerAddressContainer.isVisible = cookerAddress != null
+                    toolbar.setTitle(getString(R.string.order_number_format, orderId))
                     if (status != OrderStatus.COMPLETED.type
                         && status != OrderStatus.CANCELED.type
                         && status != OrderStatus.CREATED.type

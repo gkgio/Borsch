@@ -2,6 +2,7 @@ package com.gkgio.data.basket
 
 import com.gkgio.data.BaseTransformer
 import com.gkgio.data.address.adding.AddressResponseTransformer
+import com.gkgio.data.address.adding.CoordinatesResponseTransformer
 import com.gkgio.data.cookers.LunchResponseTransformer
 import com.gkgio.data.cookers.MealResponseTransformer
 import com.gkgio.domain.basket.OrderDetail

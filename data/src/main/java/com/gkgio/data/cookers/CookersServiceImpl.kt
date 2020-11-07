@@ -53,13 +53,13 @@ class CookersServiceImpl @Inject constructor(
         )
 
     override fun loadLunch(cookerId: String, lunchId: String): Single<Lunch> = executeRequest(
-        cookersServiceApi.loadLunch(cookerId, lunchId)
-            .map { lunchResponseTransformer.transform(it.lunch) }
+        cookersServiceApi.loadLunch(lunchId)
+            .map { lunchResponseTransformer.transform(it) }
     )
 
     override fun loadMeal(cookerId: String, mealId: String): Single<Meal> = executeRequest(
-        cookersServiceApi.loadMeal(cookerId, mealId)
-            .map { mealResponseTransformer.transform(it.meal) }
+        cookersServiceApi.loadMeal(mealId)
+            .map { mealResponseTransformer.transform(it) }
     )
 
     interface CookersServiceApi {
@@ -78,16 +78,14 @@ class CookersServiceImpl @Inject constructor(
         @GET("public/cookers/{cookerId}")
         fun loadCookerDetailWithoutAuth(@Path("cookerId") cookerId: String): Single<CookerDetailDataResponse>
 
-        @GET("public/cookers/{cookerId}/lunches/{lunchId}")
+        @GET("client/lunches/{lunch_id}")
         fun loadLunch(
-            @Path("cookerId") cookerId: String,
-            @Path("lunchId") lunchId: String
-        ): Single<LunchDataResponse>
+            @Path("lunch_id") lunchId: String
+        ): Single<LunchResponse>
 
-        @GET("public/cookers/{cookerId}/meals/{mealId}")
+        @GET("client/meals/{meal_id}")
         fun loadMeal(
-            @Path("cookerId") cookerId: String,
-            @Path("mealId") mealId: String
-        ): Single<MealDataResponse>
+            @Path("meal_id") mealId: String
+        ): Single<MealResponse>
     }
 }

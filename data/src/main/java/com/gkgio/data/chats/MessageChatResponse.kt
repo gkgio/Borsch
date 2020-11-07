@@ -20,11 +20,11 @@ data class MessageChatResponse(
     @Json(name = "system")
     val system: Boolean,
     @Json(name = "system_status")
-    val systemStatus: String?,
+    val systemStatus: Boolean?,
     @Json(name = "text")
     val text: String,
     @Json(name = "timestamp")
-    val timestamp: Long,
+    val timestamp: Long?,
     @Json(name = "title")
     val title: String?,
     @Json(name = "to")

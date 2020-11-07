@@ -14,7 +14,6 @@ import com.gkgio.borsch.utils.events.UserProfileChanged
 import com.gkgio.domain.analytics.AnalyticsRepository
 import com.gkgio.domain.auth.AuthRepository
 import com.gkgio.domain.basket.BasketUseCase
-import com.gkgio.domain.basket.OrderData
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -66,9 +65,13 @@ class OrdersViewModel @Inject constructor(
                 .applySchedulers()
                 .doOnSubscribe { state.value = state.nonNullValue.copy(isLoading = true) }
                 .subscribe({
-                    state.value = state.nonNullValue.copy(orderDataList = it, isLoading = false)
+                    state.value = state.nonNullValue.copy(
+                        orderDataList = it,
+                        isLoading = false,
+                        isInitialError = false
+                    )
                 }, {
-                    state.value = state.nonNullValue.copy(isLoading = false)
+                    state.value = state.nonNullValue.copy(isLoading = false, isInitialError = true)
                     processThrowable(it)
                 }).addDisposable()
         } else {

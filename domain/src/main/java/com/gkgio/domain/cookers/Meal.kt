@@ -13,7 +13,7 @@ data class Meal(
     val name: String,//Meal name
     val portions: Int,//Amount of available portions
     val price: BigDecimal,
-    val tags: List<String>,
+    val tags: List<String>?,
     val type: String?,
     val weight: Int?
 )

@@ -26,7 +26,7 @@ data class MealResponse(
     @Json(name = "price")
     val price: String,
     @Json(name = "tags")
-    val tags: List<String>,
+    val tags: List<String>?,
     @Json(name = "type")
     val type: String?,
     @Json(name = "weight")

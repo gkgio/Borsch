@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import com.github.bassaer.chatmessageview.model.Message
 import com.gkgio.borsch.R
 import com.gkgio.borsch.base.BaseFragment
@@ -37,6 +38,8 @@ class OrderChatFragment : BaseFragment<OrderChatViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
         viewModel.init(orderId, userId)
     }
 
@@ -61,10 +64,10 @@ class OrderChatFragment : BaseFragment<OrderChatViewModel>() {
                 val loadedMessageListReversed = loadedMessageList.reversed()
                 loadedMessageListReversed.forEach {
                     val message = Message.Builder()
-                        .setRight(it.from == userId)
+                        .setRight(it.from == "Client")
                         .setSendTime(DateTime(it.sentAt).toCalendar(Locale.getDefault()))
                         .setType(Message.Type.TEXT)
-                        .setUser(ChatUserUi(if (it.from == userId) "1" else "2", null))
+                        .setUser(ChatUserUi(if (it.from == "Client") "1" else "2", null))
                         .setText(it.text)
                         .build()
                     listMessages.add(message)
@@ -117,5 +120,10 @@ class OrderChatFragment : BaseFragment<OrderChatViewModel>() {
     override fun onPause() {
         super.onPause()
         viewModel.stopLoadMessagesOrder()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 }

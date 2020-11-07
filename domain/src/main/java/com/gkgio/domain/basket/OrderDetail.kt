@@ -3,6 +3,7 @@ package com.gkgio.domain.basket
 import com.gkgio.domain.address.Address
 import com.gkgio.domain.cookers.Lunch
 import com.gkgio.domain.cookers.Meal
+import com.gkgio.domain.location.Coordinates
 import java.math.BigDecimal
 
 data class OrderDetail(

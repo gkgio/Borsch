@@ -56,7 +56,7 @@ class OrderRecyclerAdapter(
                 mealIv.setImageResource(R.drawable.ic_chef_place_holder)
             }
 
-            mealOrderIdTv.text = context.getString(R.string.order_number_format, orderUi.slug)
+            mealOrderIdTv.text = context.getString(R.string.order_number_format, orderUi.orderId)
             mealNameTv.text = mealName
             mealPriceTv.text = context.getString(R.string.order_price_filter, orderUi.orderPrice)
             orderChatContainer.isVisible =

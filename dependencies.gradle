@@ -61,7 +61,7 @@ ext.versions = [
         android                  : '4.0.1',
         gms                      : '4.3.3',
         crashlyticsPlugin        : '2.0.0-beta04',
-        chatView                 : '2.0.0'
+        chatView                 : '2.0.1'
 ]
 
 ext.deps = [
