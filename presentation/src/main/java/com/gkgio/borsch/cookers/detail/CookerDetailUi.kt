@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CookerDetailUi(
     val banned: Boolean?,
-    val certified: Boolean,
+    val certified: Boolean?,
     val commission: String?,
     val id: String,
     val meals: List<MealUi>,

@@ -2,7 +2,7 @@ package com.gkgio.borsch.cookers.detail
 
 data class CookerUi(
     val banned: Boolean?,
-    val certified: Boolean,
+    val certified: Boolean?,
     val id: String,
     val meals: List<MealUi>,
     val lunches: List<LunchUi>?,

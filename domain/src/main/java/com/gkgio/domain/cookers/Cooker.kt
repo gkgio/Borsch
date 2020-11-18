@@ -4,7 +4,7 @@ import com.gkgio.domain.cookers.detail.CookerAddress
 
 data class Cooker(
     val banned: Boolean?,
-    val certified: Boolean,
+    val certified: Boolean?,
     val id: String,
     val meals: List<Meal>,
     val lunches: List<Lunch>?,

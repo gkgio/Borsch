@@ -10,7 +10,7 @@ class CookerDetailResponse(
     @Json(name = "banned")
     val banned: Boolean?,
     @Json(name = "certified")
-    val certified: Boolean,
+    val certified: Boolean?,
     @Json(name = "commission")
     val commission: String?,
     @Json(name = "id")

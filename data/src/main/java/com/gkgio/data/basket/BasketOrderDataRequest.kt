@@ -10,5 +10,7 @@ data class BasketOrderDataRequest(
     @Json(name = "lunche_ids")
     val lunchesIds: List<String>?,
     @Json(name = "cooker_id")
-    val cookerId: String
+    val cookerId: String,
+    @Json(name = "type")
+    val type: String = "pickup"
 )
