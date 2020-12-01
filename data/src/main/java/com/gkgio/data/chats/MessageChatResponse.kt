@@ -8,7 +8,7 @@ data class MessageChatResponse(
     @Json(name = "from")
     val from: String?,
     @Json(name = "from_support")
-    val fromSupport: Boolean,
+    val fromSupport: Boolean?,
     @Json(name = "icon")
     val icon: String?,
     @Json(name = "id")

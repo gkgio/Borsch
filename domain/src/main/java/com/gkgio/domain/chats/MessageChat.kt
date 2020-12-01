@@ -2,7 +2,7 @@ package com.gkgio.domain.chats
 
 data class MessageChat(
     val from: String?,
-    val fromSupport: Boolean,
+    val fromSupport: Boolean?,
     val icon: String?,
     val id: String,
     val orderId: String?,
