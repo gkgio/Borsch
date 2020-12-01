@@ -36,7 +36,7 @@ class AuthUseCaseImpl @Inject constructor(
                 saveAuthToken(validateSmsCode.token)
                 saveUserProfile(validateSmsCode.user)
                 saveLastAddressAfterAuth()
-                    .andThen(authService.sendPushToken(authRepository.getPushToken()!!))
+                    .andThen(authService.sendPushToken(authRepository.getPushToken()))
             }
 
 

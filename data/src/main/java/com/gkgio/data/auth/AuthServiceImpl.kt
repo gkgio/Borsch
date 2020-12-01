@@ -29,8 +29,12 @@ class AuthServiceImpl @Inject constructor(
             ).map { validateSmsCodeResponseTransformer.transform(it) }
         )
 
-    override fun sendPushToken(pushToken: String): Completable =
-        authServiceApi.sendPushTokenToServer(PushTokenRequest(pushToken))
+    override fun sendPushToken(pushToken: String?): Completable =
+        if (pushToken != null) {
+            authServiceApi.sendPushTokenToServer(PushTokenRequest(pushToken))
+        } else {
+            Completable.complete()
+        }
 
     override fun updateUserName(name: String): Single<User> =
         authServiceApi.updateUserName(UpdateNameRequest(name))

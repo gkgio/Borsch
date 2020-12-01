@@ -66,7 +66,7 @@ class CookersServiceImpl @Inject constructor(
         @POST("client/cookers")
         fun loadCookersList(@Body cookersRequest: CookersDataRequest): Single<CookersDataResponse>
 
-        @GET("client/cookers")
+        @GET("public/cookers")
         fun loadCookersListWithoutAuth(
             @Header("lat") lat: Double,
             @Header("lon") lon: Double
@@ -78,12 +78,12 @@ class CookersServiceImpl @Inject constructor(
         @GET("public/cookers/{cookerId}")
         fun loadCookerDetailWithoutAuth(@Path("cookerId") cookerId: String): Single<CookerDetailDataResponse>
 
-        @GET("client/lunches/{lunch_id}")
+        @GET("public/lunches/{lunch_id}")
         fun loadLunch(
             @Path("lunch_id") lunchId: String
         ): Single<LunchResponse>
 
-        @GET("client/meals/{meal_id}")
+        @GET("public/meals/{meal_id}")
         fun loadMeal(
             @Path("meal_id") mealId: String
         ): Single<MealResponse>

@@ -73,6 +73,14 @@ class OrderRecyclerAdapter(
                     statusTv.setBackgroundResource(R.drawable.bg_status_green)
                     statusTv.text = OrderStatus.ACCEPTED.value
                 }
+                OrderStatus.CAN_PICKUP.type -> {
+                    statusTv.setBackgroundResource(R.drawable.bg_status_green)
+                    statusTv.text = OrderStatus.CAN_PICKUP.value
+                }
+                OrderStatus.DELIVERING.type -> {
+                    statusTv.setBackgroundResource(R.drawable.bg_status_green)
+                    statusTv.text = OrderStatus.CAN_PICKUP.value
+                }
                 OrderStatus.COOKING.type -> {
                     statusTv.setBackgroundResource(R.drawable.bg_status_green)
                     statusTv.text = OrderStatus.COOKING.value
